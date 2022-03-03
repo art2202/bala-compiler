@@ -56,7 +56,17 @@ COMANDOS	: COMANDO COMANDOS
 COMANDO 	: E ';'
 			;
 
-E 			: E '+' E
+E 			: E '*' E
+			{
+				$$.label = createTempCode();
+				$$.traducao = $1.traducao + $3.traducao +"\t" + $$.label + " = " + $1.label + " * " + $3.label + ";\n";
+			}
+			| E '/' E
+			{
+				$$.label = createTempCode();
+				$$.traducao = $1.traducao + $3.traducao +"\t" + $$.label + " = " + $1.label + " / " + $3.label + ";\n";
+			}
+			| E '+' E
 			{
 				$$.label = createTempCode();
 				$$.traducao = $1.traducao + $3.traducao +"\t" + $$.label + " = " + $1.label + " + " + $3.label + ";\n";
