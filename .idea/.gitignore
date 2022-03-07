@@ -9,3 +9,8 @@
 /codeStyles/
 /misc.xml
 /vcs.xml
+
+glf
+y.tab.c
+y.tab.h
+lexx.yy.c
