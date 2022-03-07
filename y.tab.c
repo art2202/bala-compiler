@@ -73,6 +73,7 @@
 #include <sstream>
 #include <vector>
 #include <bits/stdc++.h>
+#include <unordered_map>
 
 #define YYSTYPE atributos
 #define TIPO_SIMBOLO simbolos
@@ -83,27 +84,32 @@ struct atributos
 {
 	string label;
 	string traducao;
+	string tipo;
 };
 
 struct simbolos
 {
 	bool inicializado = false;
+	string valor;
 	string nome;
 	string tipo;
 };
 
 int count_var;
 vector<TIPO_SIMBOLO> tabelaSimbolos;
+unordered_map<string, string> temporarias;
 
 int yylex(void);
 void yyerror(string);
 string createTempCode();
 string intToString(int value);
-void addSimboloNaTabela(string label, string tipo, YYSTYPE atributoCorrente);
+void addSimboloNaTabela(string label, string tipo, YYSTYPE atributoCorrente, bool inicializado, string defaultvalue);
 void verificarSeVariavelFoiInicializada(string label);
 int find(vector<TIPO_SIMBOLO> vetor, string nome);
+string declararVariaveis();
+void inserirTemporaria(string label, string tipo);
 
-#line 107 "y.tab.c"
+#line 113 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -546,10 +552,10 @@ static const yytype_int8 yytranslate[] =
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
-static const yytype_int8 yyrline[] =
+static const yytype_uint8 yyrline[] =
 {
-       0,    49,    49,    55,    61,    66,    71,    72,    76,    80,
-      84,    90,    98,   103,   108,   113,   117,   123
+       0,    55,    55,    61,    67,    72,    77,    78,    82,    86,
+      90,    96,   103,   108,   113,   118,   123,   130
 };
 #endif
 
@@ -1357,137 +1363,140 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 50 "sintatica.y"
+#line 56 "sintatica.y"
                                         {
-						cout << "<<<<Bala Compiler>>>>\n" << "#include <iostream>\n#include<string.h>\n#include<stdio.h>\nint main(void)\n{\n" << yyvsp[0].traducao << "\treturn 0;\n}" << endl; 
+						cout << "//<<<<Bala Compiler>>>>\n" << "#include <iostream>\n#include<string.h>\n#include<stdio.h>\n"+declararVariaveis()+"\nint main(void)\n{\n" << yyvsp[0].traducao << "\treturn 0;\n}" << endl; 
 					}
-#line 1365 "y.tab.c"
+#line 1371 "y.tab.c"
     break;
 
   case 3:
-#line 56 "sintatica.y"
+#line 62 "sintatica.y"
                                         {
 						yyval.traducao = yyvsp[-1].traducao;
 					}
-#line 1373 "y.tab.c"
+#line 1379 "y.tab.c"
     break;
 
   case 4:
-#line 62 "sintatica.y"
+#line 68 "sintatica.y"
                                         {
 						yyval.traducao = yyvsp[-1].traducao + yyvsp[0].traducao;
 					}
-#line 1381 "y.tab.c"
+#line 1387 "y.tab.c"
     break;
 
   case 5:
-#line 66 "sintatica.y"
+#line 72 "sintatica.y"
                                         {
 						yyval.traducao = "";
 					}
-#line 1389 "y.tab.c"
+#line 1395 "y.tab.c"
     break;
 
   case 7:
-#line 73 "sintatica.y"
+#line 79 "sintatica.y"
                                         {
-						addSimboloNaTabela(yyvsp[-1].label, "int", yyval);
+						addSimboloNaTabela(yyvsp[-1].label, "int", yyval, true, "0");
 					}
-#line 1397 "y.tab.c"
+#line 1403 "y.tab.c"
     break;
 
   case 8:
-#line 77 "sintatica.y"
+#line 83 "sintatica.y"
                                         {
-						addSimboloNaTabela(yyvsp[-1].label, "float", yyval);
+						addSimboloNaTabela(yyvsp[-1].label, "float", yyval, true, "0.0");
 					}
-#line 1405 "y.tab.c"
+#line 1411 "y.tab.c"
     break;
 
   case 9:
-#line 81 "sintatica.y"
+#line 87 "sintatica.y"
                                         {
-						addSimboloNaTabela(yyvsp[-1].label, "char", yyval);
+						addSimboloNaTabela(yyvsp[-1].label, "char", yyval, true, "");
 					}
-#line 1413 "y.tab.c"
+#line 1419 "y.tab.c"
     break;
 
   case 10:
-#line 85 "sintatica.y"
+#line 91 "sintatica.y"
                                         {
-						addSimboloNaTabela(yyvsp[-1].label, "bool", yyval);
+						addSimboloNaTabela(yyvsp[-1].label, "bool", yyval, true, "false");
 					}
-#line 1421 "y.tab.c"
+#line 1427 "y.tab.c"
     break;
 
   case 11:
-#line 91 "sintatica.y"
+#line 97 "sintatica.y"
                                         {
-						verificarSeVariavelFoiInicializada(yyvsp[-2].label);
-						verificarSeVariavelFoiInicializada(yyvsp[0].label);
-
 						yyval.label = createTempCode();
+						yyval.tipo = yyvsp[-2].tipo;
+						inserirTemporaria(yyval.label, yyvsp[-2].tipo);
 						yyval.traducao = yyvsp[-2].traducao + yyvsp[0].traducao +"\t" + yyval.label + " = " + yyvsp[-2].label + " * " + yyvsp[0].label + ";\n";
 					}
-#line 1433 "y.tab.c"
+#line 1438 "y.tab.c"
     break;
 
   case 12:
-#line 99 "sintatica.y"
+#line 104 "sintatica.y"
                                         {
 						yyval.label = createTempCode();
 						yyval.traducao = yyvsp[-2].traducao + yyvsp[0].traducao +"\t" + yyval.label + " = " + yyvsp[-2].label + " / " + yyvsp[0].label + ";\n";
 					}
-#line 1442 "y.tab.c"
+#line 1447 "y.tab.c"
     break;
 
   case 13:
-#line 104 "sintatica.y"
+#line 109 "sintatica.y"
                                         {
 						yyval.label = createTempCode();
 						yyval.traducao = yyvsp[-2].traducao + yyvsp[0].traducao +"\t" + yyval.label + " = " + yyvsp[-2].label + " + " + yyvsp[0].label + ";\n";
 					}
-#line 1451 "y.tab.c"
+#line 1456 "y.tab.c"
     break;
 
   case 14:
-#line 109 "sintatica.y"
+#line 114 "sintatica.y"
                                         {
 						yyval.label = createTempCode();
 						yyval.traducao = yyvsp[-2].traducao + yyvsp[0].traducao +"\t" + yyval.label + " = " + yyvsp[-2].label + " - " + yyvsp[0].label + ";\n";
 					}
-#line 1460 "y.tab.c"
+#line 1465 "y.tab.c"
     break;
 
   case 15:
-#line 114 "sintatica.y"
+#line 119 "sintatica.y"
                                         {
+						yyval.tipo = yyvsp[0].tipo;
 						yyval.traducao = yyvsp[-2].traducao + yyvsp[0].traducao +  "\t" + yyvsp[-2].label + " = " + yyvsp[0].label + ";\n";
 					}
-#line 1468 "y.tab.c"
+#line 1474 "y.tab.c"
     break;
 
   case 16:
-#line 118 "sintatica.y"
-                                        {
-						
-						yyval.label = createTempCode();
-						yyval.traducao = "\t" + yyval.label + " = " + yyvsp[0].label + ";\n";
-					}
-#line 1478 "y.tab.c"
-    break;
-
-  case 17:
 #line 124 "sintatica.y"
                                         {
 						yyval.label = createTempCode();
-						yyval.traducao = "\t" + yyval.label + " = " + yyvsp[0].label + ";\n";	
+						yyval.tipo = "int";
+						inserirTemporaria(yyval.label, yyval.tipo);
+						yyval.traducao = "\t" + yyval.label + " = " + yyvsp[0].label + ";\n";
 					}
-#line 1487 "y.tab.c"
+#line 1485 "y.tab.c"
+    break;
+
+  case 17:
+#line 131 "sintatica.y"
+                                        {
+						int posicao = find(tabelaSimbolos, yyvsp[0].label);
+						TIPO_SIMBOLO simbolo = tabelaSimbolos[posicao];
+						yyval.label = simbolo.nome;
+						yyval.tipo = simbolo.tipo;
+					}
+#line 1496 "y.tab.c"
     break;
 
 
-#line 1491 "y.tab.c"
+#line 1500 "y.tab.c"
 
       default: break;
     }
@@ -1719,7 +1728,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 130 "sintatica.y"
+#line 138 "sintatica.y"
 
 
 #include "lex.yy.c"
@@ -1729,17 +1738,8 @@ int yyparse();
 
 int main( int argc, char* argv[] )
 {
-	TIPO_SIMBOLO valor;
-	valor.nome = "score";
-	valor.tipo = "int";
-	cout << valor.nome << endl;
-
-	tabelaSimbolos.push_back(valor);
-	
-	cout << tabelaSimbolos.size() << endl;
-	cout << tabelaSimbolos[0].nome << endl;
-
 	count_var = 0;
+
 	yyparse();
 
 	return 0;
@@ -1751,16 +1751,38 @@ string createTempCode()
 	return "t" + intToString(count_var);
 }
 
+string declararVariaveis()
+{
+	string resultado = "";
+	for(auto &x: temporarias){
+		resultado = resultado + x.second + " " +x.first + ";\n";
+		//if(x.second == "STRING")
+			//declaracoesNull +=  "\t" + x.first + " = NULL;\n";
+	}
+	for(int i = 0; i < tabelaSimbolos.size(); i++){
+		resultado = resultado + tabelaSimbolos[i].tipo + " " +tabelaSimbolos[i].nome + ";\n";
+	}
+	return resultado;
+}
+
+void inserirTemporaria(string label, string tipo)
+{
+  temporarias[label] = tipo;
+}
+
 string intToString(int value)
 {
 	return to_string(value);
 }
 
-void addSimboloNaTabela(string label, string tipo, YYSTYPE atributoCorrente)
+void addSimboloNaTabela(string label, string tipo, YYSTYPE atributoCorrente, bool inicializado, string defaultvalue)
 {
 	TIPO_SIMBOLO simbolo;
+	
 	simbolo.nome = label;
-	simbolo.tipo = "tipo";
+	simbolo.tipo = tipo;
+	simbolo.inicializado = inicializado;
+	simbolo.valor = defaultvalue;
 
 	tabelaSimbolos.push_back(simbolo);
 

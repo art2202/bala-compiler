@@ -2,10 +2,5 @@ int main()
 {
 	float a;
 	a = 2;
-
-	a * b;
-	
-	int b;
-	bool c;
-	char d;
+	a * 3;
 }
