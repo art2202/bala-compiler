@@ -1,6 +1,11 @@
 int main()
 {
-	float a;
+	int a;
 	a = 2;
-	a * 3;
+	
+	float b;
+	b = a * 3.0 + 0;
+
+	bool k;
+	k = false;
 }

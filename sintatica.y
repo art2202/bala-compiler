@@ -5,45 +5,17 @@
 #include <vector>
 #include <bits/stdc++.h>
 #include <unordered_map>
+#include "headers/main.hpp"
 
-#define YYSTYPE atributos
-#define TIPO_SIMBOLO simbolos
+#define YYSTYPE atributo
+
 
 using namespace std;
 
-struct atributos
-{
-	string label;
-	string traducao;
-	string tipo;
-};
-
-struct simbolos
-{
-	bool inicializado = false;
-	string valor;
-	string nome;
-	string tipo;
-};
-
-int count_var;
-vector<TIPO_SIMBOLO> tabelaSimbolos;
-unordered_map<string, string> temporarias;
-
-int yylex(void);
-void yyerror(string);
-string createTempCode();
-string intToString(int value);
-void addSimboloNaTabela(string label, string tipo, YYSTYPE atributoCorrente, bool inicializado, string defaultvalue);
-void verificarSeVariavelFoiInicializada(string label);
-int find(vector<TIPO_SIMBOLO> vetor, string nome);
-string declararVariaveis();
-void inserirTemporaria(string label, string tipo);
 %}
-
-%token TK_NUM
-%token TK_MAIN TK_ID TK_TIPO_INT
-%token TK_TIPO_BOOL TK_TIPO_FLOAT TK_TIPO_CHAR
+%token TK_MAIN TK_ID
+%token TK_NUM TK_REAL TK_CHAR TK_STRING TK_BOOL
+%token TK_TIPO_INT TK_TIPO_FLOAT TK_TIPO_BOOL TK_TIPO_CHAR TK_TIPO_STRING
 %token TK_FIM TK_ERROR
 
 %start S
@@ -77,19 +49,28 @@ COMANDOS	: COMANDO COMANDOS
 COMANDO 	: E ';'
 					| TK_TIPO_INT TK_ID ';'
 					{
-						addSimboloNaTabela($2.label, "int", $$, true, "0");
+						inserirSimboloNaTabela($2.label, "int", $$, true);
+						$$.traducao = DEFAULT_INT; +"\t" + $$.label + " = " + $1.label + ";\n";
 					}
 					| TK_TIPO_FLOAT TK_ID ';'
 					{
-						addSimboloNaTabela($2.label, "float", $$, true, "0.0");
+						inserirSimboloNaTabela($2.label, "float", $$, true);
+						$$.traducao = DEFAULT_FLOAT; +"\t" + $$.label + " = " + $1.label + ";\n";
 					}
 					| TK_TIPO_CHAR TK_ID ';'
 					{
-						addSimboloNaTabela($2.label, "char", $$, true, "");
+						inserirSimboloNaTabela($2.label, "char", $$, true);
+						$$.traducao = DEFAULT_CHAR; +"\t" + $$.label + " = " + $1.label + ";\n";
+					}
+					| TK_TIPO_STRING TK_ID ';'
+					{
+						inserirSimboloNaTabela($2.label, "string", $$, true);
+						$$.traducao = DEFAULT_STRING; +"\t" + $$.label + " = " + $1.label + ";\n";
 					}
 					| TK_TIPO_BOOL TK_ID ';'
 					{
-						addSimboloNaTabela($2.label, "bool", $$, true, "false");
+						inserirSimboloNaTabela($2.label, "bool", $$, true);
+						$$.traducao = DEFAULT_BOOL; +"\t" + $$.label + " = " + $1.label + ";\n";
 					}
 					;
 
@@ -117,22 +98,31 @@ E			 		: E '*' E
 					}
 					| TK_ID '=' E 
 					{
-						$$.tipo = $3.tipo;
-						$$.traducao = $1.traducao + $3.traducao +  "\t" + $1.label + " = " + $3.label + ";\n";
+						$$ = realizarAtribuicao($$, $1, $3);
 					}
 					| TK_NUM
 					{
-						$$.label = createTempCode();
-						$$.tipo = "int";
-						inserirTemporaria($$.label, $$.tipo);
-						$$.traducao = "\t" + $$.label + " = " + $1.label + ";\n";
+						$$ = criarTK_TYPE($$, "int", $1);
+					}
+					| TK_REAL
+					{
+						$$ = criarTK_TYPE($$, "float", $1);
+					}
+					| TK_CHAR
+					{
+						$$ = criarTK_TYPE($$, "char", $1);
+					}
+					| TK_STRING
+					{
+						$$ = criarTK_TYPE($$, "string", $1);
+					}
+					| TK_BOOL
+					{
+						$$ = criarTK_TYPE($$, "bool", $1);
 					}
 					| TK_ID
 					{
-						int posicao = find(tabelaSimbolos, $1.label);
-						TIPO_SIMBOLO simbolo = tabelaSimbolos[posicao];
-						$$.label = simbolo.nome;
-						$$.tipo = simbolo.tipo;
+						$$ = criarTK_ID($$, $1);
 					}
 					;
 %%
@@ -146,81 +136,9 @@ int main( int argc, char* argv[] )
 {
 	count_var = 0;
 
+	inicializarTabelaCoercao();
+	
 	yyparse();
 
 	return 0;
-}
-
-string createTempCode()
-{
-	count_var++;
-	return "t" + intToString(count_var);
-}
-
-string declararVariaveis()
-{
-	string resultado = "";
-	for(auto &x: temporarias){
-		resultado = resultado + x.second + " " +x.first + ";\n";
-	}
-	for(int i = 0; i < tabelaSimbolos.size(); i++){
-		resultado = resultado + tabelaSimbolos[i].tipo + " " +tabelaSimbolos[i].nome + ";\n";
-	}
-	return resultado;
-}
-
-void inserirTemporaria(string label, string tipo)
-{
-  temporarias[label] = tipo;
-}
-
-string intToString(int value)
-{
-	return to_string(value);
-}
-
-void addSimboloNaTabela(string label, string tipo, YYSTYPE atributoCorrente, bool inicializado, string defaultvalue)
-{
-	TIPO_SIMBOLO simbolo;
-	
-	simbolo.nome = label;
-	simbolo.tipo = tipo;
-	simbolo.inicializado = inicializado;
-	simbolo.valor = defaultvalue;
-
-	tabelaSimbolos.push_back(simbolo);
-
-	atributoCorrente.traducao = "";
-	atributoCorrente.label = "";
-}
-
-void verificarSeVariavelFoiInicializada(string label)
-{
-	int posicao = find(tabelaSimbolos, label);
-	if (posicao < 0)
-	{
-		yyerror("Variável não declarada.");	
-	}
-	if(tabelaSimbolos[posicao].inicializado == false)
-	{
-		yyerror("Variável não inicializada.");
-	}
-}
-
-int find(vector<TIPO_SIMBOLO> vetor, string nome)
-{
-	for(int i = 0; i < vetor.size(); i++)
-	{
-		if(vetor[i].nome == nome)
-		{
-			return i;
-		}
-	}
-	return -1;
-}
-
-void yyerror(string MSG)
-{
-	cout << MSG << endl;
-	exit (0);
 }
