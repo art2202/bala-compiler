@@ -5,12 +5,21 @@
 #include <vector>
 #include <bits/stdc++.h>
 #include <unordered_map>
-#include "headers/main.hpp"
+#include "headers/attribuition.hpp"
+#include "headers/coercion.hpp"
+#include "headers/expression.hpp"
+#include "headers/type.hpp"
+#include "headers/utils.hpp"
+#include "headers/symbols.hpp"
+
 
 #define YYSTYPE atributo
 
 
 using namespace std;
+
+int yylex(void);
+
 
 %}
 %token TK_MAIN TK_ID

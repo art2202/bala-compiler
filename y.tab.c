@@ -74,15 +74,24 @@
 #include <vector>
 #include <bits/stdc++.h>
 #include <unordered_map>
-#include "headers/main.hpp"
+#include "headers/attribuition.hpp"
+#include "headers/coercion.hpp"
+#include "headers/expression.hpp"
+#include "headers/type.hpp"
+#include "headers/utils.hpp"
+#include "headers/symbols.hpp"
+
 
 #define YYSTYPE atributo
 
 
 using namespace std;
 
+int yylex(void);
 
-#line 86 "y.tab.c"
+
+
+#line 95 "y.tab.c"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -538,9 +547,9 @@ static const yytype_int8 yytranslate[] =
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    28,    28,    34,    40,    45,    50,    51,    55,    59,
-      63,    67,    73,    77,    81,    85,    89,    93,    97,   101,
-     105,   109,   113
+       0,    37,    37,    43,    49,    54,    59,    60,    64,    68,
+      72,    76,    82,    86,    90,    94,    98,   102,   106,   110,
+     114,   118,   122
 };
 #endif
 
@@ -1356,167 +1365,167 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 29 "sintatica.y"
+#line 38 "sintatica.y"
                                         {
 						cout << "//<<<<Bala Compiler>>>>\n" << "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n"+declararVariaveis()+"\nint main(void)\n{\n" << yyvsp[0].traducao << "\treturn 0;\n}" << endl; 
 					}
-#line 1364 "y.tab.c"
+#line 1373 "y.tab.c"
     break;
 
   case 3:
-#line 35 "sintatica.y"
+#line 44 "sintatica.y"
                                         {
 						yyval.traducao = yyvsp[-1].traducao;
 					}
-#line 1372 "y.tab.c"
+#line 1381 "y.tab.c"
     break;
 
   case 4:
-#line 41 "sintatica.y"
+#line 50 "sintatica.y"
                                         {
 						yyval.traducao = yyvsp[-1].traducao + yyvsp[0].traducao;
 					}
-#line 1380 "y.tab.c"
+#line 1389 "y.tab.c"
     break;
 
   case 5:
-#line 45 "sintatica.y"
+#line 54 "sintatica.y"
                                         {
 						yyval.traducao = "";
 					}
-#line 1388 "y.tab.c"
+#line 1397 "y.tab.c"
     break;
 
   case 7:
-#line 52 "sintatica.y"
+#line 61 "sintatica.y"
                                         {
 						yyval = declararTK_TIPO("int", yyval, yyvsp[-2], yyvsp[-1]);
 					}
-#line 1396 "y.tab.c"
+#line 1405 "y.tab.c"
     break;
 
   case 8:
-#line 56 "sintatica.y"
+#line 65 "sintatica.y"
                                         {
 						yyval = declararTK_TIPO("float", yyval, yyvsp[-2], yyvsp[-1]);
 					}
-#line 1404 "y.tab.c"
+#line 1413 "y.tab.c"
     break;
 
   case 9:
-#line 60 "sintatica.y"
+#line 69 "sintatica.y"
                                         {
 						yyval = declararTK_TIPO("char", yyval, yyvsp[-2], yyvsp[-1]);
 					}
-#line 1412 "y.tab.c"
+#line 1421 "y.tab.c"
     break;
 
   case 10:
-#line 64 "sintatica.y"
+#line 73 "sintatica.y"
                                         {
 						yyval = declararTK_TIPO("string", yyval, yyvsp[-2], yyvsp[-1]);
 					}
-#line 1420 "y.tab.c"
+#line 1429 "y.tab.c"
     break;
 
   case 11:
-#line 68 "sintatica.y"
+#line 77 "sintatica.y"
                                         {
 						yyval = declararTK_TIPO("bool", yyval, yyvsp[-2], yyvsp[-1]);
 					}
-#line 1428 "y.tab.c"
+#line 1437 "y.tab.c"
     break;
 
   case 12:
-#line 74 "sintatica.y"
+#line 83 "sintatica.y"
                                         {
 						yyval = realizarExpressao(yyval, yyvsp[-2], "*", yyvsp[0]);
 					}
-#line 1436 "y.tab.c"
+#line 1445 "y.tab.c"
     break;
 
   case 13:
-#line 78 "sintatica.y"
+#line 87 "sintatica.y"
                                         {
 						yyval = realizarExpressao(yyval, yyvsp[-2], "/", yyvsp[0]);
 					}
-#line 1444 "y.tab.c"
+#line 1453 "y.tab.c"
     break;
 
   case 14:
-#line 82 "sintatica.y"
+#line 91 "sintatica.y"
                                         {
 						yyval = realizarExpressao(yyval, yyvsp[-2], "+", yyvsp[0]);
 					}
-#line 1452 "y.tab.c"
+#line 1461 "y.tab.c"
     break;
 
   case 15:
-#line 86 "sintatica.y"
+#line 95 "sintatica.y"
                                         {
 						yyval = realizarExpressao(yyval, yyvsp[-2], "-", yyvsp[0]);
 					}
-#line 1460 "y.tab.c"
+#line 1469 "y.tab.c"
     break;
 
   case 16:
-#line 90 "sintatica.y"
+#line 99 "sintatica.y"
                                         {
 						yyval = realizarAtribuicao(yyval, yyvsp[-2], yyvsp[0]);
 					}
-#line 1468 "y.tab.c"
+#line 1477 "y.tab.c"
     break;
 
   case 17:
-#line 94 "sintatica.y"
+#line 103 "sintatica.y"
                                         {
 						yyval = criarTK_TYPE(yyval, "int", yyvsp[0]);
 					}
-#line 1476 "y.tab.c"
+#line 1485 "y.tab.c"
     break;
 
   case 18:
-#line 98 "sintatica.y"
+#line 107 "sintatica.y"
                                         {
 						yyval = criarTK_TYPE(yyval, "float", yyvsp[0]);
 					}
-#line 1484 "y.tab.c"
+#line 1493 "y.tab.c"
     break;
 
   case 19:
-#line 102 "sintatica.y"
+#line 111 "sintatica.y"
                                         {
 						yyval = criarTK_TYPE(yyval, "char", yyvsp[0]);
 					}
-#line 1492 "y.tab.c"
+#line 1501 "y.tab.c"
     break;
 
   case 20:
-#line 106 "sintatica.y"
+#line 115 "sintatica.y"
                                         {
 						yyval = criarTK_TYPE(yyval, "string", yyvsp[0]);
 					}
-#line 1500 "y.tab.c"
+#line 1509 "y.tab.c"
     break;
 
   case 21:
-#line 110 "sintatica.y"
+#line 119 "sintatica.y"
                                         {
 						yyval = criarTK_TYPE(yyval, "bool", yyvsp[0]);
 					}
-#line 1508 "y.tab.c"
+#line 1517 "y.tab.c"
     break;
 
   case 22:
-#line 114 "sintatica.y"
+#line 123 "sintatica.y"
                                         {
 						yyval = criarTK_ID(yyval, yyvsp[0]);
 					}
-#line 1516 "y.tab.c"
+#line 1525 "y.tab.c"
     break;
 
 
-#line 1520 "y.tab.c"
+#line 1529 "y.tab.c"
 
       default: break;
     }
@@ -1748,7 +1757,7 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 118 "sintatica.y"
+#line 127 "sintatica.y"
 
 
 #include "lex.yy.c"
