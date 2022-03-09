@@ -18,28 +18,28 @@ ID {LETRA}({LETRA}|{NUM})*
 
 %%
 
-"\n"		{}
+"\n"        {}
 
-{DELIM} 	{}
+{DELIM}     {}
 
-"main"		{return TK_MAIN;}
+"main"      {return TK_MAIN;}
 
-"int"		  {return TK_TIPO_INT;}
-"float"		{return TK_TIPO_FLOAT;}
-"char"		{return TK_TIPO_CHAR;}
-"bool"		{return TK_TIPO_BOOL;}
-"string"  {return TK_TIPO_STRING;}
+"int"       {return TK_TIPO_INT;}
+"float"     {return TK_TIPO_FLOAT;}
+"char"      {return TK_TIPO_CHAR;}
+"bool"      {return TK_TIPO_BOOL;}
+"string"    {return TK_TIPO_STRING;}
 
-[(){}[\];,.]	{ return *yytext; }
-[+\-*/=]		{ return *yytext; }
+[(){}[\];,.]  { return *yytext; }
+[+\-*/=]      { return *yytext; }
 
-{NUM}		  { yylval.label = yytext; return TK_NUM; }
-{REAL}	  { yylval.label = yytext; return TK_REAL; }
-{CHAR}	  { yylval.label = yytext; return TK_CHAR; }
-{STRING}	{ yylval.label = yytext; return TK_STRING; }
-{BOOL}	  { yylval.label = yytext; return TK_BOOL; }
-{ID}		  { yylval.label = yytext; return TK_ID; }
+{NUM}     { yylval.label = yytext; return TK_NUM; }
+{REAL}    { yylval.label = yytext; return TK_REAL; }
+{CHAR}    { yylval.label = yytext; return TK_CHAR; }
+{STRING}  { yylval.label = yytext; return TK_STRING; }
+{BOOL}    { yylval.label = yytext; return TK_BOOL; }
+{ID}      { yylval.label = yytext; return TK_ID; }
 
-.			{ *yytext; }
+.         { *yytext; }
 
 %%

@@ -8,14 +8,14 @@
 - Float ✔️
 - Char ✔️
 ### Conversão
-- Implícita
+- Implícita ✔️
 - Explícita
 ### Operadores
  - Lógico
  - Aritmético ✔️
  - Relacional
-### Variável
-### Atribuição
+### Variável ✔️
+### Atribuição ✔️
 
 #### Entrega:
-Data: 09/03/2022
+Data: 14/03/2022

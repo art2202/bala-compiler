@@ -8,7 +8,7 @@ all:
 
 test:
 	@reset
-	@./glf <code.bala> debug.cpp | tee test.cpp
+	@./glf < code.bala debug.cpp | tee test.cpp
 	@g++ test.cpp -o test
 	@echo "\nExecutando o codigo intermediario\n"
 	@./test | tee result.txt

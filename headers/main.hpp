@@ -37,20 +37,17 @@ typedef struct coercao
 
 extern int DEFAULT_INT;
 extern float DEFAULT_FLOAT;
-extern string DEFAULT_CHAR;
+extern char DEFAULT_CHAR;
 extern string DEFAULT_STRING;
 extern bool DEFAULT_BOOL;
 
 
-
-// count temps
 extern int count_var;
 
 
-
-// vectrs ans maps
 extern vector<Simbolo> tabelaSimbolos;
 extern unordered_map<string, string> temporarias;
+extern map<TripleKey, Coercao> tabelaCoercao;
 
 
 
@@ -60,19 +57,27 @@ void yyerror(string);
 string createTempCode();
 string intToString(int value);
 string declararVariaveis();
-TripleKey gerarKey(string , string, string);
-void inicializarTabelaCoercao();
-int find(vector<Simbolo> vetor, string nome);
-void inserirSimboloNaTabela(string label, string tipo, Atributo atual, bool inicializado);
+
+void inserirSimboloNaTabela(string label, string tipo, Atributo atual);
 void inserirTemporaria(string label, string tipo);
-Coercao resolverTipo(string tipo1, string operador, string tipo2);
+
+void inicializarTabelaCoercao();
+TripleKey gerarKey(string , string, string);
+Coercao getCoercao(string tipo1, string operador, string tipo2);
+Atributo resolverTipoExpresao(Atributo destino, string operador, Atributo valor);
+Atributo resolverTipoAtribuicao(Atributo leftAtribute, string operador, Atributo rightAtribute);
+
+
+int find(vector<Simbolo> vetor, string nome);
+Simbolo getSimbolo(string label);
+void validarTK_ID(Atributo atributo);
 
 Atributo criarTK_ID(Atributo atual, Atributo valor);
 Atributo criarTK_TYPE(Atributo atual, string tipo, Atributo valor);
 
-void validarTK_ID(Atributo atributo);
-
 Atributo realizarAtribuicao(Atributo atual, Atributo destino, Atributo valor);
-Atributo realizarOperacao(Atributo atual, Atributo destino, Atributo operacao, Atributo valor);
+Atributo realizarExpressao(Atributo atual, Atributo destino, string operacao, Atributo valor);
+
+Atributo declararTK_TIPO(string type, Atributo atual, Atributo destino, Atributo valor);
 
 #endif

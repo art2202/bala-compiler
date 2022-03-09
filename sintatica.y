@@ -20,13 +20,14 @@ using namespace std;
 
 %start S
 
-%left '+'
+%left '+' '-'
+%left '*' '/'
 
 %%
 
-S 		    : TK_TIPO_INT TK_MAIN '(' ')' BLOCO
+S					: TK_TIPO_INT TK_MAIN '(' ')' BLOCO
 					{
-						cout << "//<<<<Bala Compiler>>>>\n" << "#include <iostream>\n#include<string.h>\n#include<stdio.h>\n"+declararVariaveis()+"\nint main(void)\n{\n" << $5.traducao << "\treturn 0;\n}" << endl; 
+						cout << "//<<<<Bala Compiler>>>>\n" << "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n"+declararVariaveis()+"\nint main(void)\n{\n" << $5.traducao << "\treturn 0;\n}" << endl; 
 					}
 					;
 
@@ -49,52 +50,41 @@ COMANDOS	: COMANDO COMANDOS
 COMANDO 	: E ';'
 					| TK_TIPO_INT TK_ID ';'
 					{
-						inserirSimboloNaTabela($2.label, "int", $$, true);
-						$$.traducao = DEFAULT_INT; +"\t" + $$.label + " = " + $1.label + ";\n";
+						$$ = declararTK_TIPO("int", $$, $1, $2);
 					}
 					| TK_TIPO_FLOAT TK_ID ';'
 					{
-						inserirSimboloNaTabela($2.label, "float", $$, true);
-						$$.traducao = DEFAULT_FLOAT; +"\t" + $$.label + " = " + $1.label + ";\n";
+						$$ = declararTK_TIPO("float", $$, $1, $2);
 					}
 					| TK_TIPO_CHAR TK_ID ';'
 					{
-						inserirSimboloNaTabela($2.label, "char", $$, true);
-						$$.traducao = DEFAULT_CHAR; +"\t" + $$.label + " = " + $1.label + ";\n";
+						$$ = declararTK_TIPO("char", $$, $1, $2);
 					}
 					| TK_TIPO_STRING TK_ID ';'
 					{
-						inserirSimboloNaTabela($2.label, "string", $$, true);
-						$$.traducao = DEFAULT_STRING; +"\t" + $$.label + " = " + $1.label + ";\n";
+						$$ = declararTK_TIPO("string", $$, $1, $2);
 					}
 					| TK_TIPO_BOOL TK_ID ';'
 					{
-						inserirSimboloNaTabela($2.label, "bool", $$, true);
-						$$.traducao = DEFAULT_BOOL; +"\t" + $$.label + " = " + $1.label + ";\n";
+						$$ = declararTK_TIPO("bool", $$, $1, $2);
 					}
 					;
 
 E			 		: E '*' E
 					{
-						$$.label = createTempCode();
-						$$.tipo = $1.tipo;
-						inserirTemporaria($$.label, $1.tipo);
-						$$.traducao = $1.traducao + $3.traducao +"\t" + $$.label + " = " + $1.label + " * " + $3.label + ";\n";
+						$$ = realizarExpressao($$, $1, "*", $3);
 					}
 					| E '/' E
 					{
-						$$.label = createTempCode();
-						$$.traducao = $1.traducao + $3.traducao +"\t" + $$.label + " = " + $1.label + " / " + $3.label + ";\n";
+						$$ = realizarExpressao($$, $1, "/", $3);
 					}
 					| E '+' E
 					{
-						$$.label = createTempCode();
-						$$.traducao = $1.traducao + $3.traducao +"\t" + $$.label + " = " + $1.label + " + " + $3.label + ";\n";
+						$$ = realizarExpressao($$, $1, "+", $3);
 					}
 					| E '-' E
 					{
-						$$.label = createTempCode();
-						$$.traducao = $1.traducao + $3.traducao +"\t" + $$.label + " = " + $1.label + " - " + $3.label + ";\n";
+						$$ = realizarExpressao($$, $1, "-", $3);
 					}
 					| TK_ID '=' E 
 					{
@@ -134,8 +124,6 @@ int yyparse();
 
 int main( int argc, char* argv[] )
 {
-	count_var = 0;
-
 	inicializarTabelaCoercao();
 	
 	yyparse();
