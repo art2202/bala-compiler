@@ -42,19 +42,22 @@ int yylex(void);
 
 %%
 //------------------------------------------------------------------------------
-S					: TK_TYPE_INT TK_MAIN '(' ')' BLOCK
+S:					
+					TK_TYPE_INT TK_MAIN '(' ')' BLOCK
 					{
 						cout << "//<<<<Bala Compiler>>>>\n" << "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n"+declareVariables()+"\nint main(void)\n{\n" << $5.translation << "\treturn 0;\n}" << endl; 
 					}
 					;
 //------------------------------------------------------------------------------
-BLOCK			: '{' COMMANDS '}'
+BLOCK:			
+					'{' COMMANDS '}'
 					{
 						$$.translation = $2.translation;
 					}
 					;
 //------------------------------------------------------------------------------
-COMMANDS	: COMMAND COMMANDS
+COMMANDS:	
+					COMMAND COMMANDS
 					{
 						$$.translation = $1.translation + $2.translation;
 					}
@@ -64,7 +67,8 @@ COMMANDS	: COMMAND COMMANDS
 					}
 					;
 //------------------------------------------------------------------------------
-COMMAND		: E ';'
+COMMAND: 
+					E ';'
 					| TK_TYPE_INT TK_ID ';'
 					{
 						$$ = declareTK_TYPE("int", $$, $1, $2);
@@ -83,7 +87,8 @@ COMMAND		: E ';'
 					}
 					;
 //------------------------------------------------------------------------------
-E					: E '*' E
+E:
+					E '*' E
 					{
 						$$ = makeExpression($1, "*", $3);
 					}
@@ -173,8 +178,9 @@ E					: E '*' E
 					}
 					;
 //------------------------------------------------------------------------------
-TYPE			:	TK_TYPE_BOOL	{$$.translation = "bool";}
-					| TK_TYPE_INT		{$$.translation = "int";}
+TYPE:
+					TK_TYPE_BOOL	{$$.translation = "bool";}
+					| TK_TYPE_INT	{$$.translation = "int";}
 					| TK_TYPE_CHAR	{$$.translation = "char";}
 					| TK_TYPE_FLOAT	{$$.translation = "float";}
 					;

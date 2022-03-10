@@ -53,14 +53,14 @@ Symbol getSymbol(string label)
 
 string declareVariables()
 {
-	string result = "";
-	for (auto &x: temporaries)
+  string result = "";
+  for (auto &x: temporaries)
   {
-		result = result + x.second + " " +x.first + ";\n";
-	}
-	for (int i = 0; i < symbolTable.size(); i++)
+    result = result + x.second + " " +x.first + ";\n";
+    }
+  for (int i = 0; i < symbolTable.size(); i++)
   {
-		result = result + symbolTable[i].type + " " +symbolTable[i].name + ";\n";
-	}
-	return result;
+    result = result + symbolTable[i].type + " " +symbolTable[i].name + ";\n";
+  }
+  return result;
 }
