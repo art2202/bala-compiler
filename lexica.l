@@ -3,18 +3,18 @@
 
 %}
 
-ESPACO [ \t]
-DIGITO [0-9]
-LETRA [A-Za-z_]
+SPACE [ \t]
+DIGIT [0-9]
+LETTER [A-Za-z_]
 BOOL "true"|"false"
 
-DELIM {ESPACO}+
-NUM {DIGITO}+
+DELIM {SPACE}+
+NUM {DIGIT}+
 REAL {NUM}+("."{NUM}+)?
-CHAR \'({LETRA}|{NUM})\'
+CHAR \'({LETTER}|{NUM})\'
 STRING {CHAR}(CHAR)*
 
-ID {LETRA}({LETRA}|{NUM})*
+ID {LETTER}({LETTER}|{NUM})*
 
 %%
 
@@ -24,11 +24,11 @@ ID {LETRA}({LETRA}|{NUM})*
 
 "main"      {return TK_MAIN;}
 
-"int"       {return TK_TIPO_INT;}
-"float"     {return TK_TIPO_FLOAT;}
-"char"      {return TK_TIPO_CHAR;}
-"bool"      {return TK_TIPO_BOOL;}
-"string"    {return TK_TIPO_STRING;}
+"int"       {return TK_TYPE_INT;}
+"float"     {return TK_TYPE_FLOAT;}
+"char"      {return TK_TYPE_CHAR;}
+"bool"      {return TK_TYPE_BOOL;}
+"string"    {return TK_TYPE_STRING;}
 
 [(){}[\];,.]  { return *yytext; }
 [+\-*/=]      { return *yytext; }

@@ -1,32 +1,32 @@
 #ifndef STRUCT_H
 #define STRUCT_H
 
-#include <iostream>
 #include <string>
-#include <sstream>
-
 
 using namespace std;
 
-
-typedef struct atributo
+namespace structs
 {
-	string label;
-	string traducao;
-	string tipo;
-} Atributo;
+  typedef struct attribute
+  {
+    string label;
+    string translation;
+    string type;
+  } Attribute;
 
-typedef struct simbolo
-{
-	bool inicializado = false;
-	string nome;
-	string tipo;
-} Simbolo;
+  typedef struct symbol
+  {
+    bool initialized = false;
+    string name;
+    string type;
+  } Symbol;
 
-typedef struct coercao
-{
-	string retornoTipo;
-  string conversaoTipo;
-} Coercao;
+  typedef struct coercion
+  {
+    string returnedType;
+    string conversionType;
+  } Coercion;
+}
+
 
 #endif

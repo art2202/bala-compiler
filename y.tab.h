@@ -56,11 +56,11 @@ extern int yydebug;
     TK_CHAR = 262,
     TK_STRING = 263,
     TK_BOOL = 264,
-    TK_TIPO_INT = 265,
-    TK_TIPO_FLOAT = 266,
-    TK_TIPO_BOOL = 267,
-    TK_TIPO_CHAR = 268,
-    TK_TIPO_STRING = 269,
+    TK_TYPE_INT = 265,
+    TK_TYPE_FLOAT = 266,
+    TK_TYPE_BOOL = 267,
+    TK_TYPE_CHAR = 268,
+    TK_TYPE_STRING = 269,
     TK_FIM = 270,
     TK_ERROR = 271
   };
@@ -73,11 +73,11 @@ extern int yydebug;
 #define TK_CHAR 262
 #define TK_STRING 263
 #define TK_BOOL 264
-#define TK_TIPO_INT 265
-#define TK_TIPO_FLOAT 266
-#define TK_TIPO_BOOL 267
-#define TK_TIPO_CHAR 268
-#define TK_TIPO_STRING 269
+#define TK_TYPE_INT 265
+#define TK_TYPE_FLOAT 266
+#define TK_TYPE_BOOL 267
+#define TK_TYPE_CHAR 268
+#define TK_TYPE_STRING 269
 #define TK_FIM 270
 #define TK_ERROR 271
 

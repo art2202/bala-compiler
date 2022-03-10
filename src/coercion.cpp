@@ -3,53 +3,53 @@
 using namespace std;
 
 
-map<TripleKey, Coercao> tabelaCoercao;
+map<TripleKey, Coercion> coercionTable;
 
 
 
-Coercao getCoercao(string tipo1, string operador, string tipo2)
+Coercion getCoercion(string type1, string operation, string type2)
 {
-	TripleKey key(tipo1, operador, tipo2);
+	TripleKey key(type1, operation, type2);
 	
-	if (tabelaCoercao.find(key) != tabelaCoercao.end())
+	if (coercionTable.find(key) != coercionTable.end())
 	{
-		return tabelaCoercao[key];
+		return coercionTable[key];
 	}
 
-	Coercao naoEncontrada = {"NULL", "NULL"};
-	return naoEncontrada;
+	Coercion notFound = {"NULL", "NULL"};
+	return notFound;
 }
 
 
-TripleKey gerarKey(string a , string b, string c)
+TripleKey generateKey(string a , string b, string c)
 {
 	TripleKey key(a , b, c);
 
 	return key;
 }
 
-void inicializarTabelaCoercao()
+void iniciateCoercionTable()
 {
-	tabelaCoercao[gerarKey("int" , "+" , "int")] = {"int", "int"};
-	tabelaCoercao[gerarKey("int" , "-" , "int")] = {"int", "int"};
-	tabelaCoercao[gerarKey("int" , "*" , "int")] = {"int", "int"};
-	tabelaCoercao[gerarKey("int" , "/" , "int")] = {"int", "int"};
+	coercionTable[generateKey("int" , "+" , "int")] = {"int", "int"};
+	coercionTable[generateKey("int" , "-" , "int")] = {"int", "int"};
+	coercionTable[generateKey("int" , "*" , "int")] = {"int", "int"};
+	coercionTable[generateKey("int" , "/" , "int")] = {"int", "int"};
 
-	tabelaCoercao[gerarKey("float", "+", "float")] = {"float", "float"};
-	tabelaCoercao[gerarKey("float", "-", "float")] = {"float", "float"};
-	tabelaCoercao[gerarKey("float", "*", "float")] = {"float", "float"};
-	tabelaCoercao[gerarKey("float", "/", "float")] = {"float", "float"};
+	coercionTable[generateKey("float", "+", "float")] = {"float", "float"};
+	coercionTable[generateKey("float", "-", "float")] = {"float", "float"};
+	coercionTable[generateKey("float", "*", "float")] = {"float", "float"};
+	coercionTable[generateKey("float", "/", "float")] = {"float", "float"};
 
-	tabelaCoercao[gerarKey("int", "+", "float")] = {"float", "float"};
-	tabelaCoercao[gerarKey("int", "-", "float")] = {"float", "float"};
-	tabelaCoercao[gerarKey("int", "*", "float")] = {"float", "float"};
-	tabelaCoercao[gerarKey("int", "/", "float")] = {"float", "float"};
+	coercionTable[generateKey("int", "+", "float")] = {"float", "float"};
+	coercionTable[generateKey("int", "-", "float")] = {"float", "float"};
+	coercionTable[generateKey("int", "*", "float")] = {"float", "float"};
+	coercionTable[generateKey("int", "/", "float")] = {"float", "float"};
 
-	tabelaCoercao[gerarKey("float", "+", "int")] = {"float", "float"};
-	tabelaCoercao[gerarKey("float", "-", "int")] = {"float", "float"};
-	tabelaCoercao[gerarKey("float", "*", "int")] = {"float", "float"};
-	tabelaCoercao[gerarKey("float", "/", "int")] = {"float", "float"};
+	coercionTable[generateKey("float", "+", "int")] = {"float", "float"};
+	coercionTable[generateKey("float", "-", "int")] = {"float", "float"};
+	coercionTable[generateKey("float", "*", "int")] = {"float", "float"};
+	coercionTable[generateKey("float", "/", "int")] = {"float", "float"};
 
-	tabelaCoercao[gerarKey("int", "=", "float")] = {"int", "int"};
-	tabelaCoercao[gerarKey("float", "=", "int")] = {"float", "float"};
+	coercionTable[generateKey("int", "=", "float")] = {"int", "int"};
+	coercionTable[generateKey("float", "=", "int")] = {"float", "float"};
 }

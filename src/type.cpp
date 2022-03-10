@@ -14,37 +14,37 @@ bool DEFAULT_BOOL = false;
 
 
 
-Atributo declararTK_TIPO(string type, Atributo atual, Atributo destino, Atributo valor)
+Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribute right)
 {
-	inserirSimboloNaTabela(valor.label, type, atual);
+	addSymbolInTable(right.label, type, actual);
 
-	if(type == "int") 		{ atual.traducao = DEFAULT_INT;			+"\t" + atual.label + " = " + destino.label + ";\n"; 	}
-	if(type == "float") 	{ atual.traducao = DEFAULT_FLOAT;		+"\t" + atual.label + " = " + destino.label + ";\n"; 	}
-	if(type == "char") 		{ atual.traducao = DEFAULT_CHAR;		+"\t" + atual.label + " = " + destino.label + ";\n"; 	}
-	if(type == "string") 	{ atual.traducao = DEFAULT_STRING;	+"\t" + atual.label + " = " + destino.label + ";\n";	}
-	if(type == "bool") 		{ atual.traducao = DEFAULT_BOOL;		+"\t" + atual.label + " = " + destino.label + ";\n"; 	}
+	if(type == "int") 		{ actual.translation = DEFAULT_INT;			+"\t" + actual.label + " = " + left.label + ";\n"; 	}
+	if(type == "float") 	{ actual.translation = DEFAULT_FLOAT;		+"\t" + actual.label + " = " + left.label + ";\n"; 	}
+	if(type == "char") 		{ actual.translation = DEFAULT_CHAR;		+"\t" + actual.label + " = " + left.label + ";\n"; 	}
+	if(type == "string") 	{ actual.translation = DEFAULT_STRING;	+"\t" + actual.label + " = " + left.label + ";\n";	}
+	if(type == "bool") 		{ actual.translation = DEFAULT_BOOL;		+"\t" + actual.label + " = " + left.label + ";\n"; 	}
 
-	return atual;
+	return actual;
 }
 
-Atributo criarTK_ID(Atributo atual, Atributo valor)
+Attribute createTK_ID(Attribute actual, Attribute right)
 {
-	Simbolo simbolo = getSimbolo(valor.label);
+	Symbol simbolo = getSymbol(right.label);
 
-	atual.label = simbolo.nome;
-	atual.tipo = simbolo.tipo;
+	actual.label = simbolo.name;
+	actual.type = simbolo.type;
 
-	return atual;
+	return actual;
 }
 
-Atributo criarTK_TYPE(Atributo atual, string tipo, Atributo valor)
+Attribute createTK_TYPE(Attribute actual, string type, Attribute right)
 {
-	atual.label = createTempCode();
+	actual.label = createTempCode();
 
-	atual.tipo = tipo; // resolvendo tipo
+	actual.type = type;
 
-	inserirTemporaria(atual.label, tipo);
-	atual.traducao = "\t" + atual.label + " = " + valor.label + ";\n";
+	addTemporary(actual.label, type);
+	actual.translation = "\t" + actual.label + " = " + right.label + ";\n";
 
-	return atual;
+	return actual;
 }

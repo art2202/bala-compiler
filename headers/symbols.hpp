@@ -1,20 +1,16 @@
 #ifndef SYMBOLS_H
 #define SYMBOLS_H
 
-#include <iostream>
 #include <string>
-#include <sstream>
-#include <unordered_map>
-#include <map>
 #include "../headers/struct.hpp"
 
 
-using namespace std;
+using namespace structs;
 
 
-string declararVariaveis();
-void inserirSimboloNaTabela(string label, string tipo, Atributo atual);
-int findSimbolo(string nome);
-Simbolo getSimbolo(string label);
+string declareVariables();
+void addSymbolInTable(string label, string type, Attribute actual);
+int findSymbol(string name);
+Symbol getSymbol(string label);
 
 #endif

@@ -7,34 +7,34 @@ using namespace std;
 
 
 
-extern Atributo resolverTipoAtribuicao(Atributo leftAtribute, string operador, Atributo rightAtribute);
+extern Attribute resolveAttributionType(Attribute left, string operation, Attribute right);
 
 
 
-Atributo realizarAtribuicao(Atributo atual, Atributo leftAtribute, Atributo rightAtribute)
+Attribute makeAttribution(Attribute atual, Attribute left, Attribute right)
 {
-	validarTK_ID(atual);
-	string operador = "=";
+	validateTK_ID(atual);
+	string operation = "=";
 
-	Simbolo leftSimbol = getSimbolo(leftAtribute.label);
-	if(leftSimbol.tipo == rightAtribute.tipo)
+	Symbol leftSimbol = getSymbol(left.label);
+	if(leftSimbol.type == right.type)
 	{
-		atual.traducao = leftAtribute.traducao + rightAtribute.traducao + "\t" + leftSimbol.nome + " " + operador + " " + rightAtribute.label + ";\n";
+		atual.translation = left.translation + right.translation + "\t" + leftSimbol.name + " " + operation + " " + right.label + ";\n";
 	}
 	else 
 	{
-		Atributo novoAtual = resolverTipoAtribuicao(leftAtribute, operador, rightAtribute);
+		Attribute novoAtual = resolveAttributionType(left, operation, right);
 		return novoAtual;
 	}
 
 	return atual;
 }
 
-void validarTK_ID(Atributo atributo)
+void validateTK_ID(Attribute attribute)
 {
-	int posicao = findSimbolo(atributo.label);
-	if (posicao < 0)
+	int position = findSymbol(attribute.label);
+	if (position < 0)
 	{
-		yyerror("TK_ID '" +  atributo.label + "' is not defined. Please defines a type to '" +  atributo.label + "'.\n");
+		yyerror("TK_ID '" +  attribute.label + "' is not defined. Please defines a type to '" +  attribute.label + "'.\n");
 	}
 }

@@ -3,13 +3,12 @@
 using namespace std;
 
 
-extern Atributo resolverTipoExpressao(Atributo leftAtribute, string operador, Atributo rightAtribute);
+extern Attribute resolveExpressionType(Attribute left, string operation, Attribute right);
 
 
 
-Atributo realizarExpressao(Atributo atual, Atributo destino, string operacao, Atributo valor)
+Attribute makeExpression(Attribute actual, Attribute left, string operation, Attribute right)
 {
-	Atributo novoAtual = resolverTipoExpressao(destino, operacao, valor);
-	
-	return novoAtual;
+	Attribute newActual = resolveExpressionType(left, operation, right);
+	return newActual;
 }

@@ -784,27 +784,27 @@ YY_RULE_SETUP
 case 4:
 YY_RULE_SETUP
 #line 27 "lexica.l"
-{return TK_TIPO_INT;}
+{return TK_TYPE_INT;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
 #line 28 "lexica.l"
-{return TK_TIPO_FLOAT;}
+{return TK_TYPE_FLOAT;}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
 #line 29 "lexica.l"
-{return TK_TIPO_CHAR;}
+{return TK_TYPE_CHAR;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
 #line 30 "lexica.l"
-{return TK_TIPO_BOOL;}
+{return TK_TYPE_BOOL;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
 #line 31 "lexica.l"
-{return TK_TIPO_STRING;}
+{return TK_TYPE_STRING;}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP

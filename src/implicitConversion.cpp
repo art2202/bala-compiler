@@ -8,81 +8,81 @@ using namespace std;
 
 
 
-Atributo criarAtributoAtual(Coercao coercao)
+Attribute createActualAttribute(Coercion coercion)
 {
-	Atributo atual;
-	atual.label = createTempCode();
-	atual.tipo = coercao.retornoTipo;
-	inserirTemporaria(atual.label, atual.tipo);
+	Attribute actual;
+	actual.label = createTempCode();
+	actual.type = coercion.returnedType;
+	addTemporary(actual.label, actual.type);
 
-	return atual;
+	return actual;
 }
 
-Atributo resolverTipoAtribuicao(Atributo leftAtribute, string operador, Atributo rightAtribute)
-{
-	Simbolo leftSimbol = getSimbolo(leftAtribute.label);
 
-	Coercao coercao = getCoercao(leftSimbol.tipo, operador, rightAtribute.tipo);
-	Atributo atual = criarAtributoAtual(coercao);	
+Attribute resolveAttributionType(Attribute left, string operador, Attribute right)
+{
+	Symbol leftSimbol = getSymbol(left.label);
+
+	Coercion coercion = getCoercion(leftSimbol.type, operador, right.type);
+	Attribute actual = createActualAttribute(coercion);	
 
 	string newTemp = createTempCode();
-	inserirTemporaria(newTemp, coercao.conversaoTipo);
+	addTemporary(newTemp, coercion.conversionType);
 
-	string message = "\t"+ leftSimbol.nome + " " + operador + " ("+ coercao.conversaoTipo +") ", resultado;
+	string message = "\t"+ leftSimbol.name + " " + operador + " ("+ coercion.conversionType +") ", result;
 	
 
-	if (leftSimbol.tipo != coercao.conversaoTipo)
+	if (leftSimbol.type != coercion.conversionType)
 	{
-		atual.traducao = atual.traducao + "\t" + leftSimbol.nome + " " + operador + " (" + coercao.conversaoTipo + ") " + atual.label + ";\n";
+		actual.translation = actual.translation + "\t" + leftSimbol.name + " " + operador + " (" + coercion.conversionType + ") " + actual.label + ";\n";
 	}
-	else if (rightAtribute.tipo != coercao.conversaoTipo)
+	else if (right.type != coercion.conversionType)
 	{
-		message += rightAtribute.label;
-		resultado = newTemp;
+		message += right.label;
+		result = newTemp;
 	}
 	else
 	{
-		yyerror("The operation is not set to " + leftSimbol.tipo + " and " + rightAtribute.tipo);
+		yyerror("The operation is not set to " + leftSimbol.type + " and " + right.type);
 	}
 	
-	atual.traducao = leftAtribute.traducao + rightAtribute.traducao + message + ";\n";
+	actual.translation = left.translation + right.translation + message + ";\n";
 
-	return atual;
+	return actual;
 }
-//----------------------------------------------------------------------------------------------------------------------
 
-Atributo resolverTipoExpressao(Atributo leftAtribute, string operador, Atributo rightAtribute)
+
+Attribute resolveExpressionType(Attribute left, string operador, Attribute right)
 {
-	Coercao coercao = getCoercao(leftAtribute.tipo, operador, rightAtribute.tipo);
-	Atributo atual = criarAtributoAtual(coercao);
+	Coercion coercion = getCoercion(left.type, operador, right.type);
+	Attribute actual = createActualAttribute(coercion);
 
-	if (leftAtribute.tipo == coercao.conversaoTipo && rightAtribute.tipo == coercao.conversaoTipo)
+	if (left.type == coercion.conversionType && right.type == coercion.conversionType)
 	{
-		atual.traducao = leftAtribute.traducao + rightAtribute.traducao + "\t" + atual.label +" = " + leftAtribute.label + " " + operador + " " + rightAtribute.label +";\n";
+		actual.translation = left.translation + right.translation + "\t" + actual.label +" = " + left.label + " " + operador + " " + right.label +";\n";
 	}
 	else
 	{
 		string newTemp = createTempCode();
-		inserirTemporaria(newTemp, coercao.conversaoTipo);
+		addTemporary(newTemp, coercion.conversionType);
 
-		string message = "\t"+ newTemp + " = " "("+ coercao.conversaoTipo +") ", resultado;
+		string message = "\t"+ newTemp + " = " "("+ coercion.conversionType +") ", result;
 
 
-		if (leftAtribute.tipo != coercao.conversaoTipo)
+		if (left.type != coercion.conversionType)
 		{
-			message += leftAtribute.label;
-			resultado = newTemp + " " + operador + " " + rightAtribute.label;
+			message += left.label;
+			result = newTemp + " " + operador + " " + right.label;
 		}
-		else if (rightAtribute.tipo != coercao.conversaoTipo)
+		else if (right.type != coercion.conversionType)
 		{
-			message += rightAtribute.label;
-			resultado = leftAtribute.label + " " + operador + " " + newTemp;
+			message += right.label;
+			result = left.label + " " + operador + " " + newTemp;
 		}
 
 		message += ";\n";
-		atual.traducao = leftAtribute.traducao + rightAtribute.traducao + message +"\t" + atual.label + " = "  + resultado + ";\n";
+		actual.translation = left.translation + right.translation + message +"\t" + actual.label + " = "  + result + ";\n";
 	}
 
-	return atual;
+	return actual;
 }
-//----------------------------------------------------------------------------------------------------------------------

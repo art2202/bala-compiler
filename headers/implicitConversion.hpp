@@ -1,20 +1,14 @@
 #ifndef IMPLICITCONVERSION_H
 #define IMPLICITCONVERSION_H
 
-#include <iostream>
-#include <string>
-#include <sstream>
-#include <unordered_map>
-#include <map>
 #include "../headers/struct.hpp"
 
 
-using namespace std;
+using namespace structs;
 
 
-
-Atributo criarAtributoAtual(Coercao coercao);
-Atributo resolverTipoAtribuicao(Atributo leftAtribute, string operador, Atributo rightAtribute);
-Atributo resolverTipoExpressao(Atributo leftAtribute, string operador, Atributo rightAtribute);
+Attribute createActualAttribute(Coercion coercion);
+Attribute resolveAttributionType(Attribute left, string operation, Attribute right);
+Attribute resolveExpressionType(Attribute left, string operation, Attribute right);
 
 #endif

@@ -13,7 +13,7 @@
 #include "headers/symbols.hpp"
 
 
-#define YYSTYPE atributo
+#define YYSTYPE attribute
 
 
 using namespace std;
@@ -24,7 +24,7 @@ int yylex(void);
 %}
 %token TK_MAIN TK_ID
 %token TK_NUM TK_REAL TK_CHAR TK_STRING TK_BOOL
-%token TK_TIPO_INT TK_TIPO_FLOAT TK_TIPO_BOOL TK_TIPO_CHAR TK_TIPO_STRING
+%token TK_TYPE_INT TK_TYPE_FLOAT TK_TYPE_BOOL TK_TYPE_CHAR TK_TYPE_STRING
 %token TK_FIM TK_ERROR
 
 %start S
@@ -34,94 +34,94 @@ int yylex(void);
 
 %%
 
-S					: TK_TIPO_INT TK_MAIN '(' ')' BLOCO
+S					: TK_TYPE_INT TK_MAIN '(' ')' BLOCK
 					{
-						cout << "//<<<<Bala Compiler>>>>\n" << "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n"+declararVariaveis()+"\nint main(void)\n{\n" << $5.traducao << "\treturn 0;\n}" << endl; 
+						cout << "//<<<<Bala Compiler>>>>\n" << "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n"+declareVariables()+"\nint main(void)\n{\n" << $5.translation << "\treturn 0;\n}" << endl; 
 					}
 					;
 
-BLOCO		  : '{' COMANDOS '}'
+BLOCK		  : '{' COMMANDS '}'
 					{
-						$$.traducao = $2.traducao;
+						$$.translation = $2.translation;
 					}
 					;
 
-COMANDOS	: COMANDO COMANDOS
+COMMANDS	: COMMAND COMMANDS
 					{
-						$$.traducao = $1.traducao + $2.traducao;
+						$$.translation = $1.translation + $2.translation;
 					}
 					|
 					{
-						$$.traducao = "";
+						$$.translation = "";
 					}
 					;
 
-COMANDO 	: E ';'
-					| TK_TIPO_INT TK_ID ';'
+COMMAND 	: E ';'
+					| TK_TYPE_INT TK_ID ';'
 					{
-						$$ = declararTK_TIPO("int", $$, $1, $2);
+						$$ = declareTK_TYPE("int", $$, $1, $2);
 					}
-					| TK_TIPO_FLOAT TK_ID ';'
+					| TK_TYPE_FLOAT TK_ID ';'
 					{
-						$$ = declararTK_TIPO("float", $$, $1, $2);
+						$$ = declareTK_TYPE("float", $$, $1, $2);
 					}
-					| TK_TIPO_CHAR TK_ID ';'
+					| TK_TYPE_CHAR TK_ID ';'
 					{
-						$$ = declararTK_TIPO("char", $$, $1, $2);
+						$$ = declareTK_TYPE("char", $$, $1, $2);
 					}
-					| TK_TIPO_STRING TK_ID ';'
+					| TK_TYPE_STRING TK_ID ';'
 					{
-						$$ = declararTK_TIPO("string", $$, $1, $2);
+						$$ = declareTK_TYPE("string", $$, $1, $2);
 					}
-					| TK_TIPO_BOOL TK_ID ';'
+					| TK_TYPE_BOOL TK_ID ';'
 					{
-						$$ = declararTK_TIPO("bool", $$, $1, $2);
+						$$ = declareTK_TYPE("bool", $$, $1, $2);
 					}
 					;
 
 E			 		: E '*' E
 					{
-						$$ = realizarExpressao($$, $1, "*", $3);
+						$$ = makeExpression($$, $1, "*", $3);
 					}
 					| E '/' E
 					{
-						$$ = realizarExpressao($$, $1, "/", $3);
+						$$ = makeExpression($$, $1, "/", $3);
 					}
 					| E '+' E
 					{
-						$$ = realizarExpressao($$, $1, "+", $3);
+						$$ = makeExpression($$, $1, "+", $3);
 					}
 					| E '-' E
 					{
-						$$ = realizarExpressao($$, $1, "-", $3);
+						$$ = makeExpression($$, $1, "-", $3);
 					}
 					| TK_ID '=' E 
 					{
-						$$ = realizarAtribuicao($$, $1, $3);
+						$$ = makeAttribution($$, $1, $3);
 					}
 					| TK_NUM
 					{
-						$$ = criarTK_TYPE($$, "int", $1);
+						$$ = createTK_TYPE($$, "int", $1);
 					}
 					| TK_REAL
 					{
-						$$ = criarTK_TYPE($$, "float", $1);
+						$$ = createTK_TYPE($$, "float", $1);
 					}
 					| TK_CHAR
 					{
-						$$ = criarTK_TYPE($$, "char", $1);
+						$$ = createTK_TYPE($$, "char", $1);
 					}
 					| TK_STRING
 					{
-						$$ = criarTK_TYPE($$, "string", $1);
+						$$ = createTK_TYPE($$, "string", $1);
 					}
 					| TK_BOOL
 					{
-						$$ = criarTK_TYPE($$, "bool", $1);
+						$$ = createTK_TYPE($$, "bool", $1);
 					}
 					| TK_ID
 					{
-						$$ = criarTK_ID($$, $1);
+						$$ = createTK_ID($$, $1);
 					}
 					;
 %%
@@ -133,7 +133,7 @@ int yyparse();
 
 int main( int argc, char* argv[] )
 {
-	inicializarTabelaCoercao();
+	iniciateCoercionTable();
 	
 	yyparse();
 

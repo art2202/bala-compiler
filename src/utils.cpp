@@ -1,10 +1,12 @@
 #include "../headers/utils.hpp"
+#include <unordered_map>
+#include <iostream>
 
 using namespace std;
 
 
 int count_var = 0;
-unordered_map<string, string> temporarias;
+unordered_map<string, string> temporaries;
 
 
 
@@ -25,7 +27,7 @@ string intToString(int value)
 	return to_string(value);
 }
 
-void inserirTemporaria(string label, string tipo)
+void addTemporary(string label, string type)
 {
-  temporarias[label] = tipo;
+  temporaries[label] = type;
 }

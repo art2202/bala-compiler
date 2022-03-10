@@ -1,32 +1,32 @@
 #include "../headers/symbols.hpp"
 #include <vector>
-
+#include <unordered_map>
 
 using namespace std;
 
-extern unordered_map<string, string> temporarias;
-vector<Simbolo> tabelaSimbolos;
+extern unordered_map<string, string> temporaries;
+vector<Symbol> symbolTable;
 
 
-void inserirSimboloNaTabela(string label, string tipo, Atributo atual)
+void addSymbolInTable(string label, string type, Attribute actual)
 {
-	Simbolo simbolo;
+	Symbol symbol;
 	
-	simbolo.nome = label;
-	simbolo.tipo = tipo;
-	simbolo.inicializado = true;
+	symbol.name = label;
+	symbol.type = type;
+	symbol.initialized = true;
 
-	tabelaSimbolos.push_back(simbolo);
+	symbolTable.push_back(symbol);
 
-	atual.traducao = "";
-	atual.label = "";
+	actual.translation = "";
+	actual.label = "";
 }
 
-int findSimbolo(string nome)
+int findSymbol(string name)
 {
-	for(int i = 0; i < tabelaSimbolos.size(); i++)
+	for(int i = 0; i < symbolTable.size(); i++)
 	{
-		if(tabelaSimbolos[i].nome == nome)
+		if(symbolTable[i].name == name)
 		{
 			return i;
 		}
@@ -34,20 +34,20 @@ int findSimbolo(string nome)
 	return -1;
 }
 
-Simbolo getSimbolo(string label)
+Symbol getSymbol(string label)
 {
-	int posicao = findSimbolo(label);
-	return tabelaSimbolos[posicao];
+	int position = findSymbol(label);
+	return symbolTable[position];
 }
 
-string declararVariaveis()
+string declareVariables()
 {
-	string resultado = "";
-	for(auto &x: temporarias){
-		resultado = resultado + x.second + " " +x.first + ";\n";
+	string result = "";
+	for(auto &x: temporaries){
+		result = result + x.second + " " +x.first + ";\n";
 	}
-	for(int i = 0; i < tabelaSimbolos.size(); i++){
-		resultado = resultado + tabelaSimbolos[i].tipo + " " +tabelaSimbolos[i].nome + ";\n";
+	for(int i = 0; i < symbolTable.size(); i++){
+		result = result + symbolTable[i].type + " " +symbolTable[i].name + ";\n";
 	}
-	return resultado;
+	return result;
 }
