@@ -51,35 +51,51 @@ extern int yydebug;
   {
     TK_MAIN = 258,
     TK_ID = 259,
-    TK_NUM = 260,
-    TK_REAL = 261,
-    TK_CHAR = 262,
-    TK_STRING = 263,
+    TK_EXPLICIT_CONVERTER = 260,
+    TK_NUM = 261,
+    TK_REAL = 262,
+    TK_CHAR = 263,
     TK_BOOL = 264,
     TK_TYPE_INT = 265,
     TK_TYPE_FLOAT = 266,
     TK_TYPE_BOOL = 267,
     TK_TYPE_CHAR = 268,
-    TK_TYPE_STRING = 269,
-    TK_FIM = 270,
-    TK_ERROR = 271
+    TK_BIG = 269,
+    TK_SMALL = 270,
+    TK_NOT_EQ = 271,
+    TK_BIG_EQ = 272,
+    TK_SMALL_EQ = 273,
+    TK_EQ = 274,
+    TK_AND = 275,
+    TK_OR = 276,
+    TK_NOT = 277,
+    TK_FIM = 278,
+    TK_ERROR = 279
   };
 #endif
 /* Tokens.  */
 #define TK_MAIN 258
 #define TK_ID 259
-#define TK_NUM 260
-#define TK_REAL 261
-#define TK_CHAR 262
-#define TK_STRING 263
+#define TK_EXPLICIT_CONVERTER 260
+#define TK_NUM 261
+#define TK_REAL 262
+#define TK_CHAR 263
 #define TK_BOOL 264
 #define TK_TYPE_INT 265
 #define TK_TYPE_FLOAT 266
 #define TK_TYPE_BOOL 267
 #define TK_TYPE_CHAR 268
-#define TK_TYPE_STRING 269
-#define TK_FIM 270
-#define TK_ERROR 271
+#define TK_BIG 269
+#define TK_SMALL 270
+#define TK_NOT_EQ 271
+#define TK_BIG_EQ 272
+#define TK_SMALL_EQ 273
+#define TK_EQ 274
+#define TK_AND 275
+#define TK_OR 276
+#define TK_NOT 277
+#define TK_FIM 278
+#define TK_ERROR 279
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

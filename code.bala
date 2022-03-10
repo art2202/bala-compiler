@@ -1,7 +1,22 @@
 int main()
 {
 	int a;
-	a = 1 * 3.0 + 2;
+	a = 1;
+	
 	float b;
-	b = 9 + 1;
+	b = 9.3;
+
+	float c;
+	c = b + a as float;
+
+	bool d;
+	d = c > b;
+
+	d = false;
+
+	bool e;
+	e = !d;
+
+	char gabi;
+	gabi = 'G';
 }

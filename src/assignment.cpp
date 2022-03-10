@@ -1,4 +1,4 @@
-#include "../headers/attribuition.hpp"
+#include "../headers/assignment.hpp"
 #include "../headers/utils.hpp"
 #include "../headers/symbols.hpp"
 
@@ -7,11 +7,11 @@ using namespace std;
 
 
 
-extern Attribute resolveAttributionType(Attribute left, string operation, Attribute right);
+extern Attribute resolveAssignmentType(Attribute left, string operation, Attribute right);
 
 
 
-Attribute makeAttribution(Attribute atual, Attribute left, Attribute right)
+Attribute makeAssignment(Attribute atual, Attribute left, Attribute right)
 {
 	validateTK_ID(atual);
 	string operation = "=";
@@ -23,7 +23,7 @@ Attribute makeAttribution(Attribute atual, Attribute left, Attribute right)
 	}
 	else 
 	{
-		Attribute novoAtual = resolveAttributionType(left, operation, right);
+		Attribute novoAtual = resolveAssignmentType(left, operation, right);
 		return novoAtual;
 	}
 

@@ -7,24 +7,12 @@
 using namespace std;
 
 
-
-Attribute createActualAttribute(Coercion coercion)
-{
-	Attribute actual;
-	actual.label = createTempCode();
-	actual.type = coercion.returnedType;
-	addTemporary(actual.label, actual.type);
-
-	return actual;
-}
-
-
-Attribute resolveAttributionType(Attribute left, string operador, Attribute right)
+Attribute resolveAssignmentType(Attribute left, string operador, Attribute right)
 {
 	Symbol leftSimbol = getSymbol(left.label);
 
 	Coercion coercion = getCoercion(leftSimbol.type, operador, right.type);
-	Attribute actual = createActualAttribute(coercion);	
+	Attribute actual = createActualAttribute(coercion.returnedType);	
 
 	string newTemp = createTempCode();
 	addTemporary(newTemp, coercion.conversionType);
@@ -55,7 +43,7 @@ Attribute resolveAttributionType(Attribute left, string operador, Attribute righ
 Attribute resolveExpressionType(Attribute left, string operador, Attribute right)
 {
 	Coercion coercion = getCoercion(left.type, operador, right.type);
-	Attribute actual = createActualAttribute(coercion);
+	Attribute actual = createActualAttribute(coercion.returnedType);
 
 	if (left.type == coercion.conversionType && right.type == coercion.conversionType)
 	{

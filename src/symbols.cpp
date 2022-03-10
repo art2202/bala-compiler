@@ -1,4 +1,5 @@
 #include "../headers/symbols.hpp"
+#include "../headers/utils.hpp"
 #include <vector>
 #include <unordered_map>
 
@@ -7,6 +8,16 @@ using namespace std;
 extern unordered_map<string, string> temporaries;
 vector<Symbol> symbolTable;
 
+
+Attribute createActualAttribute(string type)
+{
+	Attribute actual;
+	actual.label = createTempCode();
+	actual.type = type;
+	addTemporary(actual.label, actual.type);
+
+	return actual;
+}
 
 void addSymbolInTable(string label, string type, Attribute actual)
 {

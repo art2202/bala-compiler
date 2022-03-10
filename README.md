@@ -1,21 +1,21 @@
-# Trabalho - Entrega I
+# Work - Part I
 
-## Especificação:
-### Expressão
-### Tipos
+## Specification:
+### Expression ✔️
+### Types
 - Int ✔️
 - Boolean ✔️
 - Float ✔️
 - Char ✔️
-### Conversão
-- Implícita ✔️
-- Explícita
-### Operadores
- - Lógico
- - Aritmético ✔️
- - Relacional
-### Variável ✔️
-### Atribuição ✔️
+### Conversion
+- Implicit ✔️
+- Explicit ✔️
+### Operators
+  - Logical ✔️
+  - Arithmetic ✔️
+  - Relational ✔️
+### Variable ✔️
+### Assignment ✔️
 
-#### Entrega:
-Data: 14/03/2022
+#### Delivery:
+Date: 03/14/2022

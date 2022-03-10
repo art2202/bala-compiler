@@ -8,6 +8,7 @@
 using namespace structs;
 
 
-Attribute makeExpression(Attribute actual, Attribute left, string operation, Attribute right);
+Attribute makeExpression(Attribute left, string operation, Attribute right);
+Attribute makeTK_NOT(Attribute actual, Attribute right);
 
 #endif
