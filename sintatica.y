@@ -33,6 +33,10 @@ int yylex(void);
 
 %start S
 
+%left TK_AND
+%left TK_OR
+%left TK_NOT
+%left TK_SMALL TK_BIG TK_NOT_EQ TK_EQ TK_BIG_EQ TK_SMALL_EQ
 %left '+' '-'
 %left '*' '/'
 

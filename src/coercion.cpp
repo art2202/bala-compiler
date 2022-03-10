@@ -64,39 +64,39 @@ void iniciateCoercionTable()
 
 
 
-	coercionTable[generateKey("int" , "<", "int")] = 	{"bool","int"};
-	coercionTable[generateKey("int" , ">", "int")] = 	{"bool","int"};
+	coercionTable[generateKey("int" , "<", "int")] = {"bool","int"};
+	coercionTable[generateKey("int" , ">", "int")] = {"bool","int"};
 	coercionTable[generateKey("int" , ">=", "int")] = {"bool","int"};
 	coercionTable[generateKey("int" , "<=", "int")] = {"bool","int"};
 	coercionTable[generateKey("int" , "==", "int")] = {"bool","int"};
 	coercionTable[generateKey("int" , "!=", "int")] = {"bool","int"};
 
 
-	coercionTable[generateKey("float" , "<", "float")] = 	{"bool","float"};
-	coercionTable[generateKey("float" , ">", "float")] = 	{"bool","float"};
+	coercionTable[generateKey("float" , "<", "float")] = {"bool","float"};
+	coercionTable[generateKey("float" , ">", "float")] = {"bool","float"};
 	coercionTable[generateKey("float" , ">=", "float")] = {"bool","float"};
 	coercionTable[generateKey("float" , "<=", "float")] = {"bool","float"};
 	coercionTable[generateKey("float" , "==", "float")] = {"bool","float"};
 	coercionTable[generateKey("float" , "!=", "float")] = {"bool","float"};
 
 
-	coercionTable[generateKey("char" , "<", "char")] = 	{"bool", "char"};
-	coercionTable[generateKey("char" , ">", "char")] = 	{"bool", "char"};
+	coercionTable[generateKey("char" , "<", "char")] = {"bool", "char"};
+	coercionTable[generateKey("char" , ">", "char")] = {"bool", "char"};
 	coercionTable[generateKey("char" , ">=", "char")] = {"bool", "char"};
 	coercionTable[generateKey("char" , "<=", "char")] = {"bool", "char"};
 	coercionTable[generateKey("char" , "==", "char")] = {"bool","char"};
 	coercionTable[generateKey("char" , "!=", "char")] = {"bool","char"};
 
 
-	coercionTable[generateKey("int" , "<", "float")] = 	{"bool","float"};
-	coercionTable[generateKey("int" , ">", "float")] = 	{"bool","float"};
+	coercionTable[generateKey("int" , "<", "float")] = {"bool","float"};
+	coercionTable[generateKey("int" , ">", "float")] = {"bool","float"};
 	coercionTable[generateKey("int" , ">=", "float")] = {"bool","float"};
 	coercionTable[generateKey("int" , "<=", "float")] = {"bool","float"};
 	coercionTable[generateKey("int" , "==", "float")] = {"bool","float"};
 	coercionTable[generateKey("int" , "!=", "float")] = {"bool","float"};
 
-	coercionTable[generateKey("float" , "<", "int")] = 	{"bool","float"};
-	coercionTable[generateKey("float" , ">", "int")] = 	{"bool","float"};
+	coercionTable[generateKey("float" , "<", "int")] = {"bool","float"};
+	coercionTable[generateKey("float" , ">", "int")] = {"bool","float"};
 	coercionTable[generateKey("float" , ">=", "int")] = {"bool","float"};
 	coercionTable[generateKey("float" , "<=", "int")] = {"bool","float"};
 	coercionTable[generateKey("float" , "==", "int")] = {"bool","float"};
