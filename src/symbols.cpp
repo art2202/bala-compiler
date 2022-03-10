@@ -35,9 +35,9 @@ void addSymbolInTable(string label, string type, Attribute actual)
 
 int findSymbol(string name)
 {
-	for(int i = 0; i < symbolTable.size(); i++)
+	for (int i = 0; i < symbolTable.size(); i++)
 	{
-		if(symbolTable[i].name == name)
+		if (symbolTable[i].name == name)
 		{
 			return i;
 		}
@@ -54,10 +54,12 @@ Symbol getSymbol(string label)
 string declareVariables()
 {
 	string result = "";
-	for(auto &x: temporaries){
+	for (auto &x: temporaries)
+  {
 		result = result + x.second + " " +x.first + ";\n";
 	}
-	for(int i = 0; i < symbolTable.size(); i++){
+	for (int i = 0; i < symbolTable.size(); i++)
+  {
 		result = result + symbolTable[i].type + " " +symbolTable[i].name + ";\n";
 	}
 	return result;

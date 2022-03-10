@@ -48,7 +48,7 @@ S					: TK_TYPE_INT TK_MAIN '(' ')' BLOCK
 					}
 					;
 //------------------------------------------------------------------------------
-BLOCK		  : '{' COMMANDS '}'
+BLOCK			: '{' COMMANDS '}'
 					{
 						$$.translation = $2.translation;
 					}
@@ -64,7 +64,7 @@ COMMANDS	: COMMAND COMMANDS
 					}
 					;
 //------------------------------------------------------------------------------
-COMMAND 	: E ';'
+COMMAND		: E ';'
 					| TK_TYPE_INT TK_ID ';'
 					{
 						$$ = declareTK_TYPE("int", $$, $1, $2);
@@ -83,7 +83,7 @@ COMMAND 	: E ';'
 					}
 					;
 //------------------------------------------------------------------------------
-E			 		: E '*' E
+E					: E '*' E
 					{
 						$$ = makeExpression($1, "*", $3);
 					}
@@ -172,11 +172,11 @@ E			 		: E '*' E
 						$$ = resolveExplicitConversion($1, $3);
 					}
 					;
-
-TYPE			:	TK_TYPE_BOOL		{$$.translation = "bool";}
-					| TK_TYPE_INT			{$$.translation = "int";}
-					| TK_TYPE_CHAR		{$$.translation = "char";}
-					| TK_TYPE_FLOAT		{$$.translation = "float";}
+//------------------------------------------------------------------------------
+TYPE			:	TK_TYPE_BOOL	{$$.translation = "bool";}
+					| TK_TYPE_INT		{$$.translation = "int";}
+					| TK_TYPE_CHAR	{$$.translation = "char";}
+					| TK_TYPE_FLOAT	{$$.translation = "float";}
 					;
 //------------------------------------------------------------------------------
 %%
