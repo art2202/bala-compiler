@@ -4,7 +4,7 @@
 
 using namespace std;
 
-
+int count_temp = 0;
 int count_var = 0;
 unordered_map<string, string> temporaries;
 
@@ -18,8 +18,14 @@ void yyerror(string MSG)
 
 string createTempCode()
 {
+	count_temp++;
+	return "t" + intToString(count_temp);
+}
+
+string createVariable()
+{
 	count_var++;
-	return "t" + intToString(count_var);
+	return "v" + intToString(count_var);
 }
 
 string intToString(int value)

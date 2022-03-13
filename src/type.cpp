@@ -10,19 +10,19 @@ int DEFAULT_INT = 0;
 float DEFAULT_FLOAT = 0.0;
 char DEFAULT_CHAR = ' ';
 string DEFAULT_STRING = "\0";
-bool DEFAULT_BOOL = false;
+string DEFAULT_BOOL = "false";
 
 
 
 Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribute right)
 {
 	addSymbolInTable(right.label, type, actual);
+  Symbol simbolo = getSymbol(right.label);
 
-	if(type == "int") 		{ actual.translation = DEFAULT_INT;			+"\t" + actual.label + " = " + left.label + ";\n"; 	}
-	if(type == "float") 	{ actual.translation = DEFAULT_FLOAT;		+"\t" + actual.label + " = " + left.label + ";\n"; 	}
-	if(type == "char") 		{ actual.translation = DEFAULT_CHAR;		+"\t" + actual.label + " = " + left.label + ";\n"; 	}
-	if(type == "string") 	{ actual.translation = DEFAULT_STRING;	+"\t" + actual.label + " = " + left.label + ";\n";	}
-	if(type == "bool") 		{ actual.translation = DEFAULT_BOOL;		+"\t" + actual.label + " = " + left.label + ";\n"; 	}
+	if(type == "int") 		{ actual.translation =  "\t" + simbolo.name + " = " + to_string(DEFAULT_INT) + ";\n"; }
+	if(type == "float") 	{ actual.translation =  "\t" + simbolo.name + " = " + to_string(DEFAULT_FLOAT) + ";\n"; }
+	if(type == "char") 		{ actual.translation =  "\t" + simbolo.name + " = "  + "'"+ DEFAULT_CHAR + "'" + ";\n"; }
+	if(type == "bool") 		{ actual.translation =  "\t" + simbolo.name + " = " + DEFAULT_BOOL + ";\n"; }
 
 	return actual;
 }

@@ -34,6 +34,7 @@ void iniciateCoercionTable()
 	coercionTable[generateKey("int", "=", "float")] = {"int", "int"};
 	coercionTable[generateKey("float", "=", "int")] = {"float", "float"};
 
+	coercionTable[generateKey("int" , "%" , "int")] = {"int", "int"};
 
 	coercionTable[generateKey("int" , "+" , "int")] = {"int", "int"};
 	coercionTable[generateKey("int" , "-" , "int")] = {"int", "int"};

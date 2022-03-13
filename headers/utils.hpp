@@ -10,6 +10,7 @@ using namespace std;
 
 void yyerror(string);
 string createTempCode();
+string createVariable();
 string intToString(int value);
 void addTemporary(string label, string type);
 

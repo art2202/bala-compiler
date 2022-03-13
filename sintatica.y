@@ -37,8 +37,10 @@ int yylex(void);
 %left TK_OR
 %left TK_NOT
 %left TK_SMALL TK_BIG TK_NOT_EQ TK_EQ TK_BIG_EQ TK_SMALL_EQ
+%left '%'
 %left '+' '-'
 %left '*' '/'
+%left '(' ')'
 
 %%
 //------------------------------------------------------------------------------
@@ -103,6 +105,16 @@ E:
 					| E '-' E
 					{
 						$$ = makeExpression($1, "-", $3);
+					}
+					| E '%' E
+					{
+						$$ = makeExpression($1, "%", $3);
+					}
+					| '(' E ')'
+					{
+						$$.label = $2.label;
+						$$.translation = $2.translation;
+						$$.type = $2.type;
 					}
 					| TK_ID '=' E 
 					{

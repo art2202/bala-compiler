@@ -21,9 +21,11 @@ Attribute createActualAttribute(string type)
 
 void addSymbolInTable(string label, string type, Attribute actual)
 {
+  string variableName = createVariable();
 	Symbol symbol;
 	
-	symbol.name = label;
+  symbol.label = label;
+	symbol.name = variableName;
 	symbol.type = type;
 	symbol.initialized = true;
 
@@ -33,11 +35,11 @@ void addSymbolInTable(string label, string type, Attribute actual)
 	actual.label = "";
 }
 
-int findSymbol(string name)
+int findSymbol(string label)
 {
 	for (int i = 0; i < symbolTable.size(); i++)
 	{
-		if (symbolTable[i].name == name)
+		if (symbolTable[i].label == label)
 		{
 			return i;
 		}
@@ -57,7 +59,7 @@ string declareVariables()
   for (auto &x: temporaries)
   {
     result = result + x.second + " " +x.first + ";\n";
-    }
+  }
   for (int i = 0; i < symbolTable.size(); i++)
   {
     result = result + symbolTable[i].type + " " +symbolTable[i].name + ";\n";
