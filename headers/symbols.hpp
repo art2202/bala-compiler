@@ -9,6 +9,7 @@ using namespace structs;
 
 Attribute createActualAttribute(string type);
 string declareVariables();
+string declareDefines();
 void addSymbolInTable(string label, string type, Attribute actual);
 int findSymbol(string name);
 Symbol getSymbol(string label);

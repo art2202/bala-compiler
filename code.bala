@@ -1,34 +1,10 @@
 int main()
 {
-	int a;
-	int b;
-	int c;
-	int d;
+	bool a;
+	a = true;
 	
-	a = 2;
+	bool b;
 
-	b = 2;
-
-	c = 3;
-
-	d = a + (b * c);
-
-
-	int e;
-	float f;
-	float g;
-	bool h;
-	char gabi;
-
-	e = 1;
-	
-	f = 9.3;
-
-	g = f + e as float;
-
-	h = g > f;
-
-	h = true;
-
-	gabi = 'G';
+	bool c;
+	c = a || b;
 }

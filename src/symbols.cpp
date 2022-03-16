@@ -66,3 +66,13 @@ string declareVariables()
   }
   return result;
 }
+
+string declareDefines()
+{
+  string result = "";
+
+  result += "#define bool int\n";
+  result += "#define true 1\n";
+  result += "#define false 0\n";
+  return result;
+}

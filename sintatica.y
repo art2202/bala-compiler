@@ -47,7 +47,7 @@ int yylex(void);
 S:					
 					TK_TYPE_INT TK_MAIN '(' ')' BLOCK
 					{
-						cout << "//<<<<Bala Compiler>>>>\n" << "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n"+declareVariables()+"\nint main(void)\n{\n" << $5.translation << "\treturn 0;\n}" << endl; 
+						cout << "//<<<<Bala Compiler>>>>\n" << "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n"+declareDefines()+declareVariables()+"\nint main(void)\n{\n" << $5.translation << "\treturn 0;\n}" << endl; 
 					}
 					;
 //------------------------------------------------------------------------------
