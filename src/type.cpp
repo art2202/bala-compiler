@@ -18,11 +18,12 @@ Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribut
 {
 	addSymbolInTable(right.label, type, actual);
   Symbol simbolo = getSymbol(right.label);
+  string message = "// default value";
 
-	if(type == "int") 		{ actual.translation =  "\t" + simbolo.name + " = " + to_string(DEFAULT_INT) + ";\n"; }
-	if(type == "float") 	{ actual.translation =  "\t" + simbolo.name + " = " + to_string(DEFAULT_FLOAT) + ";\n"; }
-	if(type == "char") 		{ actual.translation =  "\t" + simbolo.name + " = "  + "'"+ DEFAULT_CHAR + "'" + ";\n"; }
-	if(type == "bool") 		{ actual.translation =  "\t" + simbolo.name + " = " + DEFAULT_BOOL + ";\n"; }
+	if(type == "int") 		{ actual.translation =  "\t" + simbolo.name + " = " + to_string(DEFAULT_INT) + "; " + message + "\n"; }
+	if(type == "float") 	{ actual.translation =  "\t" + simbolo.name + " = " + to_string(DEFAULT_FLOAT) + "; " + message + "\n"; }
+	if(type == "char") 		{ actual.translation =  "\t" + simbolo.name + " = "  + "'"+ DEFAULT_CHAR + "'" + "; " + message + "\n"; }
+	if(type == "bool") 		{ actual.translation =  "\t" + simbolo.name + " = " + DEFAULT_BOOL + "; " + message + "\n"; }
 
 	return actual;
 }
