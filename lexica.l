@@ -27,6 +27,7 @@ ID {LETTER}({LETTER}|{NUM})*
 "float"     {return TK_TYPE_FLOAT;}
 "char"      {return TK_TYPE_CHAR;}
 "bool"      {return TK_TYPE_BOOL;}
+"string"    {return TK_TIPO_STRING;}
 
 "as"        {return TK_EXPLICIT_CONVERTER;}
 
@@ -44,6 +45,17 @@ ID {LETTER}({LETTER}|{NUM})*
 "&&"		{return TK_AND;}
 "||"		{return TK_OR;}
 "!"     {return TK_NOT;}
+
+"if"        {return TK_IF;}
+"else"      {return TK_ELSE;}
+"while"     {return TK_WHILE;}
+"do"        {return TK_DO;}
+"for"       {return TK_FOR;}
+"switch"    {return TK_SWITCH;}
+"case"      {return TK_CASE;}
+
+"break"     {return TK_BREAK;}
+"continue"  {return TK_CONTINUE;}
 
 
 {NUM}     { yylval.label = yytext; return TK_NUM; }
