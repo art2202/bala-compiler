@@ -69,8 +69,9 @@ extern int yydebug;
     TK_AND = 275,
     TK_OR = 276,
     TK_NOT = 277,
-    TK_FIM = 278,
-    TK_ERROR = 279
+    TK_IF = 278,
+    TK_ELSE = 279,
+    NO_ELSE = 280
   };
 #endif
 /* Tokens.  */
@@ -94,8 +95,9 @@ extern int yydebug;
 #define TK_AND 275
 #define TK_OR 276
 #define TK_NOT 277
-#define TK_FIM 278
-#define TK_ERROR 279
+#define TK_IF 278
+#define TK_ELSE 279
+#define NO_ELSE 280
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

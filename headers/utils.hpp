@@ -11,7 +11,10 @@ using namespace std;
 void yyerror(string);
 string createTempCode();
 string createVariable();
+string createGotoLabel();
 string intToString(int value);
 void addTemporary(string label, string type);
+void validateReturnedType(string returnedType, string leftType, string rightType);
+
 
 #endif

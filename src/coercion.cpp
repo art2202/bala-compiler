@@ -1,4 +1,5 @@
 #include "../headers/coercion.hpp"
+#include "../headers/utils.hpp"
 
 using namespace std;
 
@@ -15,7 +16,9 @@ Coercion getCoercion(string type1, string operation, string type2)
 	{
 		return coercionTable[key];
 	}
+	yyerror("Cannot convert type " + type1 + " to type " + type2 + ".");
 
+	// Just to remove the warning, it will never run.
 	Coercion notFound = {"NULL", "NULL"};
 	return notFound;
 }

@@ -9,6 +9,7 @@ extern unordered_map<string, string> temporaries;
 vector<Symbol> symbolTable;
 
 
+
 Attribute createActualAttribute(string type)
 {
 	Attribute actual;
@@ -19,15 +20,23 @@ Attribute createActualAttribute(string type)
 	return actual;
 }
 
-void addSymbolInTable(string label, string type, Attribute actual)
+Symbol createSymbol(string variableName, string type, string tempName)
 {
-  string variableName = createVariable();
 	Symbol symbol;
-	
-  symbol.label = label;
+
+	symbol.label = tempName;
 	symbol.name = variableName;
 	symbol.type = type;
 	symbol.initialized = true;
+
+	return symbol;
+}
+
+void addSymbolInTable(string label, string type, Attribute actual)
+{
+  string variableName = createVariable();
+
+	Symbol symbol = createSymbol(variableName, type, label);
 
 	symbolTable.push_back(symbol);
 
@@ -53,26 +62,18 @@ Symbol getSymbol(string label)
 	return symbolTable[position];
 }
 
-string declareVariables()
+void variableHasAlreadyBeenDeclared(Symbol symbol, string message)
 {
-  string result = "";
-  for (auto &x: temporaries)
-  {
-    result = result + x.second + " " +x.first + ";\n";
-  }
-  for (int i = 0; i < symbolTable.size(); i++)
-  {
-    result = result + symbolTable[i].type + " " +symbolTable[i].name + ";\n";
-  }
-  return result;
+	if(symbol.label != "" && symbol.type != "" && symbol.name != "")
+	{
+		yyerror(message);
+	}
 }
 
-string declareDefines()
+void variableHasNotBeenDeclared(Symbol symbol, string message)
 {
-  string result = "";
-
-  result += "#define bool int\n";
-  result += "#define true 1\n";
-  result += "#define false 0\n";
-  return result;
+	if(symbol.label == "" && symbol.type == "" && symbol.name == "")
+	{
+		yyerror(message);
+	}
 }

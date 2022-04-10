@@ -1,6 +1,7 @@
 #include "../headers/assignment.hpp"
 #include "../headers/utils.hpp"
 #include "../headers/symbols.hpp"
+#include "../headers/scope.hpp"
 
 
 using namespace std;
@@ -13,18 +14,22 @@ extern Attribute resolveAssignmentType(Attribute left, string operation, Attribu
 
 Attribute makeAssignment(Attribute atual, Attribute left, Attribute right)
 {
+	//cout <<"//makeAssignment"<< endl;
+
 	validateTK_ID(atual);
 	string operation = "=";
 
-	Symbol leftSimbol = getSymbol(left.label);
+	//Symbol leftSimbol = getSymbol(left.label);
+	Symbol leftSimbol = getSymbolTop(left.label);
+
 	if(leftSimbol.type == right.type)
 	{
 		atual.translation = left.translation + right.translation + "\t" + leftSimbol.name + " " + operation + " " + right.label + ";\n";
 	}
 	else 
 	{
-		Attribute novoAtual = resolveAssignmentType(left, operation, right);
-		return novoAtual;
+		Attribute newActual = resolveAssignmentType(left, operation, right);
+		return newActual;
 	}
 
 	return atual;
@@ -32,9 +37,18 @@ Attribute makeAssignment(Attribute atual, Attribute left, Attribute right)
 
 void validateTK_ID(Attribute attribute)
 {
-	int position = findSymbol(attribute.label);
-	if (position < 0)
-	{
-		yyerror("TK_ID '" +  attribute.label + "' is not defined. Please defines a type to '" +  attribute.label + "'.\n");
-	}
+	//cout <<"//validateTK_ID"<< endl;
+
+	Symbol symbol = getSymbolTop(attribute.label);
+	string message = "TK_ID '" +  attribute.label + "' is not defined in this scope. Please defines a type to '" + attribute.label + "'.\n";
+	variableHasNotBeenDeclared(symbol, message);
 }
+
+// void validateTK_ID(Attribute attribute)
+// {
+// 	int position = findSymbol(attribute.label);
+// 	if (position < 0)
+// 	{
+// 		yyerror("TK_ID '" +  attribute.label + "' is not defined. Please defines a type to '" +  attribute.label + "'.\n");
+// 	}
+// }

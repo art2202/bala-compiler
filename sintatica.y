@@ -14,7 +14,7 @@ int yylex(void);
 %token TK_TYPE_INT TK_TYPE_FLOAT TK_TYPE_BOOL TK_TYPE_CHAR
 %token TK_BIG TK_SMALL TK_NOT_EQ TK_BIG_EQ TK_SMALL_EQ TK_EQ
 %token TK_AND TK_OR TK_NOT
-%token TK_FIM TK_ERROR
+%token TK_IF TK_ELSE
 
 %start S
 
@@ -27,19 +27,33 @@ int yylex(void);
 %left '*' '/'
 %left '(' ')'
 
+%nonassoc NO_ELSE
+%nonassoc TK_ELSE
+
 %%
 //------------------------------------------------------------------------------
 S:					
-					TK_TYPE_INT TK_MAIN '(' ')' BLOCK
+					COMMANDS
 					{
-						cout << "//<<<<Bala Compiler>>>>\n" << "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n"+declareDefines()+declareVariables()+"\nint main(void)\n{\n" << $5.translation << "\treturn 0;\n}" << endl; 
+						string defines = getCurrentBlockSymbols();
+						cout << "//<<<<Bala Compiler>>>>\n" << "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n"+iniciate()+"\n//global variables:\n"+defines+"\nint main(void)\n{\n" << $1.translation << "\treturn 0;\n}" << endl; 
 					}
 					;
 //------------------------------------------------------------------------------
-BLOCK:			
-					'{' COMMANDS '}'
+BLOCK:		
+					BLOCK_AUX '{' COMMANDS '}'
 					{
-						$$.translation = $2.translation;
+						//cout <<"//BLOCK"<< endl;
+						string defines = getCurrentBlockSymbols();
+						$$.translation = defines + $3.translation;
+						popScope(StackContext);
+					}
+					;
+BLOCK_AUX:	/* vazio */ 
+					{
+						//cout <<"//BLOCO_AUX"<< endl;
+						VariableTable table;
+						pushScope(StackContext,table);
 					}
 					;
 //------------------------------------------------------------------------------
@@ -72,7 +86,26 @@ COMMAND:
 					{
 						$$ = declareTK_TYPE("bool", $$, $1, $2);
 					}
+					//____________________________________________________________________
+					| IF 
+					{
+						$$.translation = $1.translation;
+					}
+					//____________________________________________________________________
+					| BLOCK 
+					{
+						$$.translation = $1.translation;
+					}
 					;
+					
+COMMAND_ALT:
+							E ';'
+							| IF 
+							{
+								$$.translation = $1.translation;
+							}
+
+
 //------------------------------------------------------------------------------
 E:
 					E '*' E
@@ -181,6 +214,35 @@ TYPE:
 					| TK_TYPE_CHAR	{$$.translation = "char";}
 					| TK_TYPE_FLOAT	{$$.translation = "float";}
 					;
+
+//______________________________________________________________________________
+IF:			
+				TK_IF '(' E ')' BLOCK_COMMAND %prec NO_ELSE
+				{
+					string endLabel = createGotoLabel();
+					$$.translation = $3.translation + "\t" + $3.label + " = !" + $3.label + ";\n" + "\tif( " + $3.label + " ) goto " + endLabel + ";\n" + $5.translation + "\t" + endLabel + ":\n"; 
+				}
+				| TK_IF '(' E ')' BLOCK_COMMAND TK_ELSE BLOCK_COMMAND
+				{
+					string midLabel = createGotoLabel();
+					string endLabel = createGotoLabel();
+					$$.translation = $3.translation + "\t" + $3.label + " = !" + $3.label + ";\n" + "\tif( " + $3.label + " ) goto " + midLabel + ";\n" + $5.translation + "\tgoto " + endLabel+ ";\n\t"+ midLabel + ":\n" + $7.translation + "\t" +endLabel + ":\n"; 
+				}
+				;
+
+/* ----------------JUNCAO DE BLOCO COM COMANDO ------------------------*/
+
+// Block de loops e switch/case 
+BLOCK_COMMAND:	
+								BLOCK
+								{
+									$$.translation = $1.translation;
+								}
+								| COMMAND_ALT
+								{
+									$$.translation = $1.translation;
+								};
+
 //------------------------------------------------------------------------------
 %%
 

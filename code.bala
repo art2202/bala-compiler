@@ -1,10 +1,11 @@
-int main()
-{
-	bool a;
-	a = true;
-	
-	bool b;
+inteirinho a;
+a = 1;
 
-	bool c;
-	c = a || b;
-}
+flutuante b;
+b = 3.5;
+
+boleano c;
+c = verdadeiro;
+
+caracter d;
+d = 'G';

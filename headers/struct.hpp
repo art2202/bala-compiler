@@ -17,7 +17,7 @@ namespace structs
   typedef struct symbol
   {
     bool initialized = false;
-    string label;
+    string label; // localVar
     string name;
     string type;
   } Symbol;

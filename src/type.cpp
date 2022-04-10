@@ -1,6 +1,7 @@
 #include "../headers/type.hpp"
 #include "../headers/utils.hpp"
 #include "../headers/symbols.hpp"
+#include "../headers/scope.hpp"
 
 
 using namespace std;
@@ -16,24 +17,32 @@ string DEFAULT_BOOL = "false";
 
 Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribute right)
 {
-	addSymbolInTable(right.label, type, actual);
-  Symbol simbolo = getSymbol(right.label);
+	//cout <<"//declareTK_TYPE"<< endl;
+
+	validateTK_TYPE(right);
+	
+	// addSymbolInTable(right.label, type, actual);
+  // Symbol simbolo = getSymbol(right.label);
+
+	Symbol currentSymbol = addSymbolInScope(StackContext, right.label, type, actual);
+
   string message = "// default value";
 
-	if(type == "int") 		{ actual.translation =  "\t" + simbolo.name + " = " + to_string(DEFAULT_INT) + "; " + message + "\n"; }
-	if(type == "float") 	{ actual.translation =  "\t" + simbolo.name + " = " + to_string(DEFAULT_FLOAT) + "; " + message + "\n"; }
-	if(type == "char") 		{ actual.translation =  "\t" + simbolo.name + " = "  + "'"+ DEFAULT_CHAR + "'" + "; " + message + "\n"; }
-	if(type == "bool") 		{ actual.translation =  "\t" + simbolo.name + " = " + DEFAULT_BOOL + "; " + message + "\n"; }
+	if(type == "int") 		{ actual.translation =  "\t" + currentSymbol.name + " = " + to_string(DEFAULT_INT) + "; " + message + "\n"; }
+	if(type == "float") 	{ actual.translation =  "\t" + currentSymbol.name + " = " + to_string(DEFAULT_FLOAT) + "; " + message + "\n"; }
+	if(type == "char") 		{ actual.translation =  "\t" + currentSymbol.name + " = "  + "'"+ DEFAULT_CHAR + "'" + "; " + message + "\n"; }
+	if(type == "bool") 		{ actual.translation =  "\t" + currentSymbol.name + " = " + DEFAULT_BOOL + "; " + message + "\n"; }
 
 	return actual;
 }
 
 Attribute createTK_ID(Attribute actual, Attribute right)
 {
-	Symbol simbolo = getSymbol(right.label);
+	//Symbol simbolo = getSymbol(right.label);
+	Symbol symbol = getSymbolAnywere(right.label);
 
-	actual.label = simbolo.name;
-	actual.type = simbolo.type;
+	actual.label = symbol.name;
+	actual.type = symbol.type;
 
 	return actual;
 }
@@ -48,4 +57,11 @@ Attribute createTK_TYPE(Attribute actual, string type, Attribute right)
 	actual.translation = "\t" + actual.label + " = " + right.label + ";\n";
 
 	return actual;
+}
+
+void validateTK_TYPE(Attribute attribute)
+{
+	Symbol symbol = getSymbolTop(attribute.label);
+	string message = "Error! TK_ID '" + attribute.label + "' declared twice.\n";
+	variableHasAlreadyBeenDeclared(symbol, message);
 }

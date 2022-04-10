@@ -6,7 +6,7 @@
 SPACE [ \t]
 DIGIT [0-9]
 LETTER [A-Za-z_]
-BOOL "true"|"false"
+BOOL "verdadeiro"|"falso"
 
 DELIM {SPACE}+
 NUM {DIGIT}+
@@ -14,7 +14,6 @@ REAL {NUM}+("."{NUM}+)?
 CHAR \'({LETTER}|{NUM})\'
 
 ID {LETTER}({LETTER}|{NUM})*
-
 %%
 
 "\n"        {}
@@ -23,12 +22,12 @@ ID {LETTER}({LETTER}|{NUM})*
 
 "main"      {return TK_MAIN;}
 
-"int"       {return TK_TYPE_INT;}
-"float"     {return TK_TYPE_FLOAT;}
-"char"      {return TK_TYPE_CHAR;}
-"bool"      {return TK_TYPE_BOOL;}
+"inteirinho"       {return TK_TYPE_INT;}
+"flutuante"     {return TK_TYPE_FLOAT;}
+"caracter"      {return TK_TYPE_CHAR;}
+"boleano"      {return TK_TYPE_BOOL;}
 
-"as"        {return TK_EXPLICIT_CONVERTER;}
+"como"        {return TK_EXPLICIT_CONVERTER;}
 
 [(){}[\];,.]  { return *yytext; }
 [+\-*/=]      { return *yytext; }
@@ -44,6 +43,9 @@ ID {LETTER}({LETTER}|{NUM})*
 "&&"		{return TK_AND;}
 "||"		{return TK_OR;}
 "!"     {return TK_NOT;}
+
+"por acaso"    {return TK_IF;}
+"esquece"      {return TK_ELSE;}
 
 
 {NUM}     { yylval.label = yytext; return TK_NUM; }

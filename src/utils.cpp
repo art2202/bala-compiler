@@ -6,6 +6,7 @@ using namespace std;
 
 int count_temp = 0;
 int count_var = 0;
+int count_label = 0;
 unordered_map<string, string> temporaries;
 
 
@@ -26,6 +27,12 @@ string createVariable()
 {
 	count_var++;
 	return "v" + intToString(count_var);
+}
+
+string createGotoLabel()
+{
+	count_label++;
+	return "l" + to_string(count_label);
 }
 
 string intToString(int value)

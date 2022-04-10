@@ -2,6 +2,7 @@
 #include "../headers/utils.hpp"
 #include "../headers/symbols.hpp"
 #include "../headers/coercion.hpp"
+#include "../headers/scope.hpp"
 
 
 using namespace std;
@@ -9,9 +10,11 @@ using namespace std;
 
 Attribute resolveAssignmentType(Attribute left, string operador, Attribute right)
 {
-	Symbol leftSimbol = getSymbol(left.label);
+	//Symbol leftSimbol = getSymbol(left.label);
+	Symbol leftSimbol = getSymbolAnywere(left.label);
 
 	Coercion coercion = getCoercion(leftSimbol.type, operador, right.type);
+
 	Attribute actual = createActualAttribute(coercion.returnedType);	
 
 	string newTemp = createTempCode();

@@ -22,14 +22,14 @@
 # Work - Part II
 
 ## Specification:
-### Block
-### Context
-### Global scope
+### Block ✔️
+### Context ✔️
+### Global scope ✔️
 ### String
 ### Input and Output Commands
 ### Commands:
-- if
-- if/else
+- if ✔️
+- if/else ✔️
 - while
 - do/while
 - for
