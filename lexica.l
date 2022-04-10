@@ -14,6 +14,7 @@ REAL {NUM}+("."{NUM}+)?
 CHAR \'({LETTER}|{NUM})\'
 
 ID {LETTER}({LETTER}|{NUM})*
+%option noyywrap
 %%
 
 "\n"        {}
