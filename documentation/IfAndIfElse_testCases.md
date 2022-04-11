@@ -18,6 +18,7 @@
 ```cpp
 // Error
 // Message: "TK_ID 't' is not defined in this scope. Please defines a type to 't'."
+
 inteirinho i;
 i = 1;
 por acaso(i == 1)
