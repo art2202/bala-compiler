@@ -23,10 +23,10 @@ ID {LETTER}({LETTER}|{NUM})*
 
 "main"      {return TK_MAIN;}
 
-"inteirinho"       {return TK_TYPE_INT;}
-"flutuante"     {return TK_TYPE_FLOAT;}
-"caracter"      {return TK_TYPE_CHAR;}
-"boleano"      {return TK_TYPE_BOOL;}
+"inteirinho"  {return TK_TYPE_INT;}
+"flutuante"   {return TK_TYPE_FLOAT;}
+"caracter"    {return TK_TYPE_CHAR;}
+"boleano"     {return TK_TYPE_BOOL;}
 
 "como"        {return TK_EXPLICIT_CONVERTER;}
 
@@ -45,8 +45,8 @@ ID {LETTER}({LETTER}|{NUM})*
 "||"		{return TK_OR;}
 "!"     {return TK_NOT;}
 
-"por acaso"    {return TK_IF;}
-"esquece"      {return TK_ELSE;}
+"por acaso"   {return TK_IF;}
+"esquece"     {return TK_ELSE;}
 
 
 {NUM}     { yylval.label = yytext; return TK_NUM; }

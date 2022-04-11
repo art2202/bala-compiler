@@ -1,11 +1,14 @@
-inteirinho a;
-a = 1;
+inteirinho main()
+{
+  inteirinho a;
+  a = 1;
 
-flutuante b;
-b = 3.5;
+  flutuante b;
+  b = 3.5;
 
-boleano c;
-c = verdadeiro;
+  boleano c;
+  c = verdadeiro;
 
-caracter d;
-d = 'G';
+  caracter d;
+  d = 'G';
+}

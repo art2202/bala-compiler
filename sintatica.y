@@ -33,206 +33,200 @@ int yylex(void);
 %%
 //------------------------------------------------------------------------------
 S:					
-					COMMANDS
-					{
-						string defines = getCurrentBlockSymbols();
-						cout << "//<<<<Bala Compiler>>>>\n" << "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n"+iniciate()+"\n//global variables:\n"+defines+"\nint main(void)\n{\n" << $1.translation << "\treturn 0;\n}" << endl; 
-					}
-					;
+								COMMANDS
+								{
+									string defines = getCurrentBlockSymbols();
+									cout << "//<<<<Bala Compiler>>>>\n" << "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n"+iniciate()+"\n//global variables:\n"+defines+"\nint main(void)\n{\n" << $1.translation << "\treturn 0;\n}" << endl; 
+								}
+								;
 //------------------------------------------------------------------------------
 BLOCK:		
-					BLOCK_AUX '{' COMMANDS '}'
-					{
-						//cout <<"//BLOCK"<< endl;
-						string defines = getCurrentBlockSymbols();
-						$$.translation = defines + $3.translation;
-						popScope(StackContext);
-					}
-					;
-BLOCK_AUX:	/* vazio */ 
-					{
-						//cout <<"//BLOCO_AUX"<< endl;
-						VariableTable table;
-						pushScope(StackContext,table);
-					}
-					;
+								BLOCK_AUX '{' COMMANDS '}'
+								{
+									//cout <<"//BLOCK"<< endl;
+									string defines = getCurrentBlockSymbols();
+									$$.translation = defines + $3.translation;
+									popScope(StackContext);
+								}
+								;
+BLOCK_AUX:			/* vazio */ 
+								{
+									//cout <<"//BLOCO_AUX"<< endl;
+									VariableTable table;
+									pushScope(StackContext,table);
+								}
+								;
 //------------------------------------------------------------------------------
 COMMANDS:	
-					COMMAND COMMANDS
-					{
-						$$.translation = $1.translation + $2.translation;
-					}
-					|
-					{
-						$$.translation = "";
-					}
-					;
+								COMMAND COMMANDS
+								{
+									$$.translation = $1.translation + $2.translation;
+								}
+								|
+								{
+									$$.translation = "";
+								}
+								;
 //------------------------------------------------------------------------------
 COMMAND: 
-					E ';'
-					| TK_TYPE_INT TK_ID ';'
-					{
-						$$ = declareTK_TYPE("int", $$, $1, $2);
-					}
-					| TK_TYPE_FLOAT TK_ID ';'
-					{
-						$$ = declareTK_TYPE("float", $$, $1, $2);
-					}
-					| TK_TYPE_CHAR TK_ID ';'
-					{
-						$$ = declareTK_TYPE("char", $$, $1, $2);
-					}
-					| TK_TYPE_BOOL TK_ID ';'
-					{
-						$$ = declareTK_TYPE("bool", $$, $1, $2);
-					}
-					//____________________________________________________________________
-					| IF 
-					{
-						$$.translation = $1.translation;
-					}
-					//____________________________________________________________________
-					| BLOCK 
-					{
-						$$.translation = $1.translation;
-					}
-					;
+								E ';'
+								| TK_TYPE_INT TK_ID ';'
+								{
+									$$ = declareTK_TYPE("int", $$, $1, $2);
+								}
+								| TK_TYPE_FLOAT TK_ID ';'
+								{
+									$$ = declareTK_TYPE("float", $$, $1, $2);
+								}
+								| TK_TYPE_CHAR TK_ID ';'
+								{
+									$$ = declareTK_TYPE("char", $$, $1, $2);
+								}
+								| TK_TYPE_BOOL TK_ID ';'
+								{
+									$$ = declareTK_TYPE("bool", $$, $1, $2);
+								}
+								//____________________________________________________________________
+								| IF 
+								{
+									$$.translation = $1.translation;
+								}
+								//____________________________________________________________________
+								| BLOCK 
+								{
+									$$.translation = $1.translation;
+								}
+								;
 					
 COMMAND_ALT:
-							E ';'
-							| IF 
-							{
-								$$.translation = $1.translation;
-							}
-
-
+								E ';'
+								| IF 
+								{
+									$$.translation = $1.translation;
+								}
 //------------------------------------------------------------------------------
 E:
-					E '*' E
-					{
-						$$ = makeExpression($1, "*", $3);
-					}
-					| E '/' E
-					{
-						$$ = makeExpression($1, "/", $3);
-					}
-					| E '+' E
-					{
-						$$ = makeExpression($1, "+", $3);
-					}
-					| E '-' E
-					{
-						$$ = makeExpression($1, "-", $3);
-					}
-					| E '%' E
-					{
-						$$ = makeExpression($1, "%", $3);
-					}
-					| '(' E ')'
-					{
-						$$.label = $2.label;
-						$$.translation = $2.translation;
-						$$.type = $2.type;
-					}
-					| TK_ID '=' E 
-					{
-						$$ = makeAssignment($$, $1, $3);
-					}
+								E '*' E
+								{
+									$$ = makeExpression($1, "*", $3);
+								}
+								| E '/' E
+								{
+									$$ = makeExpression($1, "/", $3);
+								}
+								| E '+' E
+								{
+									$$ = makeExpression($1, "+", $3);
+								}
+								| E '-' E
+								{
+									$$ = makeExpression($1, "-", $3);
+								}
+								| E '%' E
+								{
+									$$ = makeExpression($1, "%", $3);
+								}
+								| '(' E ')'
+								{
+									$$.label = $2.label;
+									$$.translation = $2.translation;
+									$$.type = $2.type;
+								}
+								| TK_ID '=' E 
+								{
+									$$ = makeAssignment($$, $1, $3);
+								}
 //------------------------------------------------------------------------------
-					| TK_NUM
-					{
-						$$ = createTK_TYPE($$, "int", $1);
-					}
-					| TK_REAL
-					{
-						$$ = createTK_TYPE($$, "float", $1);
-					}
-					| TK_CHAR
-					{
-						$$ = createTK_TYPE($$, "char", $1);
-					}
-					| TK_BOOL
-					{
-						$$ = createTK_TYPE($$, "bool", $1);
-					}
-					| TK_ID
-					{
-						$$ = createTK_ID($$, $1);
-					}
+								| TK_NUM
+								{
+									$$ = createTK_TYPE($$, "int", $1);
+								}
+								| TK_REAL
+								{
+									$$ = createTK_TYPE($$, "float", $1);
+								}
+								| TK_CHAR
+								{
+									$$ = createTK_TYPE($$, "char", $1);
+								}
+								| TK_BOOL
+								{
+									$$ = createTK_TYPE($$, "bool", $1);
+								}
+								| TK_ID
+								{
+									$$ = createTK_ID($$, $1);
+								}
 					
 //------------------------------------------------------------------------------
-					|E TK_AND E 
-					{
-						$$ = makeExpression($1, "&&", $3);
-					}
-					|	E TK_OR E 
-					{
-						$$ = makeExpression($1, "||", $3);
-					}
-					| TK_NOT E 
-					{
-						$$ = makeTK_NOT($$, $2);
-					}
+								|E TK_AND E 
+								{
+									$$ = makeExpression($1, "&&", $3);
+								}
+								|	E TK_OR E 
+								{
+									$$ = makeExpression($1, "||", $3);
+								}
+								| TK_NOT E 
+								{
+									$$ = makeTK_NOT($$, $2);
+								}
 //------------------------------------------------------------------------------
-					| E TK_SMALL E
-					{
-						$$ = makeExpression($1, "<", $3);
-					}
+								| E TK_SMALL E
+								{
+									$$ = makeExpression($1, "<", $3);
+								}
 
-					| E TK_BIG E
-					{
-						$$ = makeExpression($1, ">", $3);
-					}
-					| E TK_BIG_EQ E
-					{
-						$$ = makeExpression($1, ">=", $3);
-					}
+								| E TK_BIG E
+								{
+									$$ = makeExpression($1, ">", $3);
+								}
+								| E TK_BIG_EQ E
+								{
+									$$ = makeExpression($1, ">=", $3);
+								}
 
-					| E TK_SMALL_EQ E
-					{
-						$$ = makeExpression($1, "<=", $3);
-					}
+								| E TK_SMALL_EQ E
+								{
+									$$ = makeExpression($1, "<=", $3);
+								}
 
-					| E TK_EQ E
-					{
-						$$ = makeExpression($1, "==", $3);
-					}
-					| E TK_NOT_EQ E
-					{
-						$$ = makeExpression($1, "!=", $3);
-					}
+								| E TK_EQ E
+								{
+									$$ = makeExpression($1, "==", $3);
+								}
+								| E TK_NOT_EQ E
+								{
+									$$ = makeExpression($1, "!=", $3);
+								}
 //------------------------------------------------------------------------------
-					| E TK_EXPLICIT_CONVERTER TYPE
-					{
-						$$ = resolveExplicitConversion($1, $3);
-					}
-					;
+								| E TK_EXPLICIT_CONVERTER TYPE
+								{
+									$$ = resolveExplicitConversion($1, $3);
+								}
+								;
 //------------------------------------------------------------------------------
 TYPE:
-					TK_TYPE_BOOL	{$$.translation = "bool";}
-					| TK_TYPE_INT	{$$.translation = "int";}
-					| TK_TYPE_CHAR	{$$.translation = "char";}
-					| TK_TYPE_FLOAT	{$$.translation = "float";}
-					;
-
+								TK_TYPE_BOOL	{$$.translation = "bool";}
+								| TK_TYPE_INT	{$$.translation = "int";}
+								| TK_TYPE_CHAR	{$$.translation = "char";}
+								| TK_TYPE_FLOAT	{$$.translation = "float";}
+								;
 //______________________________________________________________________________
 IF:			
-				TK_IF '(' E ')' BLOCK_COMMAND %prec NO_ELSE
-				{
-					string endLabel = createGotoLabel();
-					$$.translation = $3.translation + "\t" + $3.label + " = !" + $3.label + ";\n" + "\tif( " + $3.label + " ) goto " + endLabel + ";\n" + $5.translation + "\t" + endLabel + ":\n"; 
-				}
-				| TK_IF '(' E ')' BLOCK_COMMAND TK_ELSE BLOCK_COMMAND
-				{
-					string midLabel = createGotoLabel();
-					string endLabel = createGotoLabel();
-					$$.translation = $3.translation + "\t" + $3.label + " = !" + $3.label + ";\n" + "\tif( " + $3.label + " ) goto " + midLabel + ";\n" + $5.translation + "\tgoto " + endLabel+ ";\n\t"+ midLabel + ":\n" + $7.translation + "\t" +endLabel + ":\n"; 
-				}
-				;
-
-/* ----------------JUNCAO DE BLOCO COM COMANDO ------------------------*/
-
-// Block de loops e switch/case 
+								TK_IF '(' E ')' BLOCK_COMMAND %prec NO_ELSE
+								{
+									string endLabel = createGotoLabel();
+									$$.translation = $3.translation + "\t" + $3.label + " = !" + $3.label + ";\n" + "\tif( " + $3.label + " ) goto " + endLabel + ";\n" + $5.translation + "\t" + endLabel + ":\n"; 
+								}
+								| TK_IF '(' E ')' BLOCK_COMMAND TK_ELSE BLOCK_COMMAND
+								{
+									string midLabel = createGotoLabel();
+									string endLabel = createGotoLabel();
+									$$.translation = $3.translation + "\t" + $3.label + " = !" + $3.label + ";\n" + "\tif( " + $3.label + " ) goto " + midLabel + ";\n" + $5.translation + "\tgoto " + endLabel+ ";\n\t"+ midLabel + ":\n" + $7.translation + "\t" +endLabel + ":\n"; 
+								}
+								;
+//______________________________________________________________________________
 BLOCK_COMMAND:	
 								BLOCK
 								{
@@ -242,7 +236,6 @@ BLOCK_COMMAND:
 								{
 									$$.translation = $1.translation;
 								};
-
 //------------------------------------------------------------------------------
 %%
 
