@@ -3,7 +3,12 @@ all:
 	@lex lexica.l
 	@yacc -d sintatica.y
 
-	@g++ -o glf y.tab.c src/*.cpp 
+ws: 
+	@g++ -o glf y.tab.c src/*.cpp -ll
+	@./glf < code.bala
+
+mac: 	
+	@g++ -o glf y.tab.c -std=gnu++11
 	@./glf < code.bala
 
 test:
