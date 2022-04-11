@@ -7,16 +7,21 @@
 | inteirinho | int | --- |
 
 
-### Scope exemples
+### Examples of Scope exemples
 
+```cpp
 // Error
 // Message: "Error! TK_ID 'i' declared twice."
+
 inteirinho i;
 i = 1;
 
 inteirinho i;
+```
 
+```cpp
 // Correct
+
 inteirinho i;
 i = 1;
 
@@ -40,3 +45,4 @@ i = 1;
 {
   i = 2;
 }
+```

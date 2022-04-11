@@ -12,8 +12,10 @@
 | esquece | else | --- |
 
 
-### if and if/else (por acaso and por acaso/esquece) exemples
+### Examples of if/else (por acaso/esquece)
 
+
+```cpp
 // Error
 // Message: "TK_ID 't' is not defined in this scope. Please defines a type to 't'."
 inteirinho i;
@@ -30,8 +32,11 @@ esquece
 flutuante b;
 b = 10.0;
 t = verdadeiro;
+```
 
+```cpp
 // Correct
+
 inteirinho i;
 i = 1;
 por acaso(i == 1)
@@ -46,3 +51,4 @@ esquece
 }
 flutuante b;
 b = 10.0;
+```

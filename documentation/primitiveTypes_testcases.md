@@ -10,9 +10,11 @@
 | boleano | bool | --- |
 
 
-### primitive Types exemples
+### Examples of Primitive Types
 
+```cpp
 // Correct
+
 inteirinho a;
 a = 1;
 
@@ -24,3 +26,4 @@ c = verdadeiro;
 
 caracter d;
 f = 'G';
+```

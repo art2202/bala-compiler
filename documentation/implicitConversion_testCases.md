@@ -9,10 +9,12 @@
 | caracter | char | --- |
 
 
-### Implicit Convercion examples
+### Examples of Implicit Convercion
 
+```cpp
 // Error
 // Message: "Cannot convert type float to type char.
+
 caracter aaa;
 aaa = 'g';
 inteirinho bbb;
@@ -24,8 +26,11 @@ bbb = 10;
 
 	i = aaa;
 }
+```
 
+```cpp
 // Correct
+
 caracter aaa;
 aaa = 'g';
 inteirinho bbb;
@@ -37,3 +42,4 @@ bbb = 10;
 
 	i = bbb;
 }
+```
