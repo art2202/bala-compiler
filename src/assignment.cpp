@@ -22,7 +22,7 @@ Attribute makeAssignment(Attribute atual, Attribute left, Attribute right)
 	//Symbol leftSimbol = getSymbol(left.label);
 	Symbol leftSimbol = getSymbolAnywere(left.label);
 
-	cout <<"makeAssignment -- leftSimbol.type: " << leftSimbol.type << " right.type: " << right.type<< endl;
+	//cout <<"//makeAssignment -- leftSimbol.type: " << leftSimbol.type << " right.type: " << right.type<< endl;
 
 	if(leftSimbol.type == right.type)
 	{
