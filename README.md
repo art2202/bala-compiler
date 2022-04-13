@@ -30,9 +30,9 @@
 ### Commands:
 - if ✔️
 - if/else ✔️
-- while
+- while ✔️
 - do/while
-- for
+- for ✔️
 - switch
 ### Loop Controls:
 - break
