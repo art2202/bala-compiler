@@ -71,7 +71,9 @@ extern int yydebug;
     TK_NOT = 277,
     TK_IF = 278,
     TK_ELSE = 279,
-    NO_ELSE = 280
+    TK_FOR = 280,
+    LOGICAL_OPERATOR = 281,
+    NO_ELSE = 282
   };
 #endif
 /* Tokens.  */
@@ -97,7 +99,9 @@ extern int yydebug;
 #define TK_NOT 277
 #define TK_IF 278
 #define TK_ELSE 279
-#define NO_ELSE 280
+#define TK_FOR 280
+#define LOGICAL_OPERATOR 281
+#define NO_ELSE 282
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

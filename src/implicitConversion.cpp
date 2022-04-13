@@ -13,6 +13,8 @@ Attribute resolveAssignmentType(Attribute left, string operador, Attribute right
 	//Symbol leftSimbol = getSymbol(left.label);
 	Symbol leftSimbol = getSymbolAnywere(left.label);
 
+	cout <<"leftSimbol.type: " << leftSimbol.type  << " operador: " << operador << " right.type: " << right.type<< endl;
+	
 	Coercion coercion = getCoercion(leftSimbol.type, operador, right.type);
 
 	Attribute actual = createActualAttribute(coercion.returnedType);	
@@ -47,6 +49,8 @@ Attribute resolveExpressionType(Attribute left, string operador, Attribute right
 {
 	Coercion coercion = getCoercion(left.type, operador, right.type);
 	Attribute actual = createActualAttribute(coercion.returnedType);
+
+	cout <<"left.type: " << left.type  << "operador: " << operador << "right.type: " << right.type<< endl;
 
 	if (left.type == coercion.conversionType && right.type == coercion.conversionType)
 	{

@@ -14,6 +14,8 @@
 #include "../headers/utils.hpp"
 #include "../headers/symbols.hpp"
 #include "../headers/scope.hpp"
+#include "../headers/decisionCommands.hpp"
+#include "../headers/loopCommands.hpp"
 
 using namespace std;
 

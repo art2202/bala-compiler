@@ -20,7 +20,9 @@ Attribute makeAssignment(Attribute atual, Attribute left, Attribute right)
 	string operation = "=";
 
 	//Symbol leftSimbol = getSymbol(left.label);
-	Symbol leftSimbol = getSymbolTop(left.label);
+	Symbol leftSimbol = getSymbolAnywere(left.label);
+
+	cout <<"makeAssignment -- leftSimbol.type: " << leftSimbol.type << " right.type: " << right.type<< endl;
 
 	if(leftSimbol.type == right.type)
 	{
@@ -39,7 +41,7 @@ void validateTK_ID(Attribute attribute)
 {
 	//cout <<"//validateTK_ID"<< endl;
 
-	Symbol symbol = getSymbolTop(attribute.label);
+	Symbol symbol = getSymbolAnywere(attribute.label);
 	string message = "TK_ID '" +  attribute.label + "' is not defined in this scope. Please defines a type to '" + attribute.label + "'.\n";
 	variableHasNotBeenDeclared(symbol, message);
 }

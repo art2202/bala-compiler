@@ -11,7 +11,12 @@ map<TripleKey, Coercion> coercionTable;
 Coercion getCoercion(string type1, string operation, string type2)
 {
 	TripleKey key(type1, operation, type2);
-	
+
+	if (type1 == type2)
+	{
+		Coercion coercion = {type1, type2};
+		return coercion;
+	}
 	if (coercionTable.find(key) != coercionTable.end())
 	{
 		return coercionTable[key];

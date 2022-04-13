@@ -1,14 +1,7 @@
-inteirinho main()
+inteirinho i;
+inteirinho somador;
+
+forzinho (i; i < 10; i = i + 1)
 {
-  inteirinho a;
-  a = 1;
-
-  flutuante b;
-  b = 3.5;
-
-  boleano c;
-  c = verdadeiro;
-
-  caracter d;
-  d = 'G';
+  somador = somador + 1;
 }
