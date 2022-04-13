@@ -23,25 +23,8 @@ Attribute makeForCounter(Attribute actual, Attribute TK_counter, Attribute condi
   return actual;
 }
 
-Attribute makeForCounterDefinition(Attribute actual, Attribute counterDefinition, Attribute condition, Attribute increment)
-{
-  return actual;
-}
-
 Attribute makeWhile(Attribute actual, Attribute condition, Attribute expression)
 {
-  
-/*
-L1:
-  t1 = i <= k;
-  t1 = !t1;
-  if ( t1 ) goto L2
-    t2 = t2 + 1
-    t3[i] = 0 
-    goto L1
-L2: 
-  t3[0] = 0
-*/
   string initialLabel = createGotoLabel();
   string endLabel = createGotoLabel();
 
