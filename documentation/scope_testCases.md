@@ -7,7 +7,7 @@
 | inteirinho | int | --- |
 
 
-### Examples of Scope exemples
+### Examples of Scope
 
 ```cpp
 // Error

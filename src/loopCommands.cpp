@@ -27,3 +27,32 @@ Attribute makeForCounterDefinition(Attribute actual, Attribute counterDefinition
 {
   return actual;
 }
+
+Attribute makeWhile(Attribute actual, Attribute condition, Attribute expression)
+{
+  
+/*
+L1:
+  t1 = i <= k;
+  t1 = !t1;
+  if ( t1 ) goto L2
+    t2 = t2 + 1
+    t3[i] = 0 
+    goto L1
+L2: 
+  t3[0] = 0
+*/
+  string initialLabel = createGotoLabel();
+  string endLabel = createGotoLabel();
+
+  actual.translation = 
+  initialLabel + ": " 
+  + condition.translation + "\t"
+  + condition.label + " = !" + condition.label + ";\n" 
+  + "\tif( " + condition.label + " ) goto " + endLabel + ";\n" 
+  + expression.translation
+  + "\tgoto " + initialLabel + ";\n"
+  + endLabel+ ":\n";
+
+  return actual;
+}

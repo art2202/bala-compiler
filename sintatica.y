@@ -15,8 +15,7 @@ int yylex(void);
 %token TK_BIG TK_SMALL TK_NOT_EQ TK_BIG_EQ TK_SMALL_EQ TK_EQ
 %token TK_AND TK_OR TK_NOT
 %token TK_IF TK_ELSE
-%token TK_FOR
-%token LOGICAL_OPERATOR
+%token TK_FOR TK_WHILE
 
 %start S
 
@@ -68,7 +67,14 @@ COMMANDS:
 //------------------------------------------------------------------------------
 COMMAND: 
 								E ';'
+								{
+									$$.translation = $1.translation;
+								}
 								| DEFINITION
+								{
+									$$.translation = $1.translation;
+								}
+								| BLOCK 
 								{
 									$$.translation = $1.translation;
 								}
@@ -80,7 +86,7 @@ COMMAND:
 								{
 									$$.translation = $1.translation;
 								}
-								| BLOCK 
+								| WHILE
 								{
 									$$.translation = $1.translation;
 								};
@@ -92,6 +98,10 @@ COMMAND_ALT:
 									$$.translation = $1.translation;
 								}
 								| FOR
+								{
+									$$.translation = $1.translation;
+								}
+								| WHILE
 								{
 									$$.translation = $1.translation;
 								};
@@ -226,7 +236,6 @@ RELATIONAL:
 								{
 									$$ = makeExpression($1, "<", $3);
 								}
-
 								| E TK_BIG E
 								{
 									$$ = makeExpression($1, ">", $3);
@@ -235,12 +244,10 @@ RELATIONAL:
 								{
 									$$ = makeExpression($1, ">=", $3);
 								}
-
 								| E TK_SMALL_EQ E
 								{
 									$$ = makeExpression($1, "<=", $3);
 								}
-
 								| E TK_EQ E
 								{
 									$$ = makeExpression($1, "==", $3);
@@ -264,6 +271,12 @@ FOR:
 								TK_FOR '(' TK_ID ';' RELATIONAL ';' E ')' BLOCK_COMMAND
 								{
 									$$ = makeForCounter($$, $3, $5, $7, $9);
+								};
+//______________________________________________________________________________
+WHILE:						
+								TK_WHILE '(' RELATIONAL ')' BLOCK_COMMAND
+								{
+									$$ = makeWhile($$, $3, $5);
 								};
 //______________________________________________________________________________
 BLOCK_COMMAND:	

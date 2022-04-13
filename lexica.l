@@ -49,6 +49,7 @@ ID {LETTER}({LETTER}|{NUM})*
 "esquece"     {return TK_ELSE;}
 
 "forzinho"   {return TK_FOR;}
+"enquanto"   {return TK_WHILE;}
 
 
 {NUM}     {yylval.label = yytext; return TK_NUM;}

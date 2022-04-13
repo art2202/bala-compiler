@@ -72,7 +72,7 @@ extern int yydebug;
     TK_IF = 278,
     TK_ELSE = 279,
     TK_FOR = 280,
-    LOGICAL_OPERATOR = 281,
+    TK_WHILE = 281,
     NO_ELSE = 282
   };
 #endif
@@ -100,7 +100,7 @@ extern int yydebug;
 #define TK_IF 278
 #define TK_ELSE 279
 #define TK_FOR 280
-#define LOGICAL_OPERATOR 281
+#define TK_WHILE 281
 #define NO_ELSE 282
 
 /* Value type.  */

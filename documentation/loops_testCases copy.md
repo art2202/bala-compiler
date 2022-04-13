@@ -9,7 +9,7 @@
 
 ### Examples of Loops
 
-#### Forzinho
+#### Forzinho (For)
 
 ```cpp
 // Error
@@ -27,4 +27,30 @@ forzinho (i; i < 10; i = i + 1)
 {
   somador = somador + 1;
 }
+```
+
+#### Enquanto (While)
+
+
+```cpp
+// Error
+// Message: ""
+
+```
+
+```cpp
+// Correct
+
+inteirinho i;
+inteirinho k;
+k = 10;
+inteirinho somador;
+
+enquanto (i >= k)
+{
+  somador = i + 2;
+  i = i + 1;
+}
+
+k = 0;
 ```

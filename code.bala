@@ -1,7 +1,12 @@
 inteirinho i;
+inteirinho k;
+k = 10;
 inteirinho somador;
 
-forzinho (i; i < 10; i = i + 1)
+enquanto (i >= k)
 {
-  somador = somador + 1;
+  somador = i + 2;
+  i = i + 1;
 }
+
+k = 0;
