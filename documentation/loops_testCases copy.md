@@ -6,6 +6,7 @@
 |--- |--- |--- |
 | inteirinho | int | --- |
 | forzinho | for | --- |
+| enquanto | while | --- |
 
 ### Examples of Loops
 
