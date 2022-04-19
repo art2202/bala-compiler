@@ -39,3 +39,11 @@
 - continue
 
 #### Final date: 04/11/2022
+
+#### To Run
+- $sudo apt-get update
+
+- $sudo apt install make
+- $sudo apt-get install bison flex
+
+- $sudo apt-get install build-essential
