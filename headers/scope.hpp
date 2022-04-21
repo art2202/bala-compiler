@@ -34,6 +34,8 @@ Symbol getSymbolAnywere(string label);
 Symbol getSymbolTop(string label);
 Symbol getSymbolGlobal(string label);
 
+string getAllSymbols();
+
 
 extern StackMapPtr StackContext;
 

@@ -4,6 +4,7 @@
 
 using namespace std;
 
+
 StackMapPtr StackContext = createMapStack();
 
 
@@ -60,12 +61,14 @@ Symbol createVariableNameToSymbol (string label, string type, Attribute actual)
   return symbol;
 }
 
+
 Symbol addSymbolInScope (StackMapPtr stack, string label, string type, Attribute actual)
 {
   //cout <<"//addSymbolInScope"<< endl;
   
   Symbol symbol = createVariableNameToSymbol(label, type, actual);
 	stack->scopes[stack->actualScope][label] = symbol;
+  addSymbol(symbol);
 
   return symbol;
 }
@@ -74,6 +77,7 @@ Symbol addSymbolInSuperiorScope (StackMapPtr stack, string label, string type, A
 {
   Symbol symbol = createVariableNameToSymbol(label, type, actual);
   stack->scopes[stack->actualScope - 1][label] = symbol;
+  addSymbol(symbol);
   
   return symbol;
 }
@@ -82,6 +86,7 @@ Symbol addSymbolInGlobalScope (StackMapPtr stack, string label, string type, Att
 {
   Symbol symbol = createVariableNameToSymbol(label, type, actual);
 	stack->scopes[0][symbol.label] = symbol;
+  addSymbol(symbol);
 
   return symbol;
 }
@@ -121,5 +126,5 @@ Symbol getSymbolGlobal(string label)
   {
 		return (posAtual[label]);
 	}
-	return createSymbol("","", "");
+	return createSymbol("", "", "");
 }

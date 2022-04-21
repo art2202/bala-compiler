@@ -2,12 +2,12 @@
 #include "../headers/utils.hpp"
 #include <vector>
 #include <unordered_map>
+#include <iostream>
 
 using namespace std;
 
-extern unordered_map<string, string> temporaries;
-vector<Symbol> symbolTable;
 
+vector<Symbol> allSymbols;
 
 
 Attribute createActualAttribute(string type)
@@ -31,6 +31,35 @@ Symbol createSymbol(string variableName, string type, string tempName)
 
 	return symbol;
 }
+
+
+void addSymbol(Symbol symbol)
+{
+  allSymbols.push_back(symbol);
+}
+
+void variableHasAlreadyBeenDeclared(Symbol symbol, string message)
+{
+	if(symbol.label != "" && symbol.type != "" && symbol.name != "")
+	{
+		yyerror(message);
+	}
+}
+
+void variableHasNotBeenDeclared(Symbol symbol, string message)
+{
+	if(symbol.label == "" && symbol.type == "" && symbol.name == "")
+	{
+		yyerror(message);
+	}
+}
+
+
+
+// v1 ------------------------
+// Not more used
+
+vector<Symbol> symbolTable;
 
 void addSymbolInTable(string label, string type, Attribute actual)
 {
@@ -60,20 +89,4 @@ Symbol getSymbol(string label)
 {
 	int position = findSymbol(label);
 	return symbolTable[position];
-}
-
-void variableHasAlreadyBeenDeclared(Symbol symbol, string message)
-{
-	if(symbol.label != "" && symbol.type != "" && symbol.name != "")
-	{
-		yyerror(message);
-	}
-}
-
-void variableHasNotBeenDeclared(Symbol symbol, string message)
-{
-	if(symbol.label == "" && symbol.type == "" && symbol.name == "")
-	{
-		yyerror(message);
-	}
 }

@@ -3,16 +3,19 @@
 using namespace std;
 
 extern unordered_map<string, string> temporaries;
+extern vector<Symbol> allSymbols;
 
 string iniciate()
 {
-  return getDefines() + getTemps();
-}
+  string libs = "\n//Includes\n";
+  libs += "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n";
 
+  return libs + getDefines() + getTemps() + getGlobalVariabels();
+}
 
 string getDefines()
 {
-  string result = "";
+  string result = "\n//Defines\n";
 
   result += "#define boleano int\n";
   result += "#define verdadeiro 1\n";
@@ -21,10 +24,9 @@ string getDefines()
   return result;
 }
 
-
 string getTemps()
 {
-  string result = "";
+  string result = "\n//Temporaries\n";
   for (auto &x: temporaries)
   {
     result = result + x.second + " " +x.first + ";\n";
@@ -32,9 +34,21 @@ string getTemps()
   return result;
 }
 
-string getVisiblesSymbols()
+string getGlobalVariabels()
 {
-  string result = "";
+  string result = "\n//Global variables\n";
+  for (int i = 0; i < allSymbols.size(); i++)
+	{
+		result = result + allSymbols[i].type + " " + allSymbols[i].name + ";\n";
+	}
+  return result;
+}
+
+
+string getVisibleSymbols()
+{
+  string result = "\n//Visible Symbols\n";
+
   vector<VariableTable> symbols = StackContext->scopes;
   
   for (int i = 0; i < symbols.size(); i++)
@@ -49,7 +63,7 @@ string getVisiblesSymbols()
 
 string getCurrentBlockSymbols()
 {
-  string result = "";
+  string result = "\n//Current Block Symbols\n";
   vector<VariableTable> symbols = StackContext->scopes;
   VariableTable actualScope = symbols[StackContext->actualScope];
   

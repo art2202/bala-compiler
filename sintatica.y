@@ -15,7 +15,7 @@ int yylex(void);
 %token TK_BIG TK_SMALL TK_NOT_EQ TK_BIG_EQ TK_SMALL_EQ TK_EQ
 %token TK_AND TK_OR TK_NOT
 %token TK_IF TK_ELSE
-%token TK_FOR TK_WHILE
+%token TK_FOR TK_WHILE TK_DO
 
 %start S
 
@@ -36,16 +36,14 @@ int yylex(void);
 S:					
 								COMMANDS
 								{
-									string defines = getCurrentBlockSymbols();
-									cout << "//<<<<Bala Compiler>>>>\n" << "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n"+iniciate()+"\n//global variables:\n"+defines+"\nint main(void)\n{\n" << $1.translation << "\treturn 0;\n}" << endl; 
+									cout << "//<<<<Bala Compiler>>>>" << iniciate() +"\nint main(void)\n{\n" << $1.translation << "\treturn 0;\n}" << endl; 
 								};
 //------------------------------------------------------------------------------
 BLOCK:		
 								BLOCK_AUX '{' COMMANDS '}'
 								{
 									//cout <<"//BLOCK"<< endl;
-									string defines = getCurrentBlockSymbols();
-									$$.translation = defines + $3.translation;
+									$$.translation += $3.translation;
 									popScope(StackContext);
 								};
 BLOCK_AUX:			/* vazio */ 
@@ -89,7 +87,12 @@ COMMAND:
 								| WHILE
 								{
 									$$.translation = $1.translation;
-								};
+								}
+								| DO_WHILE
+								{
+									$$.translation = $1.translation;
+								}
+								;
 //------------------------------------------------------------------------------
 COMMAND_ALT:
 								E ';'
@@ -102,6 +105,10 @@ COMMAND_ALT:
 									$$.translation = $1.translation;
 								}
 								| WHILE
+								{
+									$$.translation = $1.translation;
+								}
+								| DO_WHILE
 								{
 									$$.translation = $1.translation;
 								};
@@ -277,6 +284,12 @@ WHILE:
 								TK_WHILE '(' RELATIONAL ')' BLOCK_COMMAND
 								{
 									$$ = makeWhile($$, $3, $5);
+								};
+//______________________________________________________________________________
+DO_WHILE:						
+								TK_DO BLOCK_COMMAND TK_WHILE '(' RELATIONAL ')' 
+								{
+									$$ = makeDoWhile($$, $2, $5);
 								};
 //______________________________________________________________________________
 BLOCK_COMMAND:	

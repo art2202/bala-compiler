@@ -22,7 +22,8 @@ using namespace std;
 string iniciate();
 string getDefines();
 string getTemps();
+string getGlobalVariabels();
 string getCurrentBlockSymbols();
-string getVisiblesSymbols();
+string getVisibleSymbols();
 
 #endif

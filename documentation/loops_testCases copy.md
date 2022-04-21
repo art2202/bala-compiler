@@ -32,7 +32,6 @@ forzinho (i; i < 10; i = i + 1)
 
 #### Enquanto (While)
 
-
 ```cpp
 // Error
 // Message: ""
@@ -54,4 +53,29 @@ enquanto (i >= k)
 }
 
 k = 0;
+```
+
+
+#### Fazer Enquanto (Do While)
+
+```cpp
+// Error
+// Message: ""
+
+```
+
+```cpp
+// Correct 
+
+inteirinho i;
+inteirinho k;
+k = 10;
+
+inteirinho somador;
+
+fazer 
+{s
+  i = i + 1;
+}
+enquanto(i >= k)
 ```

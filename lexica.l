@@ -50,6 +50,7 @@ ID {LETTER}({LETTER}|{NUM})*
 
 "forzinho"   {return TK_FOR;}
 "enquanto"   {return TK_WHILE;}
+"fazer"      {return TK_DO;}
 
 
 {NUM}     {yylval.label = yytext; return TK_NUM;}

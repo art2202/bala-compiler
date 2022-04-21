@@ -3,7 +3,7 @@ all:
 	@lex lexica.l
 	@yacc -d sintatica.y
 
-ws: 
+lx: 
 	@g++ -o glf y.tab.c src/*.cpp -ll
 	@./glf < code.bala
 

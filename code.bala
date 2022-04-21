@@ -1,12 +1,10 @@
 inteirinho i;
 inteirinho k;
 k = 10;
+
 inteirinho somador;
 
-enquanto (i >= k)
-{
-  somador = i + 2;
+fazer {
   i = i + 1;
 }
-
-k = 0;
+enquanto(i >= k)
