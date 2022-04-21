@@ -31,7 +31,7 @@
 - if ✔️
 - if/else ✔️
 - while ✔️
-- do/while
+- do/while ✔️
 - for ✔️
 - switch
 ### Loop Controls:
