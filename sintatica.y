@@ -17,6 +17,7 @@ int yylex(void);
 %token TK_IF TK_ELSE
 %token TK_FOR TK_WHILE TK_DO
 %token TK_SWITCH TK_CASE TK_DEFAULT
+%token TK_BREAK TK_CONTINUE
 
 %start S
 
@@ -43,9 +44,9 @@ S:
 BLOCK:		
 								BLOCK_AUX '{' COMMANDS '}'
 								{
-									cout << "ss.translation\n" << $$.translation << endl;
+									//cout << "ss.translation\n" << $$.translation << endl;
 									$$.translation = $3.translation;
-									cout << "ss.translation\n" << $$.translation << endl;
+									//cout << "ss.translation\n" << $$.translation << endl;
 									popScope(StackContext);
 								};
 BLOCK_AUX:
@@ -54,7 +55,8 @@ BLOCK_AUX:
 									VariableTable table;
 									pushScope(StackContext,table);
 								};
-//______________________________________________________________________________
+//------------------------------------------------------------------------------
+
 COMMANDS:	
 								COMMAND COMMANDS
 								{
@@ -82,15 +84,11 @@ COMMAND:
 								{
 									$$.translation = $1.translation;
 								}
-								| FOR
+								| LOOP
 								{
 									$$.translation = $1.translation;
 								}
-								| WHILE
-								{
-									$$.translation = $1.translation;
-								}
-								| DO_WHILE
+								| LOOP_CONTROL
 								{
 									$$.translation = $1.translation;
 								}
@@ -106,15 +104,11 @@ COMMAND_ALT:
 								{
 									$$.translation = $1.translation;
 								}
-								| FOR
+								| LOOP
 								{
 									$$.translation = $1.translation;
 								}
-								| WHILE
-								{
-									$$.translation = $1.translation;
-								}
-								| DO_WHILE
+								| LOOP_CONTROL
 								{
 									$$.translation = $1.translation;
 								}
@@ -274,7 +268,8 @@ RELATIONAL:
 								{
 									$$ = makeExpression($1, "!=", $3);
 								};
-//______________________________________________________________________________
+//------------------------------------------------------------------------------
+
 IF:			
 								TK_IF '(' E ')' BLOCK_COMMAND %prec NO_ELSE
 								{
@@ -284,25 +279,82 @@ IF:
 								{
 									$$ = makeIfElse($$, $3, $5, $7);
 								};				
-//______________________________________________________________________________
+//------------------------------------------------------------------------------
+
+LOOP: 		
+								LOOP_AUX DO_WHILE 
+								{ 
+									$$ = endLoop($$, $2); 
+								}
+								| LOOP_AUX WHILE 
+								{ 
+									$$ = endLoop($$, $2);
+								}
+								| LOOP_AUX FOR 
+								{ 
+									$$ = endLoop($$, $2);
+								};
+
+LOOP_AUX: 		
+								TK_DO 
+								{ 
+									iniciateLoop("doWhile");
+								}
+								| TK_WHILE
+								{ 
+									iniciateLoop("while");
+								}
+								| TK_FOR 
+								{ 
+									iniciateLoop("for");
+								};
+
+//------------------------------------------------------------------------------
+
+LOOP_CONTROL:
+								BREAK
+								{ 
+									$$.translation = $1.translation; 
+								}
+								| CONTINUE
+								{ 
+									$$.translation = $1.translation; 
+								}
+
+BREAK:					
+								TK_BREAK ';'
+								{ 
+									$$ = makeBreak($$, $1);	
+								};
+
+CONTINUE: 	
+								TK_CONTINUE ';'
+								{ 
+									$$ = makeContinue($$, $1); 
+								};
+
+//------------------------------------------------------------------------------
 FOR:						
-								TK_FOR '(' TK_ID ';' RELATIONAL ';' E ')' BLOCK_COMMAND
+								'(' TK_ID ';' RELATIONAL ';' E ')' BLOCK_COMMAND
 								{
-									$$ = makeForCounter($$, $3, $5, $7, $9);
+									$$ = makeForCounter($$, $2, $4, $6, $8);
 								};
-//______________________________________________________________________________
+//------------------------------------------------------------------------------
+
 WHILE:						
-								TK_WHILE '(' RELATIONAL ')' BLOCK_COMMAND
+								'(' RELATIONAL ')' BLOCK_COMMAND
 								{
-									$$ = makeWhile($$, $3, $5);
+									$$ = makeWhile($$, $2, $4);
 								};
-//______________________________________________________________________________
+//------------------------------------------------------------------------------
+
 DO_WHILE:						
-								TK_DO BLOCK_COMMAND TK_WHILE '(' RELATIONAL ')' 
+								BLOCK_COMMAND TK_WHILE '(' RELATIONAL ')' 
 								{
-									$$ = makeDoWhile($$, $2, $5);
+									$$ = makeDoWhile($$, $1, $4);
 								};
-//______________________________________________________________________________
+//------------------------------------------------------------------------------
+
 
 SWITCH:					
 								TK_SWITCH '(' SEEKER_SWITCH ')' BLOCK_SWITCH
@@ -357,7 +409,8 @@ VARIABLE_SWITCH:
 								{
 									$$ = resolveCheckerSwitch($$, "<=", $2);
 								};
-//______________________________________________________________________________
+//------------------------------------------------------------------------------
+
 BLOCK_COMMAND:	
 								BLOCK
 								{

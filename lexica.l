@@ -56,6 +56,9 @@ ID {LETTER}({LETTER}|{NUM})*
 "case"        {return TK_CASE;}
 "default"     {return TK_DEFAULT;}
 
+"break"       {return TK_BREAK;}
+"continue"    {return TK_CONTINUE;}
+
 
 {NUM}     {yylval.label = yytext; return TK_NUM;}
 {REAL}    {yylval.label = yytext; return TK_REAL;}

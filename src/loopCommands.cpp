@@ -5,61 +5,105 @@
 
 using namespace std;
 
+
+Loop emptyLoop = {"NULL", "NULL", "NULL"};
+LoopStackPtr LoopStackContext = createLoopStack();
+
+
+LoopStackPtr createLoopStack()
+{
+  return (LoopStackPtr) malloc(sizeof(LoopStack));
+}
+
+void pushLoop(Loop loop)
+{
+  LoopStackContext->loops.push_back(loop);
+}
+
+Loop popLoop()
+{
+  Loop back = LoopStackContext->loops.back();
+  LoopStackContext->loops.pop_back();
+  return back;
+}
+
+Loop getLoop()
+{
+  if (LoopStackContext->loops.size() > 0)
+  {
+    return LoopStackContext->loops.back();
+  }
+  cout << "/n\t//*loop stack is empty*//\n" << endl;
+  return emptyLoop;
+}
+
+int hasLoop()
+{
+  // cout << "hasLoop: " << LoopStackContext->loops.size() << endl;
+  return LoopStackContext->loops.size();
+}
+
+
+//------------------------------------------------------------------------------
+
 Attribute makeForCounter(Attribute actual, Attribute TK_counter, Attribute condition, Attribute increment, Attribute expression)
 {
-  string initialLabel = createGotoLabel();
-  string endLabel = createGotoLabel();
+  Loop currentLoop = getLoop();
 
   actual.translation = 
-  initialLabel + ": " 
+  "\t//*for init*//\n"
+  + currentLoop.initialLabel + ": " 
   + condition.translation + "\t"
   + TK_counter.translation
   + condition.label + " = !" + condition.label + ";\n" 
-  + "\tif( " + condition.label + " ) goto " + endLabel + ";\n" 
+  + "\tif( " + condition.label + " ) goto " + currentLoop.endLabel + ";\n" 
   + expression.translation 
+    + "\t" + currentLoop.continueLabel + ":\n"
   + increment.translation 
-  + "\tgoto " + initialLabel + ";\n"
-  + endLabel+ ":\n";
+  + "\tgoto " + currentLoop.initialLabel + ";\n"
+  + currentLoop.endLabel+ ":\n"
+  + "\t//*for end*//\n";
 
   return actual;
 }
 
 Attribute makeWhile(Attribute actual, Attribute condition, Attribute expression)
 {
-  string initialLabel = createGotoLabel();
-  string endLabel = createGotoLabel();
+  Loop currentLoop = getLoop();
 
   actual.translation = 
-  initialLabel + ": " 
+  "\t//*while init*//\n"
+  + currentLoop.initialLabel + ": " 
+    + "\t" + currentLoop.continueLabel + ":\n"
   + condition.translation + "\t"
   + condition.label + " = !" + condition.label + ";\n" 
-  + "\tif( " + condition.label + " ) goto " + endLabel + ";\n" 
+  + "\tif( " + condition.label + " ) goto " + currentLoop.endLabel + ";\n" 
   + expression.translation
-  + "\tgoto " + initialLabel + ";\n"
-  + endLabel+ ":\n";
+  + "\tgoto " + currentLoop.initialLabel + ";\n"
+  + currentLoop.endLabel+ ":\n"
+  + "\t//*while end*//\n";
 
   return actual;
 }
 
 Attribute makeDoWhile(Attribute actual, Attribute expression, Attribute condition)
 {
-  string initialLabel = createGotoLabel();
-  string endLabel = createGotoLabel();
+  Loop currentLoop = getLoop();
 
   cout << "\n\n\n"<< expression.translation << "\n\n\n"<< endl;
 
-
   actual.translation = 
-  initialLabel + ": "
-
+  "\t//*do init*//\n"
+  + currentLoop.initialLabel + ": " 
   + expression.translation
-
+    + "\t" + currentLoop.continueLabel + ":\n"
   + condition.translation + "\t"
   + condition.label + " = !" + condition.label + ";\n" 
-  + "\tif( " + condition.label + " ) goto " + endLabel + ";\n" 
+  + "\tif( " + condition.label + " ) goto " + currentLoop.endLabel + ";\n" 
  
-  + "\tgoto " + initialLabel + ";\n"
-  + endLabel+ ":\n";
+  + "\tgoto " + currentLoop.initialLabel + ";\n"
+  + currentLoop.endLabel+ ":\n"
+  + "\t//*do end*//\n";
 
   return actual;
 }

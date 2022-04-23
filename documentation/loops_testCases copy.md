@@ -46,7 +46,7 @@ inteirinho k;
 k = 10;
 inteirinho somador;
 
-enquanto (i >= k)
+enquanto (i <= k)
 {
   somador = i + 2;
   i = i + 1;
@@ -74,8 +74,8 @@ k = 10;
 inteirinho somador;
 
 fazer 
-{s
+{
   i = i + 1;
 }
-enquanto(i >= k)
+enquanto(i <= k)
 ```

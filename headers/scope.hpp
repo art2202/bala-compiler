@@ -9,9 +9,8 @@
 
 using namespace std;
 
-typedef Symbol* SymbolPtr;
-typedef unordered_map<string, Symbol> VariableTable; // <actualScope, Symbol>
 
+typedef unordered_map<string, Symbol> VariableTable; // <actualScope, Symbol>
 
 typedef struct stackMap
 {

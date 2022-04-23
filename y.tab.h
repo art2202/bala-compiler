@@ -76,7 +76,9 @@ extern int yydebug;
     TK_SWITCH = 282,
     TK_CASE = 283,
     TK_DEFAULT = 284,
-    NO_ELSE = 285
+    TK_BREAK = 285,
+    TK_CONTINUE = 286,
+    NO_ELSE = 287
   };
 #endif
 /* Tokens.  */
@@ -107,7 +109,9 @@ extern int yydebug;
 #define TK_SWITCH 282
 #define TK_CASE 283
 #define TK_DEFAULT 284
-#define NO_ELSE 285
+#define TK_BREAK 285
+#define TK_CONTINUE 286
+#define NO_ELSE 287
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

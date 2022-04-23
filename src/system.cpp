@@ -5,6 +5,7 @@ using namespace std;
 extern unordered_map<string, string> temporaries;
 extern vector<Symbol> allSymbols;
 
+
 string iniciate()
 {
   string libs = "\n//Includes\n";
@@ -44,6 +45,36 @@ string getGlobalVariabels()
   return result;
 }
 
+
+//------------------------------------------------------------------------------
+// Loops
+
+Loop generateGotoLoopLabel(string type)
+{
+  string initialLabel = createGotoLabel();
+	string endLabel = createGotoLabel();
+	string continueLabel = createGotoLabel();
+
+	Loop loop = {initialLabel, endLabel, continueLabel};
+	return loop;
+}
+
+void iniciateLoop(string type)
+{
+  Loop loop = generateGotoLoopLabel(type);
+  pushLoop(loop);
+}
+
+Attribute endLoop(Attribute actual, Attribute loop)
+{
+  actual.translation = loop.translation; 
+	popLoop();
+  return actual;
+}
+
+
+//------------------------------------------------------------------------------
+// Debugar
 
 string getVisibleSymbols()
 {

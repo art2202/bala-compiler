@@ -1,12 +1,20 @@
-inteirinho x;
-x = 20;
-inteirinho z;
 
-switch (x) {
-  case 10 :
-    { z = 3; }
-  case 20 :
-    { z = 56; }
-  default :
-    { z = 0; }
+inteirinho i;
+flutuante num;
+inteirinho valor;
+
+forzinho (i; i < 10; i = i + 1)
+{  
+  por acaso(num == 2.0)
+  {
+    valor = 20;
+    break;
+  }
+  esquece
+  {
+    valor = 30;
+  }
+  num = 2.0;
+  continue;
 }
+

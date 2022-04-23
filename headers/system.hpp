@@ -16,6 +16,7 @@
 #include "../headers/scope.hpp"
 #include "../headers/decisionCommands.hpp"
 #include "../headers/loopCommands.hpp"
+#include "../headers/loopControls.hpp"
 
 
 using namespace std;
