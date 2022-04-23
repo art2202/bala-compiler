@@ -104,7 +104,6 @@ Symbol getSymbolAnywere(string label)
 			return (posAtual[label]);
 		}
 	}
-  cout << "kkkkkkkkkkkkkkkkk: " << endl;
 	return createSymbol("","", "");
 }
 

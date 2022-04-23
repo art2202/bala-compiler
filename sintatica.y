@@ -43,10 +43,13 @@ S:
 BLOCK:		
 								BLOCK_AUX '{' COMMANDS '}'
 								{
+									cout << "ss.translation\n" << $$.translation << endl;
 									$$.translation = $3.translation;
+									cout << "ss.translation\n" << $$.translation << endl;
 									popScope(StackContext);
 								};
-BLOCK_AUX:			/* vazio */ 
+BLOCK_AUX:
+								/* vazio */ 
 								{
 									VariableTable table;
 									pushScope(StackContext,table);
@@ -138,7 +141,8 @@ DEFINITION:
 									$$ = declareTK_TYPE("bool", $$, $1, $2);
 								};
 //------------------------------------------------------------------------------
-TYPE:						TK_TYPE_INT
+TYPE:						
+								TK_TYPE_INT
 								{
 									$$.translation = "int";
 								}

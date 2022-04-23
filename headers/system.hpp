@@ -27,7 +27,4 @@ string getGlobalVariabels();
 string getCurrentBlockSymbols();
 string getVisibleSymbols();
 
-Attribute implicitResolveExpressionType(Attribute left, string operador, Attribute right);
-
-
 #endif
