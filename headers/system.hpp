@@ -17,6 +17,7 @@
 #include "../headers/decisionCommands.hpp"
 #include "../headers/loopCommands.hpp"
 
+
 using namespace std;
 
 string iniciate();
@@ -25,5 +26,8 @@ string getTemps();
 string getGlobalVariabels();
 string getCurrentBlockSymbols();
 string getVisibleSymbols();
+
+Attribute implicitResolveExpressionType(Attribute left, string operador, Attribute right);
+
 
 #endif

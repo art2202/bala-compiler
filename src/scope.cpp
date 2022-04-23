@@ -98,11 +98,13 @@ Symbol getSymbolAnywere(string label)
 	for (int i = StackContext->actualScope; i >= 0 ; i--)
   {
 		VariableTable posAtual = StackContext->scopes[i];
+    
 		if (posAtual.find(label) != posAtual.end())
     {
 			return (posAtual[label]);
 		}
 	}
+  cout << "kkkkkkkkkkkkkkkkk: " << endl;
 	return createSymbol("","", "");
 }
 

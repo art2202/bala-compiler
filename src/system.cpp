@@ -73,3 +73,44 @@ string getCurrentBlockSymbols()
   }
   return result;
 }
+
+
+
+
+// TIRAR DAQUI
+Attribute implicitResolveExpressionType(Attribute left, string operador, Attribute right)
+{
+	Coercion coercion = getCoercion(left.type, operador, right.type);
+	Attribute actual = createActualAttribute(coercion.returnedType);
+
+	//cout <<"//left.type: " << left.type  << "operador: " << operador << "right.type: " << right.type<< endl;
+
+	if (left.type == coercion.conversionType && right.type == coercion.conversionType)
+	{
+		actual.translation = left.translation + right.translation + "\t" + actual.label +" = " + left.label + " " + operador + " " + right.label +";\n";
+	}
+	else
+	{
+		string newTemp = createTempCode();
+		addTemporary(newTemp, coercion.conversionType);
+
+		string message = "\t"+ newTemp + " = " "("+ coercion.conversionType +") ", result;
+
+
+		if (left.type != coercion.conversionType)
+		{
+			message += left.label;
+			result = newTemp + " " + operador + " " + right.label;
+		}
+		else if (right.type != coercion.conversionType)
+		{
+			message += right.label;
+			result = left.label + " " + operador + " " + newTemp;
+		}
+
+		message += ";\n";
+		actual.translation = left.translation + right.translation + message +"\t" + actual.label + " = "  + result + ";\n";
+	}
+
+	return actual;
+}

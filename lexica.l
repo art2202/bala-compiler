@@ -21,7 +21,6 @@ ID {LETTER}({LETTER}|{NUM})*
 
 {DELIM}     {}
 
-"main"      {return TK_MAIN;}
 
 "inteirinho"  {return TK_TYPE_INT;}
 "flutuante"   {return TK_TYPE_FLOAT;}
@@ -30,7 +29,8 @@ ID {LETTER}({LETTER}|{NUM})*
 
 "como"        {return TK_EXPLICIT_CONVERTER;}
 
-[(){}[\];,.]  {return *yytext;}
+[(){}[\];:,.']  {return *yytext;}
+
 [+\-*/=]      {return *yytext;}
 
 
@@ -48,9 +48,13 @@ ID {LETTER}({LETTER}|{NUM})*
 "por acaso"   {return TK_IF;}
 "esquece"     {return TK_ELSE;}
 
-"forzinho"   {return TK_FOR;}
-"enquanto"   {return TK_WHILE;}
-"fazer"      {return TK_DO;}
+"forzinho"    {return TK_FOR;}
+"enquanto"    {return TK_WHILE;}
+"fazer"       {return TK_DO;}
+
+"switch"      {return TK_SWITCH;}
+"case"        {return TK_CASE;}
+"default"     {return TK_DEFAULT;}
 
 
 {NUM}     {yylval.label = yytext; return TK_NUM;}

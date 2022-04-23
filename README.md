@@ -1,5 +1,6 @@
-# Work - Part I
+# Work
 
+## Part I
 ## Specification:
 ### Expression ✔️
 ### Types
@@ -17,10 +18,8 @@
 ### Variable ✔️
 ### Assignment ✔️
 
-#### Final date: 03/14/2022
 
-# Work - Part II
-
+## Part II
 ## Specification:
 ### Block ✔️
 ### Context ✔️
@@ -33,17 +32,42 @@
 - while ✔️
 - do/while ✔️
 - for ✔️
-- switch
+- switch ✔️
 ### Loop Controls:
 - break
 - continue
 
-#### Final date: 04/11/2022
 
-#### To Run
+## Part III
+## Specification:
+### Function 
+### Vectors 
+
+
+#### Final date: 04/25/2022
+
+
+## To Run
+You will need to have make, Lex/Flex, Yacc and gcc/g++ installed.
+
+### Install packeges on Linux or WSL/WSL2
 - $sudo apt-get update
 
 - $sudo apt install make
 - $sudo apt-get install bison flex
 
 - $sudo apt-get install build-essential
+
+## Linux or WSL/WSL2
+- $make
+- $make lx
+
+## Mac
+- $make
+- $make mac
+
+### Generating executable file
+To pass the intermediate code generated from the make lx command or by make mac to the test file, follow the steps:
+- Delete the test.cpp file and the test executable if they exist.
+- Run the command: $make test
+The file teste.cpp and the executable test will be generated and will be recognizable by the C++ language;

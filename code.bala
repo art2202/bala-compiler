@@ -1,10 +1,12 @@
-inteirinho i;
-inteirinho k;
-k = 10;
+inteirinho x;
+x = 20;
+inteirinho z;
 
-inteirinho somador;
-
-fazer {
-  i = i + 1;
+switch (x) {
+  case 10 :
+    { z = 3; }
+  case 20 :
+    { z = 56; }
+  default :
+    { z = 0; }
 }
-enquanto(i >= k)

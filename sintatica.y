@@ -1,14 +1,14 @@
 %{
 #include "headers/system.hpp"
+
 #define YYSTYPE attribute
 
 using namespace std;
 
 int yylex(void);
-
-
 %}
-%token TK_MAIN TK_ID
+
+%token TK_ID
 %token TK_EXPLICIT_CONVERTER
 %token TK_NUM TK_REAL TK_CHAR TK_BOOL
 %token TK_TYPE_INT TK_TYPE_FLOAT TK_TYPE_BOOL TK_TYPE_CHAR
@@ -16,6 +16,7 @@ int yylex(void);
 %token TK_AND TK_OR TK_NOT
 %token TK_IF TK_ELSE
 %token TK_FOR TK_WHILE TK_DO
+%token TK_SWITCH TK_CASE TK_DEFAULT
 
 %start S
 
@@ -42,17 +43,15 @@ S:
 BLOCK:		
 								BLOCK_AUX '{' COMMANDS '}'
 								{
-									//cout <<"//BLOCK"<< endl;
-									$$.translation += $3.translation;
+									$$.translation = $3.translation;
 									popScope(StackContext);
 								};
 BLOCK_AUX:			/* vazio */ 
 								{
-									//cout <<"//BLOCO_AUX"<< endl;
 									VariableTable table;
 									pushScope(StackContext,table);
 								};
-//------------------------------------------------------------------------------
+//______________________________________________________________________________
 COMMANDS:	
 								COMMAND COMMANDS
 								{
@@ -92,6 +91,10 @@ COMMAND:
 								{
 									$$.translation = $1.translation;
 								}
+								| SWITCH
+								{
+									$$.translation = $1.translation;
+								}
 								;
 //------------------------------------------------------------------------------
 COMMAND_ALT:
@@ -109,6 +112,10 @@ COMMAND_ALT:
 									$$.translation = $1.translation;
 								}
 								| DO_WHILE
+								{
+									$$.translation = $1.translation;
+								}
+								| SWITCH
 								{
 									$$.translation = $1.translation;
 								};
@@ -290,6 +297,61 @@ DO_WHILE:
 								TK_DO BLOCK_COMMAND TK_WHILE '(' RELATIONAL ')' 
 								{
 									$$ = makeDoWhile($$, $2, $5);
+								};
+//______________________________________________________________________________
+
+SWITCH:					
+								TK_SWITCH '(' SEEKER_SWITCH ')' BLOCK_SWITCH
+								{	
+									$$ = iniciateSwitch($$, $5); 
+								};
+
+SEEKER_SWITCH: 	
+								TK_ID
+								{	
+									createSwicher($1); 
+								};
+
+BLOCK_SWITCH:		
+								'{' CASES TK_DEFAULT ':' BLOCK_COMMAND '}'
+								{
+									$$ = resolveBlockSwitch($$, $2, $5);
+								};
+
+CASES:					
+								TK_CASE VARIABLE_SWITCH ':' BLOCK_COMMAND CASES
+								{
+									$$ = resolveCasesSwitch($$, $2, $4, $5);
+								}
+								| /* vazio */
+								{	
+									$$.translation = ""; 
+								};
+
+VARIABLE_SWITCH:
+								VARIABLE
+								{
+									$$ = resolveCheckerSwitch($$, "==", $1);
+								}
+								|
+								TK_BIG VARIABLE
+								{
+									$$ = resolveCheckerSwitch($$, ">", $2);
+								}
+								|
+								TK_BIG_EQ VARIABLE
+								{
+									$$ = resolveCheckerSwitch($$, ">=", $2);
+								}
+								|
+								TK_SMALL VARIABLE
+								{
+									$$ = resolveCheckerSwitch($$, "<", $2);
+								}
+								|
+								TK_SMALL_EQ VARIABLE
+								{
+									$$ = resolveCheckerSwitch($$, "<=", $2);
 								};
 //______________________________________________________________________________
 BLOCK_COMMAND:	
