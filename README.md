@@ -23,6 +23,7 @@
 - Context ✔️
 - Global scope ✔️
 - String ✔️
+- String concatenation ✔️
 - Input and Output Commands ✔️
 #### Commands
 - if ✔️
