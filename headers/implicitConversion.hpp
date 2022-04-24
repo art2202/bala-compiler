@@ -1,8 +1,7 @@
 #ifndef IMPLICITCONVERSION_H
 #define IMPLICITCONVERSION_H
 
-#include <string>
-#include <map>
+
 #include "../headers/struct.hpp"
 
 

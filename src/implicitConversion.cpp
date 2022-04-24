@@ -4,8 +4,6 @@
 #include "../headers/coercion.hpp"
 #include "../headers/scope.hpp"
 #include "../headers/struct.hpp"
-#include <map>
-#include <iostream>
 
 
 using namespace std;
@@ -14,11 +12,6 @@ using namespace std;
 Attribute resolveAssignmentType(Attribute left, string operador, Attribute right)
 {
 	Symbol leftSimbol = getSymbolAnywere(left.label);
-
-	cout << "Assignment:\n" << endl;
-	cout <<"//left.type: " << leftSimbol.type  << " operador: " << operador << " right.type: " << right.type<< endl;
-
-
 	Coercion coercion = getCoercion(leftSimbol.type, operador, right.type);
 
 	Attribute actual = createActualAttribute(coercion.returnedType);	
