@@ -69,7 +69,7 @@ ID {LETTER}({LETTER}|{NUM})*
 "switch"      {return TK_SWITCH;}
 "case"        {return TK_CASE;}
 "default"     {return TK_DEFAULT;}
-"mostrar"	  {return TK_PRINT;}
+"mostrar"     {return TK_PRINT;}
 "ler"         {return TK_SCAN;}
 
 "break"       {return TK_BREAK;}

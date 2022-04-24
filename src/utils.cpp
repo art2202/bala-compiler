@@ -49,7 +49,3 @@ void addTemporary(string label, string type)
 {
   temporaries[label] = type;
 }
-
-string makePrint(Attribute value){
-    return value.translation + "\t" + "cout <<" + value.label + ";\n";
-}
