@@ -97,9 +97,9 @@ COMMAND:
 								{
 									$$.translation = $1.translation;
 								}
-								| TK_PRINT '(' E ')' ';' 
+								| IO
 								{
-									$$.translation = makePrint($3);
+									$$.translation = $1.translation;
 								};
 //------------------------------------------------------------------------------
 COMMAND_ALT:
@@ -120,9 +120,9 @@ COMMAND_ALT:
 								{
 									$$.translation = $1.translation;
 								}
-								| TK_PRINT '(' E ')' ';' 
+								| IO
 								{
-									$$.translation = makePrint($3);
+									$$.translation = $1.translation;
 								};
 //------------------------------------------------------------------------------
 DEFINITION:
@@ -167,6 +167,20 @@ TYPE:
 								| TK_TYPE_STRING
 								{
 									$$.translation = "string";
+								};
+//------------------------------------------------------------------------------
+IO:
+								TK_PRINT '(' E ')' ';' 
+								{
+									$$.translation = makePrint($3);
+								}
+								| TK_SCAN '(' E ')' ';' 
+								{
+									$$.translation = makeScan($3);
+								}
+								| TK_SCAN '(' E ',' TK_NUM ')' ';' 
+								{
+									$$.translation = makeScan($3, $5);
 								};
 //------------------------------------------------------------------------------
 E:

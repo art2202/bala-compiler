@@ -5,9 +5,11 @@
 #include "../headers/struct.hpp"
 
 
-using namespace std;
+using namespace structs;
 
 string makePrint(Attribute value);
+string makeScan(Attribute value, Attribute size);
+string makeScan(Attribute value);
 
 
 #endif

@@ -22,8 +22,8 @@
 - Block ✔️
 - Context ✔️
 - Global scope ✔️
-- String
-- Input and Output Commands
+- String ✔️
+- Input and Output Commands ✔️
 #### Commands
 - if ✔️
 - if/else ✔️

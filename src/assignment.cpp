@@ -51,6 +51,8 @@ Attribute makeAssignmentString(Attribute actual, Attribute left, Attribute right
 
 	string type= "string";
 	string leftStringSizeLabel = createStringSizeLabel(leftSimbol.name);
+	addTemporary(leftStringSizeLabel, "int");
+
 	string rightStringSizelabel = "size_"+right.label;
 
 	actual.translation = left.translation + right.translation

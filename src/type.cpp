@@ -39,17 +39,6 @@ Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribut
 	if(type == "float") 	{ actual.translation =  "\t" + currentSymbol.name + " = " + to_string(DEFAULT_FLOAT) + "; " + message + "\n"; }
 	if(type == "char") 		{ actual.translation =  "\t" + currentSymbol.name + " = "  + "'"+ DEFAULT_CHAR + "'" + "; " + message + "\n"; }
 	if(type == "bool") 		{ actual.translation =  "\t" + currentSymbol.name + " = " + DEFAULT_BOOL + "; " + message + "\n"; }
-	
-	if(type == "string")  
-	{
-		string stringSizeLabel = createStringSizeLabel(currentSymbol.name);
-		addTemporary(stringSizeLabel, "int");
-
-		actual.translation = "\t" + stringSizeLabel + " = 1;\n"
-		+ "\t" + currentSymbol.name + " = (" + type + ") realloc(" + currentSymbol.name + ", " + stringSizeLabel + ");\n"
-		+ "\t" + currentSymbol.name + "[0] = \'\\0\';\n"
-		+ "\n"; 
-	}
 
 	return actual;
 }

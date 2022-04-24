@@ -1,4 +1,3 @@
 
-inteirinho teste;
-teste = 2;
-mostrar(teste);
+texto teste;
+teste = "gabi";
