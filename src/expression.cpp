@@ -16,7 +16,7 @@ Attribute makeExpression(Attribute left, string operation, Attribute right)
 
 Attribute makeTK_NOT(Attribute actual, Attribute right)
 {
-  Attribute newActual = createActualAttribute("boleano");
+  Attribute newActual = createActualAttribute("bool");
 
   newActual.translation = right.translation + "\t" + newActual.label + " = !" + right.label + ";\n";
   return newActual;

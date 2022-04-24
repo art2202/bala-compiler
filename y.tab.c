@@ -2488,6 +2488,7 @@ int yyparse();
 int main( int argc, char* argv[] )
 {
 	iniciateCoercionTable();
+	iniciateStringCoercionTable();
 	
 	yyparse();
 

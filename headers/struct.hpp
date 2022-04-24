@@ -21,12 +21,6 @@ namespace structs
     string name;
     string type;
   } Symbol;
-
-  typedef struct coercion
-  {
-    string returnedType;
-    string conversionType;
-  } Coercion;
 }
 
 

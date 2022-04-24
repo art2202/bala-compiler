@@ -1,3 +1,7 @@
+texto a;
+texto b;
+boleano c;
 
-texto teste;
-teste = "gabi";
+a = "texto.";
+b = "texto";
+c = a >= b;
