@@ -10,16 +10,12 @@ StackMapPtr StackContext = createMapStack();
 
 void pushScope(StackMapPtr stack, VariableTable mapScope)
 {
-  //cout <<"//pushScope"<< endl;
-  //cout <<"//actualScope: " << stack->actualScope << endl;
   stack->actualScope += 1;
   stack->scopes.push_back(mapScope);
-  //cout <<"//actualScope push: " << stack->actualScope << endl;
 }
 
 VariableTable popScope(StackMapPtr stack)
 {
-  //cout <<"//popScope"<< endl;
   if(stack->scopes.empty())
   {
     cout << "POP_FUNCTION: There are no scopes to be removed." << endl;
@@ -43,7 +39,6 @@ StackMapPtr createMapStack()
   pushScope(stack, actual);
   
 	stack->actualScope = 1;
-  //cout <<"//stack->actualScope: " << stack->actualScope << endl;
 
   return stack;
 }
@@ -64,8 +59,6 @@ Symbol createVariableNameToSymbol (string label, string type, Attribute actual)
 
 Symbol addSymbolInScope (StackMapPtr stack, string label, string type, Attribute actual)
 {
-  //cout <<"//addSymbolInScope"<< endl;
-  
   Symbol symbol = createVariableNameToSymbol(label, type, actual);
 	stack->scopes[stack->actualScope][label] = symbol;
   addSymbol(symbol);
@@ -110,10 +103,8 @@ Symbol getSymbolAnywere(string label)
 Symbol getSymbolTop(string label)
 {
 	VariableTable top = StackContext->scopes.back();
-  //cout << "//top[label].label: " << top[label].label << endl;
 	if (top.find(label) != top.end())
   {
-    //cout <<"//dentro do if"<< endl;
 		return (top[label]);
 	}
 	return createSymbol("", "", "");

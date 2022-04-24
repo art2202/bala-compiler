@@ -66,8 +66,6 @@ Attribute makeAssignmentString(Attribute actual, Attribute left, Attribute right
 
 void validateTK_ID(Attribute attribute)
 {
-	//cout <<"//validateTK_ID"<< endl;
-
 	Symbol symbol = getSymbolAnywere(attribute.label);
 	string message = "TK_ID '" +  attribute.label + "' is not defined in this scope. Please defines a type to '" + attribute.label + "'.\n";
 	variableHasNotBeenDeclared(symbol, message);

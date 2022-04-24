@@ -24,6 +24,7 @@
 - Global scope ✔️
 - String ✔️
 - String concatenation ✔️
+- String relational commands ✔️
 - Input and Output Commands ✔️
 #### Commands
 - if ✔️

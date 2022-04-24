@@ -2,8 +2,8 @@
 #define DECISIONCOMMANDS_H
 
 
-#include <string>
 #include "../headers/struct.hpp"
+#include <string>
 #include <stack>
 
 

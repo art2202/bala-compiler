@@ -3,10 +3,9 @@
 
 using namespace std;
 
-
 map<TripleKey, Coercion> coercionTable;
-map<string, StringCoercion> stringCoercionTable;
-
+Coercion removeWarning();
+map<string, StringExpressionHelper> stringExpressionHelperTable;
 
 
 TripleKey generateKey(string a , string b, string c)
@@ -18,9 +17,28 @@ TripleKey generateKey(string a , string b, string c)
 
 Coercion getCoercion(string type1, string operation, string type2)
 {
-	TripleKey key(type1, operation, type2);
+	if (type1 == "string" || type2 == "string")
+	{
+		return resolveString(type1, operation, type2);
+	}
+	return resolveDefault(type1, operation, type2);
+}
 
-	if (type1 == type2)
+Coercion resolveString(string type1, string operation, string type2)
+{
+	TripleKey key(type1, operation, type2);
+	if (coercionTable.find(key) != coercionTable.end())
+	{
+		return coercionTable[key];
+	}
+	yyerror("Cannot convert type " + type1 + " to type " + type2 + ".");
+	return removeWarning();
+}
+
+Coercion resolveDefault(string type1, string operation, string type2)
+{
+	TripleKey key(type1, operation, type2);
+	if (type1 == type2 )
 	{
 		Coercion coercion = {type1, type2};
 		return coercion;
@@ -30,7 +48,11 @@ Coercion getCoercion(string type1, string operation, string type2)
 		return coercionTable[key];
 	}
 	yyerror("Cannot convert type " + type1 + " to type " + type2 + ".");
+	return removeWarning();
+}
 
+Coercion removeWarning()
+{
 	// Just to remove the warning, it will never run.
 	Coercion notFound = {"NULL", "NULL"};
 	return notFound;
@@ -111,20 +133,30 @@ void iniciateCoercionTable()
 	coercionTable[generateKey("float" , "<=", "int")] = {"bool","float"};
 	coercionTable[generateKey("float" , "==", "int")] = {"bool","float"};
 	coercionTable[generateKey("float" , "!=", "int")] = {"bool","float"};
+
+	coercionTable[generateKey("string" , "+" , "string")] = {"string","string"};
+	coercionTable[generateKey("string", "==", "string")] = {"bool","string"};
+	coercionTable[generateKey("string", "!=", "string")] = {"bool","string"};
+	coercionTable[generateKey("string", "<", "string")] = {"bool","string"};
+	coercionTable[generateKey("string", ">", "string")] = {"bool","string"};
+	coercionTable[generateKey("string", "<=", "string")] = {"bool","string"};
+	coercionTable[generateKey("string", ">=", "string")] = {"bool","string"};
 }
 
+//------------------------------------------------------------------------------
 
-StringCoercion getStringCoercion(string operation)
+
+StringExpressionHelper getStringExpressionHelper(string operation)
 {
-	return stringCoercionTable[operation];
+	return stringExpressionHelperTable[operation];
 }
 
-void iniciateStringCoercionTable()
+void iniciateStringExpressionHelperTable()
 {
-	stringCoercionTable["=="] = {"0", "=="};
-	stringCoercionTable["!="] = {"0", "!="};
-	stringCoercionTable["<"] = {"-1", "<="};
-	stringCoercionTable[">"] = {"1", ">="};
-	stringCoercionTable["<="] = {"0", "<="};
-	stringCoercionTable[">="] = {"0", ">="};
+	stringExpressionHelperTable["=="] = {"0", "=="};
+	stringExpressionHelperTable["!="] = {"0", "!="};
+	stringExpressionHelperTable["<"] = {"-1", "<="};
+	stringExpressionHelperTable[">"] = {"1", ">="};
+	stringExpressionHelperTable["<="] = {"0", "<="};
+	stringExpressionHelperTable[">="] = {"0", ">="};
 }

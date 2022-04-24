@@ -14,11 +14,4 @@ void addSymbol(Symbol symbol);
 void variableHasAlreadyBeenDeclared(Symbol symbol, string message);
 void variableHasNotBeenDeclared(Symbol symbol, string message);
 
-
-// v1 -----------------------------
-// not more used
-void addSymbolInTable(string label, string type, Attribute actual);
-int findSymbol(string name);
-Symbol getSymbol(string label);
-
 #endif

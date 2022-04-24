@@ -12,23 +12,26 @@ typedef struct coercion
   string conversionType;
 } Coercion;
 
-typedef struct stringCoercion
+typedef struct stringExpressionHelper
 {
   string resultLabelStrcmpCompareSholdBe;
   string operatorToCheck;
-} StringCoercion;
+} StringExpressionHelper;
 
 
 typedef tuple<string, string, string> TripleKey;
 extern map<TripleKey, Coercion> coercionTable;
-extern map<string, StringCoercion> stringCoercionTable;
+extern map<string, StringExpressionHelper> stringExpressionHelperTable;
 
 
 TripleKey generateKey(string , string, string);
 void iniciateCoercionTable();
 Coercion getCoercion(string type1, string operation, string type2);
 
-void iniciateStringCoercionTable();
-StringCoercion getStringCoercion(string operation);
+Coercion resolveString(string type1, string operation, string type2);
+Coercion resolveDefault(string type1, string operation, string type2);
+
+void iniciateStringExpressionHelperTable();
+StringExpressionHelper getStringExpressionHelper(string operation);
 
 #endif

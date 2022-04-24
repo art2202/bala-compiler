@@ -3,6 +3,9 @@
 #include "../headers/symbols.hpp"
 #include "../headers/coercion.hpp"
 #include "../headers/scope.hpp"
+#include "../headers/struct.hpp"
+#include <map>
+#include <iostream>
 
 
 using namespace std;
@@ -10,11 +13,12 @@ using namespace std;
 
 Attribute resolveAssignmentType(Attribute left, string operador, Attribute right)
 {
-	//Symbol leftSimbol = getSymbol(left.label);
 	Symbol leftSimbol = getSymbolAnywere(left.label);
 
-	// cout <<"leftSimbol.type: " << leftSimbol.type  << " operador: " << operador << " right.type: " << right.type<< endl;
-	
+	cout << "Assignment:\n" << endl;
+	cout <<"//left.type: " << leftSimbol.type  << " operador: " << operador << " right.type: " << right.type<< endl;
+
+
 	Coercion coercion = getCoercion(leftSimbol.type, operador, right.type);
 
 	Attribute actual = createActualAttribute(coercion.returnedType);	
@@ -62,8 +66,6 @@ Attribute resolveExpressionTypeDefault(Attribute left, string operador, Attribut
 	Coercion coercion = getCoercion(left.type, operador, right.type);
 	Attribute actual = createActualAttribute(coercion.returnedType);
 
-	//cout <<"//left.type: " << left.type  << "operador: " << operador << "right.type: " << right.type<< endl;
-
 	if (left.type == coercion.conversionType && right.type == coercion.conversionType)
 	{
 		actual.translation = left.translation + right.translation + "\t" + actual.label +" = " + left.label + " " + operador + " " + right.label +";\n";
@@ -94,6 +96,7 @@ Attribute resolveExpressionTypeDefault(Attribute left, string operador, Attribut
 	return actual;
 }
 
+
 Attribute resolveExpressionTypeString(Attribute left, string operador, Attribute right)
 {
 	if(operador == "+")
@@ -105,8 +108,9 @@ Attribute resolveExpressionTypeString(Attribute left, string operador, Attribute
 
 Attribute resolveArithmeticExpressionTypeString(Attribute left, string operador, Attribute right)
 {
-	Attribute actual = createActualAttribute("string");
-	actual.type = "string";
+	Coercion coercion = getCoercion(left.type, operador, right.type);
+	Attribute actual = createActualAttribute(coercion.returnedType);
+	actual.type = coercion.returnedType;
 
 	if(operador == "+")
 	{
@@ -128,9 +132,12 @@ Attribute resolveArithmeticExpressionTypeString(Attribute left, string operador,
 
 Attribute resolveLogicalExpressionTypeString(Attribute left, string operador, Attribute right)
 {
-	StringCoercion stringCoercion = getStringCoercion(operador);
-	Attribute actual = createActualAttribute("bool");
-	actual.type = "bool";
+	StringExpressionHelper stringExpressionHelper = getStringExpressionHelper(operador);
+
+	Coercion coercion = getCoercion(left.type, operador, right.type);
+	Attribute actual = createActualAttribute(coercion.returnedType);
+	actual.type = coercion.returnedType;
+
 
 	string tempLabelCompare = createTempCode();
 	addTemporary(tempLabelCompare, "int");
@@ -144,8 +151,8 @@ Attribute resolveLogicalExpressionTypeString(Attribute left, string operador, At
 	
 	actual.translation = left.translation + right.translation
 	+ "\t" + tempLabelCompare + " = strcmp(" + left.label+ ", " + right.label + " );\n"
-	+ "\t" + tempLabelInt + " = " + stringCoercion.resultLabelStrcmpCompareSholdBe + ";\n"
-	+ "\t" + tempLabelBool + " = " + tempLabelCompare + stringCoercion.operatorToCheck +  tempLabelInt + ";\n"
+	+ "\t" + tempLabelInt + " = " + stringExpressionHelper.resultLabelStrcmpCompareSholdBe + ";\n"
+	+ "\t" + tempLabelBool + " = " + tempLabelCompare + " " + stringExpressionHelper.operatorToCheck + " " + tempLabelInt + ";\n"
 	+ "\n";
 
 	actual.label = tempLabelBool;

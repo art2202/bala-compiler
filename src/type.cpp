@@ -24,12 +24,7 @@ void validateTK_TYPE(Attribute attribute)
 
 Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribute right)
 {
-	//cout <<"//declareTK_TYPE"<< endl;
-
 	validateTK_TYPE(right);
-	
-	// addSymbolInTable(right.label, type, actual);
-  // Symbol simbolo = getSymbol(right.label);
 
 	Symbol currentSymbol = addSymbolInScope(StackContext, right.label, type, actual);
 
@@ -45,7 +40,6 @@ Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribut
 
 Attribute createTK_ID(Attribute actual, Attribute right)
 {
-	//Symbol simbolo = getSymbol(right.label);
 	Symbol symbol = getSymbolAnywere(right.label);
 
 	actual.label = symbol.name;

@@ -466,7 +466,8 @@ int yyparse();
 int main( int argc, char* argv[] )
 {
 	iniciateCoercionTable();
-	iniciateStringCoercionTable();
+	iniciateScanHelperTable();
+	iniciateStringExpressionHelperTable();
 	
 	yyparse();
 

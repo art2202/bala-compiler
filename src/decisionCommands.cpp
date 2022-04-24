@@ -56,9 +56,7 @@ void createSwicher(Attribute searchVariable)
   switcher.nextLabel = createGotoLabel();
 
   Symbol symbol = getSymbolAnywere(searchVariable.label);
-  // cout << "symbol: " << symbol.label << endl;
-  // cout << "symbol type: " << symbol.type << endl;
-
+  
   switcher.searchVariable = symbol;
   switcherStack.push(switcher);
 }
@@ -102,8 +100,6 @@ Attribute resolveCheckerSwitch(Attribute actual, string operador, Attribute vari
   Attribute comparator;
   comparator.type = topStack.searchVariable.type;
   comparator.label = getSymbolAnywere(topStack.searchVariable.label).name;
-
-  // cout << "comparator.label: " << comparator.label << endl;
 
   return resolveExpressionType(variable, operador, comparator);
 }
