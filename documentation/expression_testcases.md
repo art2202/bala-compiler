@@ -54,12 +54,6 @@
 #### Operador "!" - Not
 
 ```cpp
-// Error
-// Message:
-
-```
-
-```cpp
 // Correct
 
 inteirinho valor;
@@ -91,6 +85,9 @@ var = !valor;
 
 ### String concatenation
 
+```cpp
+// Correct
+
 texto a;
 texto b;
 texto c;
@@ -100,6 +97,8 @@ a = "texto";
 b = " da ";
 c = "gabi.";
 d = a + b + c;
+
+```
 
 ### String operations
 

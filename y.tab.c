@@ -1805,7 +1805,7 @@ yyreduce:
   case 33:
 #line 182 "sintatica.y"
                                                                 {
-									yyval.translation = makeScan(yyvsp[-4], yyvsp[-2]);
+									yyval.translation = makeScan(yyvsp[-4], yyvsp[-2].label);
 								}
 #line 1811 "y.tab.c"
     break;

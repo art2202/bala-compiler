@@ -1,7 +1,3 @@
-texto a;
-texto b;
-boleano c;
 
-a = "texto.";
-b = "texto";
-c = a >= b;
+texto teste;
+ler(teste, 60);

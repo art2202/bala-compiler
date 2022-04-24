@@ -8,7 +8,7 @@
 using namespace structs;
 
 string makePrint(Attribute value);
-string makeScan(Attribute value, Attribute size);
+string makeScan(Attribute value, string size);
 string makeScan(Attribute value);
 
 
