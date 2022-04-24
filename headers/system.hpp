@@ -17,6 +17,7 @@
 #include "../headers/decisionCommands.hpp"
 #include "../headers/loopCommands.hpp"
 #include "../headers/loopControls.hpp"
+#include "../headers/ioCommands.hpp"
 
 
 using namespace std;

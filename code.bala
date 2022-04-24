@@ -1,18 +1,4 @@
-inteirinho i;
-flutuante num;
-inteirinho valor;
 
-forzinho (i; i < 10; i = i + 1)
-{  
-  por acaso(num == 2.0)
-  {
-    valor = 20;
-    break;
-  }
-  esquece
-  {
-    valor = 30;
-  }
-  num = 2.0;
-  continue;
-}
+inteirinho teste;
+teste = 2;
+mostrar(teste);

@@ -96,6 +96,10 @@ COMMAND:
 								| SWITCH
 								{
 									$$.translation = $1.translation;
+								}
+								| TK_PRINT '(' E ')' ';' 
+								{
+									$$.translation = makePrint($3);
 								};
 //------------------------------------------------------------------------------
 COMMAND_ALT:
@@ -115,6 +119,10 @@ COMMAND_ALT:
 								| SWITCH
 								{
 									$$.translation = $1.translation;
+								}
+								| TK_PRINT '(' E ')' ';' 
+								{
+									$$.translation = makePrint($3);
 								};
 //------------------------------------------------------------------------------
 DEFINITION:
