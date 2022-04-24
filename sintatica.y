@@ -17,6 +17,7 @@ int yylex(void);
 %token TK_IF TK_ELSE
 %token TK_FOR TK_WHILE TK_DO
 %token TK_SWITCH TK_CASE TK_DEFAULT
+%token TK_PRINT TK_SCAN
 %token TK_BREAK TK_CONTINUE
 
 %start S
@@ -96,6 +97,10 @@ COMMAND:
 								{
 									$$.translation = $1.translation;
 								}
+								| TK_PRINT '(' E ')'
+								{
+									$$.translation = makePrint($3);
+								}
 								;
 //------------------------------------------------------------------------------
 COMMAND_ALT:
@@ -115,6 +120,10 @@ COMMAND_ALT:
 								| SWITCH
 								{
 									$$.translation = $1.translation;
+								}
+								| TK_PRINT '(' E ')'
+								{
+									$$.translation = makePrint($3);
 								};
 //------------------------------------------------------------------------------
 DEFINITION:
@@ -432,6 +441,7 @@ BLOCK_COMMAND:
 								{
 									$$.translation = $1.translation;
 								};
+
 //------------------------------------------------------------------------------
 %%
 

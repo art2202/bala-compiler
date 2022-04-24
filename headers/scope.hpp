@@ -1,5 +1,5 @@
 #ifndef SCOPE_H
-#define SCOPE_H_H
+#define SCOPE_H
 
 #include <iostream>
 #include <vector>

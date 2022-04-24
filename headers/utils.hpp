@@ -16,6 +16,6 @@ string createStringSizeLabel(string label);
 string intToString(int value);
 void addTemporary(string label, string type);
 void validateReturnedType(string returnedType, string leftType, string rightType);
-
+string makePrint(Attribute value);
 
 #endif
