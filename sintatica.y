@@ -10,8 +10,8 @@ int yylex(void);
 
 %token TK_ID
 %token TK_EXPLICIT_CONVERTER
-%token TK_NUM TK_REAL TK_CHAR TK_BOOL
-%token TK_TYPE_INT TK_TYPE_FLOAT TK_TYPE_BOOL TK_TYPE_CHAR
+%token TK_NUM TK_REAL TK_CHAR TK_BOOL TK_STRING
+%token TK_TYPE_INT TK_TYPE_FLOAT TK_TYPE_BOOL TK_TYPE_CHAR TK_TYPE_STRING
 %token TK_BIG TK_SMALL TK_NOT_EQ TK_BIG_EQ TK_SMALL_EQ TK_EQ
 %token TK_AND TK_OR TK_NOT
 %token TK_IF TK_ELSE
@@ -133,6 +133,10 @@ DEFINITION:
 								| TK_TYPE_BOOL TK_ID ';'
 								{
 									$$ = declareTK_TYPE("bool", $$, $1, $2);
+								}
+								| TK_TYPE_STRING TK_ID ';'
+								{
+									$$ = declareTK_TYPE("string", $$, $1, $2);
 								};
 //------------------------------------------------------------------------------
 TYPE:						
@@ -140,17 +144,21 @@ TYPE:
 								{
 									$$.translation = "int";
 								}
-								TK_TYPE_FLOAT
+								| TK_TYPE_FLOAT
 								{
 									$$.translation = "float";
 								}
-								TK_TYPE_CHAR
+								| TK_TYPE_CHAR
 								{
 									$$.translation = "char";
 								}
-								TK_TYPE_BOOL
+								| TK_TYPE_BOOL
 								{
 									$$.translation = "bool";
+								}
+								| TK_TYPE_STRING
+								{
+									$$.translation = "string";
 								};
 //------------------------------------------------------------------------------
 E:
@@ -223,6 +231,10 @@ VARIABLE:
 								| TK_BOOL
 								{
 									$$ = createTK_TYPE($$, "bool", $1);
+								}
+								| TK_STRING
+								{
+									$$ = createTK_TYPE_STRING($$, "string", $1);
 								}
 								| TK_ID
 								{

@@ -8,12 +8,14 @@
 | flutuante | float | --- |
 | caracter | char | --- |
 | boleano | bool | --- |
+| texto | string | --- |
 
 
 ### Examples of Primitive Types
 
 ```cpp
-// TK_ID 'f' is not defined in this scope. Please defines a type to 'f'.
+// Error
+// Message: TK_ID 'f' is not defined in this scope. Please defines a type to 'f'.
 
 inteirinho a;
 a = 1;
@@ -42,4 +44,30 @@ c = verdadeiro;
 
 caracter d;
 d = 'G';
+```
+
+```cpp
+// Error
+// Message: The operation is not set to string and int
+
+texto aa;
+aa = "gabi";
+
+texto bb;
+bb = aa;
+
+inteirinho cc;
+cc = 1;
+
+aa = cc;
+```
+
+```cpp
+// Correct
+
+texto aa;
+aa = "gabi";
+
+texto bb;
+bb = aa;
 ```

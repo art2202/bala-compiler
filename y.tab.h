@@ -55,30 +55,32 @@ extern int yydebug;
     TK_REAL = 261,
     TK_CHAR = 262,
     TK_BOOL = 263,
-    TK_TYPE_INT = 264,
-    TK_TYPE_FLOAT = 265,
-    TK_TYPE_BOOL = 266,
-    TK_TYPE_CHAR = 267,
-    TK_BIG = 268,
-    TK_SMALL = 269,
-    TK_NOT_EQ = 270,
-    TK_BIG_EQ = 271,
-    TK_SMALL_EQ = 272,
-    TK_EQ = 273,
-    TK_AND = 274,
-    TK_OR = 275,
-    TK_NOT = 276,
-    TK_IF = 277,
-    TK_ELSE = 278,
-    TK_FOR = 279,
-    TK_WHILE = 280,
-    TK_DO = 281,
-    TK_SWITCH = 282,
-    TK_CASE = 283,
-    TK_DEFAULT = 284,
-    TK_BREAK = 285,
-    TK_CONTINUE = 286,
-    NO_ELSE = 287
+    TK_STRING = 264,
+    TK_TYPE_INT = 265,
+    TK_TYPE_FLOAT = 266,
+    TK_TYPE_BOOL = 267,
+    TK_TYPE_CHAR = 268,
+    TK_TYPE_STRING = 269,
+    TK_BIG = 270,
+    TK_SMALL = 271,
+    TK_NOT_EQ = 272,
+    TK_BIG_EQ = 273,
+    TK_SMALL_EQ = 274,
+    TK_EQ = 275,
+    TK_AND = 276,
+    TK_OR = 277,
+    TK_NOT = 278,
+    TK_IF = 279,
+    TK_ELSE = 280,
+    TK_FOR = 281,
+    TK_WHILE = 282,
+    TK_DO = 283,
+    TK_SWITCH = 284,
+    TK_CASE = 285,
+    TK_DEFAULT = 286,
+    TK_BREAK = 287,
+    TK_CONTINUE = 288,
+    NO_ELSE = 289
   };
 #endif
 /* Tokens.  */
@@ -88,30 +90,32 @@ extern int yydebug;
 #define TK_REAL 261
 #define TK_CHAR 262
 #define TK_BOOL 263
-#define TK_TYPE_INT 264
-#define TK_TYPE_FLOAT 265
-#define TK_TYPE_BOOL 266
-#define TK_TYPE_CHAR 267
-#define TK_BIG 268
-#define TK_SMALL 269
-#define TK_NOT_EQ 270
-#define TK_BIG_EQ 271
-#define TK_SMALL_EQ 272
-#define TK_EQ 273
-#define TK_AND 274
-#define TK_OR 275
-#define TK_NOT 276
-#define TK_IF 277
-#define TK_ELSE 278
-#define TK_FOR 279
-#define TK_WHILE 280
-#define TK_DO 281
-#define TK_SWITCH 282
-#define TK_CASE 283
-#define TK_DEFAULT 284
-#define TK_BREAK 285
-#define TK_CONTINUE 286
-#define NO_ELSE 287
+#define TK_STRING 264
+#define TK_TYPE_INT 265
+#define TK_TYPE_FLOAT 266
+#define TK_TYPE_BOOL 267
+#define TK_TYPE_CHAR 268
+#define TK_TYPE_STRING 269
+#define TK_BIG 270
+#define TK_SMALL 271
+#define TK_NOT_EQ 272
+#define TK_BIG_EQ 273
+#define TK_SMALL_EQ 274
+#define TK_EQ 275
+#define TK_AND 276
+#define TK_OR 277
+#define TK_NOT 278
+#define TK_IF 279
+#define TK_ELSE 280
+#define TK_FOR 281
+#define TK_WHILE 282
+#define TK_DO 283
+#define TK_SWITCH 284
+#define TK_CASE 285
+#define TK_DEFAULT 286
+#define TK_BREAK 287
+#define TK_CONTINUE 288
+#define NO_ELSE 289
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

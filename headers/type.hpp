@@ -14,4 +14,8 @@ Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribut
 void validateTK_TYPE(Attribute attribute);
 void variableHasAlreadyBeenDeclared(Symbol symbol, string message);
 
+Attribute createTK_TYPE_STRING(Attribute actual, string type, Attribute right);
+string createStringSizeLabel(string label);
+
+
 #endif

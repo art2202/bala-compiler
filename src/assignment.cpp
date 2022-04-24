@@ -11,30 +11,55 @@ using namespace std;
 extern Attribute resolveAssignmentType(Attribute left, string operation, Attribute right);
 
 
-
-Attribute makeAssignment(Attribute atual, Attribute left, Attribute right)
+Attribute makeAssignment(Attribute actual, Attribute left, Attribute right)
 {
-	//cout <<"//makeAssignment"<< endl;
-
-	validateTK_ID(atual);
+	validateTK_ID(actual);
 	string operation = "=";
+	Symbol leftSymbol = getSymbolAnywere(left.label);
 
-	//Symbol leftSimbol = getSymbol(left.label);
-	Symbol leftSimbol = getSymbolAnywere(left.label);
+	if(leftSymbol.type == "string") 
+	{ 
+		return makeAssignmentString(actual, left, right, leftSymbol, operation); 
+	}
+	else
+	{
+		return makeAssignmentDefault(actual, left, right, leftSymbol, operation);
+	}
+}
 
-	//cout <<"//makeAssignment -- leftSimbol.type: " << leftSimbol.type << " right.type: " << right.type<< endl;
 
+Attribute makeAssignmentDefault(Attribute actual, Attribute left, Attribute right, Symbol leftSimbol, string operation)
+{
 	if(leftSimbol.type == right.type)
 	{
-		atual.translation = left.translation + right.translation + "\t" + leftSimbol.name + " " + operation + " " + right.label + ";\n";
+		actual.translation = left.translation + right.translation + "\t" + leftSimbol.name + " " + operation + " " + right.label + ";\n";
 	}
 	else 
 	{
 		Attribute newActual = resolveAssignmentType(left, operation, right);
 		return newActual;
 	}
+	return actual;
+}
 
-	return atual;
+Attribute makeAssignmentString(Attribute actual, Attribute left, Attribute right, Symbol leftSimbol, string operation)
+{
+	if(leftSimbol.type != right.type)
+	{
+		yyerror("The operation is not set to " + leftSimbol.type + " and " + right.type);
+	}
+
+	string type= "string";
+	string leftStringSizeLabel = createStringSizeLabel(leftSimbol.name);
+	string rightStringSizelabel = "size_"+right.label;
+
+	actual.translation = left.translation + right.translation
+	+ "\t" + leftStringSizeLabel +  " = " + rightStringSizelabel + ";\n"
+	+ "\t" + leftSimbol.name + " = (" + type + ") realloc(" + leftSimbol.name + ", " + leftStringSizeLabel  + ");\n"
+	+ "\tstrcpy( " + leftSimbol.name + ", " + right.label + " );\n"
+	+ "\n"; 
+
+	return actual;
 }
 
 void validateTK_ID(Attribute attribute)
@@ -45,12 +70,3 @@ void validateTK_ID(Attribute attribute)
 	string message = "TK_ID '" +  attribute.label + "' is not defined in this scope. Please defines a type to '" + attribute.label + "'.\n";
 	variableHasNotBeenDeclared(symbol, message);
 }
-
-// void validateTK_ID(Attribute attribute)
-// {
-// 	int position = findSymbol(attribute.label);
-// 	if (position < 0)
-// 	{
-// 		yyerror("TK_ID '" +  attribute.label + "' is not defined. Please defines a type to '" +  attribute.label + "'.\n");
-// 	}
-// }

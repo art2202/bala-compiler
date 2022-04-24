@@ -8,17 +8,21 @@ extern vector<Symbol> allSymbols;
 
 string iniciate()
 {
-  string libs = "\n//Includes\n";
-  libs += "#include<iostream>\n#include<string.h>\n#include<stdio.h>\n";
+  string libs = 
+  "\n//Includes\n#include<iostream>\n#include<string.h>\n#include<stdio.h>\n";
 
-  return libs + getDefines() + getTemps() + getGlobalVariabels();
+  return libs 
+  + getDefines() 
+  + "\nusing namespace std;\n"
+  + getTemps() 
+  + getGlobalVariabels();
 }
 
 string getDefines()
 {
   string result = "\n//Defines\n";
 
-  result += "#define boleano int\n";
+  result += "#define bool int\n";
   result += "#define verdadeiro 1\n";
   result += "#define falso 0\n";
 	result += "#define string char*\n";

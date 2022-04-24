@@ -35,6 +35,11 @@ string createGotoLabel()
 	return "l" + to_string(count_label);
 }
 
+string createStringSizeLabel(string label)
+{
+	return "size_" + label;
+}
+
 string intToString(int value)
 {
 	return to_string(value);

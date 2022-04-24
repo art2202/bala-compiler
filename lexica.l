@@ -1,4 +1,5 @@
 %{
+
 #include <string>
 
 %}
@@ -15,7 +16,19 @@ CHAR \'({LETTER}|{NUM})\'
 
 ID {LETTER}({LETTER}|{NUM})*
 
+%x SINGLE_STRING
 %%
+\"                          BEGIN(SINGLE_STRING);
+<SINGLE_STRING>{
+  \n                        yyerror("the string misses \" to termiate before newline");
+  <<EOF>>                   yyerror("the string misses \" to terminate before EOF");
+  ([^\\\"]|\\.)*            {yylval.label = yytext; return TK_STRING;}
+  \"                        BEGIN(INITIAL);
+  .                         ;
+}
+
+
+
 
 "\n"        {}
 
@@ -26,6 +39,7 @@ ID {LETTER}({LETTER}|{NUM})*
 "flutuante"   {return TK_TYPE_FLOAT;}
 "caracter"    {return TK_TYPE_CHAR;}
 "boleano"     {return TK_TYPE_BOOL;}
+"texto"       {return TK_TYPE_STRING;}
 
 "como"        {return TK_EXPLICIT_CONVERTER;}
 

@@ -11,9 +11,16 @@ int DEFAULT_INT = 0;
 float DEFAULT_FLOAT = 0.0;
 char DEFAULT_CHAR = ' ';
 string DEFAULT_STRING = "\0";
-string DEFAULT_BOOL = "false";
+string DEFAULT_BOOL = "falso";
 
 
+
+void validateTK_TYPE(Attribute attribute)
+{
+	Symbol symbol = getSymbolTop(attribute.label);
+	string message = "Error! TK_ID '" + attribute.label + "' declared twice.\n";
+	variableHasAlreadyBeenDeclared(symbol, message);
+}
 
 Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribute right)
 {
@@ -32,6 +39,17 @@ Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribut
 	if(type == "float") 	{ actual.translation =  "\t" + currentSymbol.name + " = " + to_string(DEFAULT_FLOAT) + "; " + message + "\n"; }
 	if(type == "char") 		{ actual.translation =  "\t" + currentSymbol.name + " = "  + "'"+ DEFAULT_CHAR + "'" + "; " + message + "\n"; }
 	if(type == "bool") 		{ actual.translation =  "\t" + currentSymbol.name + " = " + DEFAULT_BOOL + "; " + message + "\n"; }
+	
+	if(type == "string")  
+	{
+		string stringSizeLabel = createStringSizeLabel(currentSymbol.name);
+		addTemporary(stringSizeLabel, "int");
+
+		actual.translation = "\t" + stringSizeLabel + " = 1;\n"
+		+ "\t" + currentSymbol.name + " = (" + type + ") realloc(" + currentSymbol.name + ", " + stringSizeLabel + ");\n"
+		+ "\t" + currentSymbol.name + "[0] = \'\\0\';\n"
+		+ "\n"; 
+	}
 
 	return actual;
 }
@@ -59,9 +77,22 @@ Attribute createTK_TYPE(Attribute actual, string type, Attribute right)
 	return actual;
 }
 
-void validateTK_TYPE(Attribute attribute)
+Attribute createTK_TYPE_STRING(Attribute actual, string type, Attribute right)
 {
-	Symbol symbol = getSymbolTop(attribute.label);
-	string message = "Error! TK_ID '" + attribute.label + "' declared twice.\n";
-	variableHasAlreadyBeenDeclared(symbol, message);
+	actual.label = createTempCode();
+	actual.type = type;
+	addTemporary(actual.label, type);
+
+	string stringSizeLabel = createStringSizeLabel(actual.label);
+	addTemporary(stringSizeLabel, "int");
+
+	int stringSize = right.label.length();
+
+	actual.type = type;
+	actual.translation = "\t" + stringSizeLabel +  " = " + to_string(stringSize + 1) + ";\n"
+	+ "\t" + actual.label + " = (" + type + ") realloc(" + actual.label + ", " + stringSizeLabel  + ");\n"
+	+ "\tstrcpy( " + actual.label + ", \"" + right.label + "\" );\n"
+	+ "\n"; 
+
+	return actual;
 }
