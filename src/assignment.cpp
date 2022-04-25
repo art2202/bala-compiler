@@ -11,10 +11,9 @@ using namespace std;
 extern Attribute resolveAssignmentType(Attribute left, string operation, Attribute right);
 
 
-Attribute makeAssignment(Attribute actual, Attribute left, Attribute right)
+Attribute makeAssignment(Attribute actual, Attribute left, Attribute right, string operation)
 {
 	validateTK_ID(actual);
-	string operation = "=";
 	Symbol leftSymbol = getSymbolAnywere(left.label);
 
 	if(leftSymbol.type == "string") 
@@ -32,7 +31,7 @@ Attribute makeAssignmentDefault(Attribute actual, Attribute left, Attribute righ
 {
 	if(leftSimbol.type == right.type)
 	{
-		actual.translation = left.translation + right.translation + "\t" + leftSimbol.name + " " + operation + " " + right.label + ";\n";
+		actual.translation += left.translation + right.translation + "\t" + leftSimbol.name + " " + operation + " " + right.label + ";\n";
 	}
 	else 
 	{
@@ -70,3 +69,44 @@ void validateTK_ID(Attribute attribute)
 	string message = "TK_ID '" +  attribute.label + "' is not defined in this scope. Please defines a type to '" + attribute.label + "'.\n";
 	variableHasNotBeenDeclared(symbol, message);
 }
+
+
+Attribute makeCompousedOperator(Attribute actual, Attribute left, string operation, Attribute right)
+{
+  Symbol leftSimbol = getSymbolAnywere(left.label);
+	left.type = leftSimbol.type;
+
+	Symbol rightSimbol = getSymbolAnywere(right.label);
+	right.type = rightSimbol.type;
+	right.label = rightSimbol.name;
+
+	string message =  "= (" + leftSimbol.name + " " + operation + " " + right.label + ") "
+	+ " /*compoused operator*/";
+
+	right.label = "";
+
+	return makeAssignment(actual, left, right, message);
+}
+
+Attribute makeUnaryOperator(Attribute actual, Attribute left, string operation)
+{
+  Symbol leftSimbol = getSymbolAnywere(left.label);
+	Attribute auxAttribute = createActualAttribute(leftSimbol.type);
+
+	actual.translation = "\t" + auxAttribute.label + " = " + "1;\n";
+	string message =  "= (" + leftSimbol.name + " " + operation + " "  + auxAttribute.label + ") "
+	+ " /*unary operator*/";
+
+	auxAttribute.label = "";
+
+	return makeAssignment(actual, left, auxAttribute, message);
+}
+// int var;
+// int a = a + var; // a += var;
+
+// int a = a + 1; // a ++;
+// int a  op  a;
+
+// operador tem q ter "= right.label operadorDeExpressão"
+
+// a = a

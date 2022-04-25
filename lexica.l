@@ -43,9 +43,26 @@ ID {LETTER}({LETTER}|{NUM})*
 
 "como"        {return TK_EXPLICIT_CONVERTER;}
 
-[(){}[\];:,.']  {return *yytext;}
+[(){}[\]:,.']  {return *yytext;}
 
-[+\-*/=]      {return *yytext;}
+
+";"       {return TK_SEMICOLON;}
+"++"      {return TK_ADD_ADD;}
+"--"      {return TK_SUBTRACT_SUBTRACT;}
+
+"="       {return TK_ASSIGNMENT;}
+"+="      {return TK_ADD_ASSIGNMENT;}
+"-="      {return TK_SUBTRACT_ASSIGNMENT;}
+"*="      {return TK_MULTIPLICATION_ASSIGNMENT;}
+"/="      {return TK_DIVISION_ASSIGNMENT;}
+
+"+"       {return TK_ADD;}
+"-"       {return TK_SUBTRACT;}
+"*"       {return TK_MULTIPLICATION;}
+"/"       {return TK_DIVISION;}
+"%"       {return TK_MODULE;}
+
+
 
 
 ">"     {return TK_BIG;}

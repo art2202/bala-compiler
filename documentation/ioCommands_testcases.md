@@ -24,7 +24,7 @@ ler(teste);
 // Message: "This function with these parameters is only accepted for the string type."
 
 inteirinho teste;
-ler(inteirinho, 60);
+ler(teste, 60);
 
 ```
 
