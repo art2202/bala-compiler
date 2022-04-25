@@ -101,5 +101,5 @@ Attribute resolveCheckerSwitch(Attribute actual, string operador, Attribute vari
   comparator.type = topStack.searchVariable.type;
   comparator.label = getSymbolAnywere(topStack.searchVariable.label).name;
 
-  return resolveExpressionType(variable, operador, comparator);
+  return resolveExpressionType(comparator, operador, variable);
 }
