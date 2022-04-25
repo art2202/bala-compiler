@@ -42,8 +42,8 @@
 - Functions
 - Vector initialization
 - Vectors
-- Compoused assignment Operators
-- Unary Operators
+- Compoused assignment Operators ✔️
+- Unary Operators ✔️
 - Initialization of variables ✔️
 - Error detection ✔️
 
