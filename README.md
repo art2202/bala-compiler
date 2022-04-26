@@ -47,6 +47,18 @@
 - Initialization of variables ✔️
 - Error detection ✔️
 
+### Extras
+- Default value assignment ✔️
+- Switch with relational operator ✔️
+- Scan range ✔️
+- Line comment ✔️
+- Multi-line comment ✔️
+- If ternary ✔️
+- Type Inference ✔️
+- New operations (exponentiation, ...)
+- Foreach
+- Function within function
+
 
 #### Final date: 04/27/2022
 

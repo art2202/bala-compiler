@@ -18,6 +18,7 @@ typedef struct switcher
 
 Attribute makeIf(Attribute actual, Attribute expression, Attribute blockCommand);
 Attribute makeIfElse(Attribute actual, Attribute expression, Attribute blockCommandIf, Attribute blockCommandElse);
+Attribute makeIfTernary(Attribute actual, Attribute left, Attribute expression, Attribute right1,  Attribute right2);
 
 Attribute iniciateSwitch(Attribute actual, Attribute blockSwitch);
 void finalizeSwitcher();

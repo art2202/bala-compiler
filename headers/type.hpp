@@ -10,8 +10,9 @@ using namespace structs;
 
 Attribute createTK_ID(Attribute actual, Attribute value);
 Attribute createTK_TYPE(Attribute actual, string type, Attribute value);
-Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribute right);
-void validateTK_TYPE(Attribute attribute);
+Attribute declareTK_TYPE(string type, Attribute actual, Attribute right);
+void declareTK_TYPE_SetNotDefaultValue(Attribute actual, Attribute attribute, string type);
+void verifyIfDeclaredInCurrentScope(Attribute attribute);
 void variableHasAlreadyBeenDeclared(Symbol symbol, string message);
 
 Attribute createTK_TYPE_STRING(Attribute actual, string type, Attribute right);

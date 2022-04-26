@@ -4,6 +4,12 @@
 
 %}
 
+START_LINE_COMMENT "//"
+LINE_COMMENT {START_LINE_COMMENT}.*
+START_MULTI_LINE_COMMENT "<!--"
+END_MULTI_LINE_COMMENT "-->"
+
+
 SPACE [ \t]
 DIGIT [0-9]
 LETTER [A-Za-z_]
@@ -30,9 +36,8 @@ ID {LETTER}({LETTER}|{NUM})*
 
 
 
-"\n"        {}
-
-{DELIM}     {}
+"\n"          {}
+{DELIM}       {}
 
 
 "inteirinho"  {return TK_TYPE_INT;}
@@ -41,9 +46,11 @@ ID {LETTER}({LETTER}|{NUM})*
 "boleano"     {return TK_TYPE_BOOL;}
 "texto"       {return TK_TYPE_STRING;}
 
+"var"         {return TK_VAR;}
+
 "como"        {return TK_EXPLICIT_CONVERTER;}
 
-[(){}[\]:,.']  {return *yytext;}
+[(){}[\]:,.'?]  {return *yytext;}
 
 
 ";"       {return TK_SEMICOLON;}
@@ -92,6 +99,10 @@ ID {LETTER}({LETTER}|{NUM})*
 "break"       {return TK_BREAK;}
 "continue"    {return TK_CONTINUE;}
 
+
+{LINE_COMMENT}              {yylval.label = yytext; return TK_LINE_COMMENT;}
+{START_MULTI_LINE_COMMENT}  {yylval.label = yytext; return TK_START_MULTI_LINE_COMMENT;}
+{END_MULTI_LINE_COMMENT}    {yylval.label = yytext; return TK_END_MULTI_LINE_COMMENT;}
 
 {NUM}     {yylval.label = yytext; return TK_NUM;}
 {REAL}    {yylval.label = yytext; return TK_REAL;}

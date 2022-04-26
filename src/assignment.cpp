@@ -2,20 +2,23 @@
 #include "../headers/utils.hpp"
 #include "../headers/symbols.hpp"
 #include "../headers/scope.hpp"
+#include "../headers/type.hpp"
 
 
 using namespace std;
 
-
-
 extern Attribute resolveAssignmentType(Attribute left, string operation, Attribute right);
 
 
-Attribute makeAssignment(Attribute actual, Attribute left, Attribute right, string operation)
+void verifyIfIsNotDeclaredAnywere(Attribute attribute)
 {
-	validateTK_ID(actual);
-	Symbol leftSymbol = getSymbolAnywere(left.label);
+	Symbol symbol = getSymbolAnywere(attribute.label);
+	string message = "TK_ID '" +  attribute.label + "' is not declared. Please defines a type to '" + attribute.label + "'.\n";
+	variableHasNotBeenDeclared(symbol, message);
+}
 
+Attribute verifyIfStringType(Symbol leftSymbol, Attribute actual, Attribute left, Attribute right, string operation)
+{
 	if(leftSymbol.type == "string") 
 	{ 
 		return makeAssignmentString(actual, left, right, leftSymbol, operation); 
@@ -25,6 +28,26 @@ Attribute makeAssignment(Attribute actual, Attribute left, Attribute right, stri
 		return makeAssignmentDefault(actual, left, right, leftSymbol, operation);
 	}
 }
+
+
+
+Attribute makeAssignment(Attribute actual, Attribute left, Attribute right, string operation)
+{
+	verifyIfIsNotDeclaredAnywere(actual);
+
+	Symbol leftSymbol = getSymbolAnywere(left.label);
+	return verifyIfStringType(leftSymbol, actual, left, right, operation);
+}
+
+Attribute makeDeclaredAssignmentVar(Attribute actual, Attribute left, Attribute right, string operation)
+{
+	declareTK_TYPE_SetNotDefaultValue(actual, left, right.type);
+	declareTK_TYPE_SetNotDefaultValue(actual, right, right.type);
+									
+	Symbol leftSymbol = getSymbolAnywere(left.label);
+	return verifyIfStringType(leftSymbol, actual, left, right, operation);
+}
+
 
 
 Attribute makeAssignmentDefault(Attribute actual, Attribute left, Attribute right, Symbol leftSimbol, string operation)
@@ -63,12 +86,6 @@ Attribute makeAssignmentString(Attribute actual, Attribute left, Attribute right
 	return actual;
 }
 
-void validateTK_ID(Attribute attribute)
-{
-	Symbol symbol = getSymbolAnywere(attribute.label);
-	string message = "TK_ID '" +  attribute.label + "' is not defined in this scope. Please defines a type to '" + attribute.label + "'.\n";
-	variableHasNotBeenDeclared(symbol, message);
-}
 
 
 Attribute makeCompousedOperator(Attribute actual, Attribute left, string operation, Attribute right)
@@ -101,12 +118,3 @@ Attribute makeUnaryOperator(Attribute actual, Attribute left, string operation)
 
 	return makeAssignment(actual, left, auxAttribute, message);
 }
-// int var;
-// int a = a + var; // a += var;
-
-// int a = a + 1; // a ++;
-// int a  op  a;
-
-// operador tem q ter "= right.label operadorDeExpressão"
-
-// a = a

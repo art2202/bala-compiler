@@ -9,13 +9,14 @@
 | caracter | char | --- |
 | boleano | bool | --- |
 | texto | string | --- |
+| var | var | inference type |
 
 
 ### Examples of Primitive Types
 
 ```cpp
 // Error
-// Message: TK_ID 'f' is not defined in this scope. Please defines a type to 'f'.
+// Message: TK_ID 'f' is not declared. Please defines a type to 'f'.
 
 inteirinho a;
 a = 1;
@@ -70,4 +71,15 @@ aa = "gabi";
 
 texto bb;
 bb = aa;
+```
+
+### Example of Type Inference
+
+```cpp
+// Correct
+
+var i = 40.7;
+var num = 50;
+var valor = 60 + 4 - 90;
+
 ```

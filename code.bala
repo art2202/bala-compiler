@@ -1,38 +1,4 @@
 
-inteirinho x;
-x = 20;
-inteirinho z;
-
-switch (x) 
-{
-  case > 10 :
-  { 
-    z = 1; 
-    mostrar(z);
-  }
-  case < 20 :
-  { 
-    z = 2; 
-    mostrar(z);
-  }
-  case <= 30 :
-  { 
-    z = 3; 
-    mostrar(z);
-  }
-  case >= 40 :
-  { 
-    z = 4; 
-    mostrar(z);
-  }
-  case 50 :
-  { 
-    z = 5;
-    mostrar(z);
-  }
-  default :
-  { 
-    z = 0; 
-    mostrar(z);
-  }
-}
+var i = 40.7;
+var num = 50;
+var valor = 60 + 4 - 90;

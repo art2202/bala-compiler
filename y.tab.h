@@ -61,41 +61,45 @@ extern int yydebug;
     TK_TYPE_BOOL = 267,
     TK_TYPE_CHAR = 268,
     TK_TYPE_STRING = 269,
-    TK_BIG = 270,
-    TK_SMALL = 271,
-    TK_NOT_EQ = 272,
-    TK_BIG_EQ = 273,
-    TK_SMALL_EQ = 274,
-    TK_EQ = 275,
-    TK_AND = 276,
-    TK_OR = 277,
-    TK_NOT = 278,
-    TK_IF = 279,
-    TK_ELSE = 280,
-    TK_FOR = 281,
-    TK_WHILE = 282,
-    TK_DO = 283,
-    TK_SWITCH = 284,
-    TK_CASE = 285,
-    TK_DEFAULT = 286,
-    TK_PRINT = 287,
-    TK_SCAN = 288,
-    TK_BREAK = 289,
-    TK_CONTINUE = 290,
-    TK_SEMICOLON = 291,
-    TK_ADD_ADD = 292,
-    TK_SUBTRACT_SUBTRACT = 293,
-    TK_ASSIGNMENT = 294,
-    TK_ADD_ASSIGNMENT = 295,
-    TK_SUBTRACT_ASSIGNMENT = 296,
-    TK_MULTIPLICATION_ASSIGNMENT = 297,
-    TK_DIVISION_ASSIGNMENT = 298,
-    TK_ADD = 299,
-    TK_SUBTRACT = 300,
-    TK_MULTIPLICATION = 301,
-    TK_DIVISION = 302,
-    TK_MODULE = 303,
-    NO_ELSE = 304
+    TK_VAR = 270,
+    TK_BIG = 271,
+    TK_SMALL = 272,
+    TK_NOT_EQ = 273,
+    TK_BIG_EQ = 274,
+    TK_SMALL_EQ = 275,
+    TK_EQ = 276,
+    TK_AND = 277,
+    TK_OR = 278,
+    TK_NOT = 279,
+    TK_IF = 280,
+    TK_ELSE = 281,
+    TK_FOR = 282,
+    TK_WHILE = 283,
+    TK_DO = 284,
+    TK_SWITCH = 285,
+    TK_CASE = 286,
+    TK_DEFAULT = 287,
+    TK_PRINT = 288,
+    TK_SCAN = 289,
+    TK_BREAK = 290,
+    TK_CONTINUE = 291,
+    TK_SEMICOLON = 292,
+    TK_ADD_ADD = 293,
+    TK_SUBTRACT_SUBTRACT = 294,
+    TK_ASSIGNMENT = 295,
+    TK_ADD_ASSIGNMENT = 296,
+    TK_SUBTRACT_ASSIGNMENT = 297,
+    TK_MULTIPLICATION_ASSIGNMENT = 298,
+    TK_DIVISION_ASSIGNMENT = 299,
+    TK_ADD = 300,
+    TK_SUBTRACT = 301,
+    TK_MULTIPLICATION = 302,
+    TK_DIVISION = 303,
+    TK_MODULE = 304,
+    TK_LINE_COMMENT = 305,
+    TK_START_MULTI_LINE_COMMENT = 306,
+    TK_END_MULTI_LINE_COMMENT = 307,
+    NO_ELSE = 308
   };
 #endif
 /* Tokens.  */
@@ -111,41 +115,45 @@ extern int yydebug;
 #define TK_TYPE_BOOL 267
 #define TK_TYPE_CHAR 268
 #define TK_TYPE_STRING 269
-#define TK_BIG 270
-#define TK_SMALL 271
-#define TK_NOT_EQ 272
-#define TK_BIG_EQ 273
-#define TK_SMALL_EQ 274
-#define TK_EQ 275
-#define TK_AND 276
-#define TK_OR 277
-#define TK_NOT 278
-#define TK_IF 279
-#define TK_ELSE 280
-#define TK_FOR 281
-#define TK_WHILE 282
-#define TK_DO 283
-#define TK_SWITCH 284
-#define TK_CASE 285
-#define TK_DEFAULT 286
-#define TK_PRINT 287
-#define TK_SCAN 288
-#define TK_BREAK 289
-#define TK_CONTINUE 290
-#define TK_SEMICOLON 291
-#define TK_ADD_ADD 292
-#define TK_SUBTRACT_SUBTRACT 293
-#define TK_ASSIGNMENT 294
-#define TK_ADD_ASSIGNMENT 295
-#define TK_SUBTRACT_ASSIGNMENT 296
-#define TK_MULTIPLICATION_ASSIGNMENT 297
-#define TK_DIVISION_ASSIGNMENT 298
-#define TK_ADD 299
-#define TK_SUBTRACT 300
-#define TK_MULTIPLICATION 301
-#define TK_DIVISION 302
-#define TK_MODULE 303
-#define NO_ELSE 304
+#define TK_VAR 270
+#define TK_BIG 271
+#define TK_SMALL 272
+#define TK_NOT_EQ 273
+#define TK_BIG_EQ 274
+#define TK_SMALL_EQ 275
+#define TK_EQ 276
+#define TK_AND 277
+#define TK_OR 278
+#define TK_NOT 279
+#define TK_IF 280
+#define TK_ELSE 281
+#define TK_FOR 282
+#define TK_WHILE 283
+#define TK_DO 284
+#define TK_SWITCH 285
+#define TK_CASE 286
+#define TK_DEFAULT 287
+#define TK_PRINT 288
+#define TK_SCAN 289
+#define TK_BREAK 290
+#define TK_CONTINUE 291
+#define TK_SEMICOLON 292
+#define TK_ADD_ADD 293
+#define TK_SUBTRACT_SUBTRACT 294
+#define TK_ASSIGNMENT 295
+#define TK_ADD_ASSIGNMENT 296
+#define TK_SUBTRACT_ASSIGNMENT 297
+#define TK_MULTIPLICATION_ASSIGNMENT 298
+#define TK_DIVISION_ASSIGNMENT 299
+#define TK_ADD 300
+#define TK_SUBTRACT 301
+#define TK_MULTIPLICATION 302
+#define TK_DIVISION 303
+#define TK_MODULE 304
+#define TK_LINE_COMMENT 305
+#define TK_START_MULTI_LINE_COMMENT 306
+#define TK_END_MULTI_LINE_COMMENT 307
+#define NO_ELSE 308
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

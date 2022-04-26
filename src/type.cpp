@@ -15,16 +15,22 @@ string DEFAULT_BOOL = "falso";
 
 
 
-void validateTK_TYPE(Attribute attribute)
+void verifyIfDeclaredInCurrentScope(Attribute attribute)
 {
 	Symbol symbol = getSymbolTop(attribute.label);
 	string message = "Error! TK_ID '" + attribute.label + "' declared twice.\n";
 	variableHasAlreadyBeenDeclared(symbol, message);
 }
 
-Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribute right)
+void declareTK_TYPE_SetNotDefaultValue(Attribute actual, Attribute attribute, string type)
 {
-	validateTK_TYPE(right);
+	verifyIfDeclaredInCurrentScope(attribute);
+	addSymbolInScope(StackContext, attribute.label, type, actual);
+}
+
+Attribute declareTK_TYPE(string type, Attribute actual, Attribute right)
+{
+	verifyIfDeclaredInCurrentScope(right);
 
 	Symbol currentSymbol = addSymbolInScope(StackContext, right.label, type, actual);
 
@@ -34,7 +40,7 @@ Attribute declareTK_TYPE(string type, Attribute actual, Attribute left, Attribut
 	if(type == "float") 	{ actual.translation =  "\t" + currentSymbol.name + " = " + to_string(DEFAULT_FLOAT) + "; " + message + "\n"; }
 	if(type == "char") 		{ actual.translation =  "\t" + currentSymbol.name + " = "  + "'"+ DEFAULT_CHAR + "'" + "; " + message + "\n"; }
 	if(type == "bool") 		{ actual.translation =  "\t" + currentSymbol.name + " = " + DEFAULT_BOOL + "; " + message + "\n"; }
-
+	
 	return actual;
 }
 

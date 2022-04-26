@@ -13,7 +13,7 @@ int yylex(void);
 %token TK_ID
 %token TK_EXPLICIT_CONVERTER
 %token TK_NUM TK_REAL TK_CHAR TK_BOOL TK_STRING
-%token TK_TYPE_INT TK_TYPE_FLOAT TK_TYPE_BOOL TK_TYPE_CHAR TK_TYPE_STRING
+%token TK_TYPE_INT TK_TYPE_FLOAT TK_TYPE_BOOL TK_TYPE_CHAR TK_TYPE_STRING TK_VAR
 %token TK_BIG TK_SMALL TK_NOT_EQ TK_BIG_EQ TK_SMALL_EQ TK_EQ
 %token TK_AND TK_OR TK_NOT
 %token TK_IF TK_ELSE
@@ -28,6 +28,8 @@ int yylex(void);
 %token TK_ADD_ASSIGNMENT TK_SUBTRACT_ASSIGNMENT TK_MULTIPLICATION_ASSIGNMENT TK_DIVISION_ASSIGNMENT
 %token TK_ADD TK_SUBTRACT TK_MULTIPLICATION TK_DIVISION TK_MODULE
 
+%token TK_LINE_COMMENT 
+%token TK_START_MULTI_LINE_COMMENT TK_END_MULTI_LINE_COMMENT
 
 
 %start S
@@ -66,7 +68,6 @@ BLOCK_AUX:
 									$$.translation = "";
 								};
 //------------------------------------------------------------------------------
-
 COMMANDS:	
 								COMMAND COMMANDS
 								{
@@ -78,7 +79,11 @@ COMMANDS:
 								};
 //------------------------------------------------------------------------------
 COMMAND: 
-								E TK_SEMICOLON
+								COMMENT
+								{
+									$$.translation = $1.translation;
+								}
+								| E TK_SEMICOLON
 								{
 									$$.translation = $1.translation;
 								}
@@ -115,28 +120,36 @@ COMMAND:
 									$$.translation = $1.translation;
 								};
 //------------------------------------------------------------------------------
-
+COMMENT:
+								TK_LINE_COMMENT
+								{
+									$$.translation = $1.label + "\n";
+								}
+								| TK_START_MULTI_LINE_COMMENT TK_STRING TK_END_MULTI_LINE_COMMENT
+								{
+									$$.translation = "/*" + $2.label + "*/" + "\n";
+								};
 //------------------------------------------------------------------------------
 DEFINITION:
 								TK_TYPE_INT TK_ID
 								{
-									$$ = declareTK_TYPE("int", $$, $1, $2);
+									$$ = declareTK_TYPE("int", $$, $2);
 								}
 								| TK_TYPE_FLOAT TK_ID
 								{
-									$$ = declareTK_TYPE("float", $$, $1, $2);
+									$$ = declareTK_TYPE("float", $$, $2);
 								}
 								| TK_TYPE_CHAR TK_ID
 								{
-									$$ = declareTK_TYPE("char", $$, $1, $2);
+									$$ = declareTK_TYPE("char", $$, $2);
 								}
 								| TK_TYPE_BOOL TK_ID
 								{
-									$$ = declareTK_TYPE("bool", $$, $1, $2);
+									$$ = declareTK_TYPE("bool", $$, $2);
 								}
 								| TK_TYPE_STRING TK_ID
 								{
-									$$ = declareTK_TYPE("string", $$, $1, $2);
+									$$ = declareTK_TYPE("string", $$, $2);
 								};
 //------------------------------------------------------------------------------
 TYPE:						
@@ -212,7 +225,6 @@ UNARY_OPERATOR:
 								{
 									$$ = makeUnaryOperator($$, $1, "-");
 								};
-
 //------------------------------------------------------------------------------
 ASSIGNMENT:
 								TK_ID TK_ASSIGNMENT E 
@@ -223,7 +235,10 @@ ASSIGNMENT:
 								{
 									$$.translation = $1.translation;
 								}
-
+								| TK_VAR TK_ID TK_ASSIGNMENT E
+								{
+									$$ = makeDeclaredAssignmentVar($$, $2, $4, "=");
+								};
 //------------------------------------------------------------------------------
 E:
 								'(' E ')'
@@ -341,7 +356,6 @@ RELATIONAL:
 									$$ = makeExpression($1, "!=", $3);
 								};
 //------------------------------------------------------------------------------
-
 IF:			
 								TK_IF '(' E ')' BLOCK %prec NO_ELSE
 								{
@@ -350,9 +364,12 @@ IF:
 								| TK_IF '(' E ')' BLOCK TK_ELSE BLOCK
 								{
 									$$ = makeIfElse($$, $3, $5, $7);
-								};				
+								}
+								| TK_ID TK_ASSIGNMENT '(' E ')' '?' VARIABLE ':' VARIABLE TK_SEMICOLON
+								{
+									$$ = makeIfTernary($$, $1, $4, $7, $9);
+								};			
 //------------------------------------------------------------------------------
-
 LOOP: 		
 								LOOP_AUX DO_WHILE 
 								{ 
@@ -382,7 +399,6 @@ LOOP_AUX:
 								};
 
 //------------------------------------------------------------------------------
-
 LOOP_CONTROL:
 								BREAK
 								{ 
@@ -404,7 +420,6 @@ CONTINUE:
 								{ 
 									$$ = makeContinue($$, $1); 
 								};
-
 //------------------------------------------------------------------------------
 FOR:						
 								'(' TK_ID TK_SEMICOLON RELATIONAL TK_SEMICOLON ASSIGNMENT ')' BLOCK
@@ -412,22 +427,18 @@ FOR:
 									$$ = makeForCounter($$, $2, $4, $6, $8);
 								};
 //------------------------------------------------------------------------------
-
 WHILE:						
 								'(' RELATIONAL ')' BLOCK
 								{
 									$$ = makeWhile($$, $2, $4);
 								};
 //------------------------------------------------------------------------------
-
 DO_WHILE:						
 								BLOCK TK_WHILE '(' RELATIONAL ')' 
 								{
 									$$ = makeDoWhile($$, $1, $4);
 								};
 //------------------------------------------------------------------------------
-
-
 SWITCH:					
 								TK_SWITCH '(' SEEKER_SWITCH ')' BLOCK_SWITCH
 								{	
@@ -481,9 +492,6 @@ VARIABLE_SWITCH:
 								{
 									$$ = resolveCheckerSwitch($$, "<=", $2);
 								};
-//------------------------------------------------------------------------------
-
-
 //------------------------------------------------------------------------------
 %%
 

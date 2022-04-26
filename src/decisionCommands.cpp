@@ -1,6 +1,7 @@
 #include "../headers/decisionCommands.hpp"
 #include "../headers/utils.hpp"
 #include "../headers/symbols.hpp"
+#include "../headers/assignment.hpp"
 
 #include <stack>
 #include <iostream>
@@ -35,6 +36,21 @@ Attribute makeIfElse(Attribute actual, Attribute expression, Attribute blockComm
   + "\t" +endLabel + ":\n";
 
   return actual;
+}
+
+
+Attribute makeIfTernary(Attribute actual, Attribute left, Attribute expression, Attribute right1,  Attribute right2)
+{
+  Symbol symbol = getSymbolAnywere(left.label);
+  left.label = symbol.label; left.type = symbol.type;
+
+  Attribute auxActual = createActualAttribute(left.type);
+  addSymbolInScope(StackContext, auxActual.label, auxActual.type, actual);
+
+  Attribute blockCommandIf = makeAssignment(auxActual, left, right1, "=");
+  Attribute blockCommandElse = makeAssignment(auxActual, left, right2, "=");
+
+  return makeIfElse(actual, expression, blockCommandIf, blockCommandElse);  
 }
 
 
