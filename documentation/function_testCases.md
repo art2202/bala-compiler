@@ -27,8 +27,7 @@ funcao flutuante c (flutuante a, inteirinho b)
 }
 ```
 
-- Access variable 'b' from outside scope.
-
+Access variable 'b' from outside scope.
 ```cpp
 // Correct 
 
@@ -45,8 +44,7 @@ funcao flutuante c (flutuante b, inteirinho d, texto e)
 }
 ```
 
-- Access the scope variable 'b' from within.
-
+Access variable 'b' from current scope.
 ```cpp
 // Correct 
 
@@ -55,7 +53,7 @@ funcao flutuante c (flutuante b, inteirinho d, texto e)
     b = 3;
     retorne b;
 
-    funcao flutuante c (flutuante k, inteirinho d)
+    funcao flutuante c (flutuante k, inteirinho b)
     {
         b = 3;
         retorne b;

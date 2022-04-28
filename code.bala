@@ -1,18 +1,11 @@
-inteirinho i;
-flutuante num;
-inteirinho valor;
+funcao flutuante c (flutuante b, inteirinho d, texto e)
+{
+    b = 3;
+    retorne b;
 
-forzinho (i; i < 10; i = i + 1)
-{  
-  por acaso(num == 2.0)
-  {
-    valor = 20;
-    break;
-  }
-  esquece
-  {
-    valor = 30;
-  }
-  num = 2.0;
-  continue;
+    funcao flutuante c (flutuante k, inteirinho b)
+    {
+        b = 3;
+        retorne b;
+    }
 }
