@@ -1,7 +1,7 @@
 #ifndef ASSIGNMENT_H
 #define ASSIGNMENT_H
 
-#include "../headers/struct.hpp"
+#include "struct.hpp"
 
 
 using namespace structs;
@@ -17,6 +17,5 @@ Attribute makeAssignmentString(Attribute actual, Attribute left, Attribute right
 
 Attribute makeCompousedOperator(Attribute actual, Attribute left, string operation, Attribute right);
 Attribute makeUnaryOperator(Attribute actual, Attribute left, string operation);
-
 
 #endif

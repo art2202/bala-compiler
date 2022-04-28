@@ -2,10 +2,11 @@
 #define IO_COMMANDS_H
 
 #include <string>
-#include "../headers/struct.hpp"
+#include "struct.hpp"
 
 
 using namespace structs;
+
 
 typedef struct scanHelper
 {
@@ -18,6 +19,5 @@ string makeScan(Attribute value, string size);
 string makeScan(Attribute value);
 void iniciateScanHelperTable();
 ScanHelper getScanHelper(string key);
-
 
 #endif

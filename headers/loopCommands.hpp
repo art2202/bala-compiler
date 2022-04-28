@@ -2,7 +2,7 @@
 #define LOOPCOMMANDS_H
 
 #include <string>
-#include "../headers/struct.hpp"
+#include "struct.hpp"
 #include <vector>
 
 
@@ -40,6 +40,5 @@ Attribute endLoop(Attribute actual, Attribute loop);
 Attribute makeForCounter(Attribute actual, Attribute TK_counter, Attribute condition, Attribute increment, Attribute expression);
 Attribute makeWhile(Attribute actual, Attribute condition, Attribute expression);
 Attribute makeDoWhile(Attribute actual, Attribute expression, Attribute condition);
-
 
 #endif

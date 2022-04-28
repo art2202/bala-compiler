@@ -9,8 +9,19 @@
 | caracter | char | --- |
 | boleano | bool | --- |
 | texto | string | --- |
-| var | var | inference type |
+| var | var | type inference |
 
+
+### Example of Type Inference
+
+```cpp
+// Correct
+
+var i = 40.7;
+var num = 50;
+var valor = 60 + 4 - 90;
+
+```
 
 ### Examples of Primitive Types
 
@@ -71,15 +82,4 @@ aa = "gabi";
 
 texto bb;
 bb = aa;
-```
-
-### Example of Type Inference
-
-```cpp
-// Correct
-
-var i = 40.7;
-var num = 50;
-var valor = 60 + 4 - 90;
-
 ```

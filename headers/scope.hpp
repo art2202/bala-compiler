@@ -4,7 +4,7 @@
 #include <iostream>
 #include <vector>
 #include <unordered_map>
-#include "../headers/symbols.hpp"
+#include "symbols.hpp"
 
 
 using namespace std;
@@ -26,8 +26,8 @@ VariableTable popScope(StackMapPtr);
 StackMapPtr createMapStack();
 
 Symbol addSymbolInScope (StackMapPtr stack, string label, string type, Attribute actual);
-Symbol addSymbolInSuperiorScope(StackMapPtr, Symbol);
-Symbol addSymbolInGlobalScope (StackMapPtr, Symbol);
+Symbol addSymbolInSuperiorScope (StackMapPtr stack, string label, string type, Attribute actual);
+Symbol addSymbolInGlobalScope (StackMapPtr stack, string label, string type, Attribute actual);
 
 Symbol getSymbolAnywere(string label);
 Symbol getSymbolTop(string label);

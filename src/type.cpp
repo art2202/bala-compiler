@@ -33,8 +33,7 @@ Attribute declareTK_TYPE(string type, Attribute actual, Attribute right)
 	verifyIfDeclaredInCurrentScope(right);
 
 	Symbol currentSymbol = addSymbolInScope(StackContext, right.label, type, actual);
-
-  string message = "// default value";
+	string message = "// default value";
 
 	if(type == "int") 		{ actual.translation =  "\t" + currentSymbol.name + " = " + to_string(DEFAULT_INT) + "; " + message + "\n"; }
 	if(type == "float") 	{ actual.translation =  "\t" + currentSymbol.name + " = " + to_string(DEFAULT_FLOAT) + "; " + message + "\n"; }

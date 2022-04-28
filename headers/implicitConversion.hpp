@@ -2,7 +2,7 @@
 #define IMPLICITCONVERSION_H
 
 
-#include "../headers/struct.hpp"
+#include "struct.hpp"
 
 
 using namespace structs;
@@ -16,6 +16,5 @@ Attribute resolveExpressionTypeString(Attribute left, string operador, Attribute
 
 Attribute resolveArithmeticExpressionTypeString(Attribute left, string operador, Attribute right);
 Attribute resolveLogicalExpressionTypeString(Attribute left, string operador, Attribute right);
-
 
 #endif

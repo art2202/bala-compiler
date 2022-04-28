@@ -2,23 +2,22 @@
 #define SYSTEM_H
 
 #include <iostream>
-#include <string>
-#include <sstream>
-#include <vector>
 #include <unordered_map>
-#include "../headers/assignment.hpp"
-#include "../headers/coercion.hpp"
-#include "../headers/expression.hpp"
-#include "../headers/explicitConversion.hpp"
-#include "../headers/type.hpp"
-#include "../headers/utils.hpp"
-#include "../headers/symbols.hpp"
-#include "../headers/scope.hpp"
-#include "../headers/decisionCommands.hpp"
-#include "../headers/loopCommands.hpp"
-#include "../headers/loopControls.hpp"
-#include "../headers/ioCommands.hpp"
-
+#include "utils.hpp"
+#include "type.hpp"
+#include "symbols.hpp"
+#include "coercion.hpp"
+#include "assignment.hpp"
+#include "expression.hpp"
+#include "explicitConversion.hpp"
+#include "scope.hpp"
+#include "decisionCommands.hpp"
+#include "loopCommands.hpp"
+#include "loopControls.hpp"
+#include "ioCommands.hpp"
+#include "functionDefinition.hpp"
+#include "functionDeclaration.hpp"
+#include "functionCall.hpp"
 
 using namespace std;
 

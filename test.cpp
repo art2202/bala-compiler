@@ -13,45 +13,33 @@
 using namespace std;
 
 //Temporaries
-bool t5;
+int t7;
+int t5;
 int t4;
-bool t3;
-int size_v2;
-int size_t2;
-string t2;
-int size_v1;
-int size_t1;
+int t3;
+int t2;
 int t6;
-string t1;
+float t1;
 
 //Global variables
-string v1;
-string v2;
-bool v3;
+float v1;
+float v2;
+int v3;
+int v4;
+int v5;
+int v6;
 
 int main(void)
 {
-	v3 = falso; // default value
-	size_t1 = 7;
-	t1 = (string) realloc(t1, size_t1);
-	strcpy( t1, "texto." );
-
-	size_v1 = size_t1;
-	v1 = (string) realloc(v1, size_v1);
-	strcpy( v1, t1 );
-
-	size_t2 = 6;
-	t2 = (string) realloc(t2, size_t2);
-	strcpy( t2, "texto" );
-
-	size_v2 = size_t2;
-	v2 = (string) realloc(v2, size_v2);
-	strcpy( v2, t2 );
-
-	t4 = strcmp(v1, v2 );
-	t6 = 0;
-	t5 = t4>=t6;
-
-	v3 = t5;
+	t1 = 40.7;
+	v1 = t1;
+	t2 = 50;
+	v3 = t2;
+	t3 = 60;
+	t4 = 4;
+	t5 = t3 + t4;
+	t6 = 90;
+	t7 = t5 - t6;
+	v5 = t7;
 	return 0;
 }

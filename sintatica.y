@@ -1,5 +1,6 @@
 %{
 #include "headers/system.hpp"
+#include "headers/struct.hpp"
 #include "string.h"
 
 
@@ -30,6 +31,7 @@ int yylex(void);
 
 %token TK_LINE_COMMENT 
 %token TK_START_MULTI_LINE_COMMENT TK_END_MULTI_LINE_COMMENT
+%token TK_RETURN TK_FUNCTION
 
 
 %start S
@@ -51,7 +53,7 @@ int yylex(void);
 S:					
 								COMMANDS
 								{
-									cout << "//<<<<Bala Compiler>>>>" << iniciate() +"\nint main(void)\n{\n" << $1.translation << "\treturn 0;\n}" << endl; 
+									cout << "//<<<<Bala Compiler>>>>" << iniciate() + prototypes + "\nint main(void)\n{\n" << $1.translation << "\treturn 0;\n}" + functions + "\n" << endl; 
 								};
 //------------------------------------------------------------------------------
 BLOCK:		
@@ -116,6 +118,14 @@ COMMAND:
 									$$.translation = $1.translation;
 								}
 								| ASSIGNMENT TK_SEMICOLON
+								{
+									$$.translation = $1.translation;
+								}
+								| FUNCTION
+								{
+									$$.translation = "";
+								}
+								| RETURN TK_SEMICOLON 
 								{
 									$$.translation = $1.translation;
 								};
@@ -266,6 +276,10 @@ E:
 								| E TK_EXPLICIT_CONVERTER TYPE
 								{
 									$$ = resolveExplicitConversion($1, $3);
+								}
+								| CALL_FUNCTION
+								{
+									$$.translation = $1.translation;
 								};
 //------------------------------------------------------------------------------
 ARITHMETIC:
@@ -491,6 +505,78 @@ VARIABLE_SWITCH:
 								TK_SMALL_EQ VARIABLE
 								{
 									$$ = resolveCheckerSwitch($$, "<=", $2);
+								};
+//------------------------------------------------------------------------------
+RETURN:		
+								TK_RETURN E
+								{
+									$$ = makeReturn($$, $2);
+								}
+
+PARAMETERS:	
+								AUX_PARAMETERS ',' TYPE TK_ID
+								{
+									string previousParameters = $1.translation + ", ";
+									$$ = makeParametersFunction($$, previousParameters, $3, $4);
+								}
+								| TYPE TK_ID 
+								{
+									$$ = makeParametersFunction($$, "", $1, $2);
+								}
+								| /* vazio */
+								{
+									$$.translation = "";
+								};
+
+AUX_PARAMETERS: 		
+								AUX_PARAMETERS ',' TYPE TK_ID
+								{
+									string previousParameters = $1.translation + ", ";
+									$$ = makeParametersFunction($$, previousParameters, $3, $4);
+								}
+								| TYPE TK_ID 
+								{
+									$$ = makeParametersFunction($$, "", $1, $2);
+								};
+
+FUNCTION:		
+								TK_FUNCTION FUNCTION_AUX '{' COMMANDS '}'
+								{
+									$$ = makeFunction($$, $2, $4);
+								};
+
+FUNCTION_AUX:	
+								TYPE TK_ID BLOCK_AUX '(' PARAMETERS ')'
+								{
+									$$ = makeFunctionAux($$, $1, $2, $5);
+								}
+//------------------------------------------------------------------------------
+CALL_FUNCTION:
+								TK_ID '(' ARGUMENTS ')'
+								{
+									$$ = makeCallFunction($$, $1, $3);
+								}
+
+ARGUMENTS:
+								E
+								{
+									$$ = makeArgument($$, $1);
+								}
+								| AUX_ARGUMENTS ',' E
+								{
+									$$ = makeArguments($$, $1, $3);
+								}
+								| /* vazio */
+								{ $$.translation = ""; };
+
+AUX_ARGUMENTS:
+								E
+								{
+									$$ = makeArgument($$, $1);
+								}
+								| AUX_ARGUMENTS ',' E
+								{
+									$$ = makeArguments($$, $1, $3);
 								};
 //------------------------------------------------------------------------------
 %%

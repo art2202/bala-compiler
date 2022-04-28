@@ -6,6 +6,7 @@ using namespace std;
 
 int count_temp = 0;
 int count_var = 0;
+int count_function = 0;
 int count_label = 0;
 unordered_map<string, string> temporaries;
 
@@ -23,10 +24,16 @@ string createTempCode()
 	return "t" + intToString(count_temp);
 }
 
-string createVariable()
+string createVariableCode()
 {
 	count_var++;
 	return "v" + intToString(count_var);
+}
+
+string createFunctionCode()
+{
+	count_function++;
+	return "f" + intToString(count_function);
 }
 
 string createGotoLabel()

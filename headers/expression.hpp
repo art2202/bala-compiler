@@ -2,7 +2,7 @@
 #define EXPRESSION_H
 
 #include <string>
-#include "../headers/struct.hpp"
+#include "struct.hpp"
 
 
 using namespace structs;

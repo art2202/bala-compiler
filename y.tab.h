@@ -99,7 +99,9 @@ extern int yydebug;
     TK_LINE_COMMENT = 305,
     TK_START_MULTI_LINE_COMMENT = 306,
     TK_END_MULTI_LINE_COMMENT = 307,
-    NO_ELSE = 308
+    TK_RETURN = 308,
+    TK_FUNCTION = 309,
+    NO_ELSE = 310
   };
 #endif
 /* Tokens.  */
@@ -153,7 +155,9 @@ extern int yydebug;
 #define TK_LINE_COMMENT 305
 #define TK_START_MULTI_LINE_COMMENT 306
 #define TK_END_MULTI_LINE_COMMENT 307
-#define NO_ELSE 308
+#define TK_RETURN 308
+#define TK_FUNCTION 309
+#define NO_ELSE 310
 
 /* Value type.  */
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED

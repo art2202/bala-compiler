@@ -2,7 +2,7 @@
 #define TYPE_H
 
 #include <string>
-#include "../headers/struct.hpp"
+#include "struct.hpp"
 
 
 using namespace structs;
@@ -17,6 +17,5 @@ void variableHasAlreadyBeenDeclared(Symbol symbol, string message);
 
 Attribute createTK_TYPE_STRING(Attribute actual, string type, Attribute right);
 string createStringSizeLabel(string label);
-
 
 #endif

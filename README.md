@@ -39,7 +39,7 @@
 
 
 ### Part III
-- Functions
+- Functions ✔️
 - Vector initialization
 - Vectors
 - Compoused assignment Operators ✔️
@@ -48,13 +48,12 @@
 - Error detection ✔️
 
 ### Extras
-- Default value assignment ✔️
-- Switch with relational operator ✔️
-- Scan range ✔️
 - Line comment ✔️
 - Multi-line comment ✔️
+- Scan range ✔️
 - If ternary ✔️
 - Type Inference ✔️
+- Switch with relational operator ✔️
 - New operations (exponentiation, ...)
 - Foreach
 - Function within function

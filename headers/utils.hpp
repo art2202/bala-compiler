@@ -2,7 +2,7 @@
 #define UTILS_H
 
 #include <string>
-#include "../headers/struct.hpp"
+#include "struct.hpp"
 
 
 using namespace std;
@@ -10,7 +10,8 @@ using namespace std;
 
 void yyerror(string);
 string createTempCode();
-string createVariable();
+string createVariableCode();
+string createFunctionCode();
 string createGotoLabel();
 string createStringSizeLabel(string label);
 string intToString(int value);

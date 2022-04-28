@@ -44,10 +44,9 @@ StackMapPtr createMapStack()
 }
 
 
-
 Symbol createVariableNameToSymbol (string label, string type, Attribute actual)
 {
-  string variableName = createVariable();
+  string variableName = createVariableCode();
 	Symbol symbol = createSymbol(variableName, type, label);
 
   actual.translation = "";

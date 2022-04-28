@@ -2,8 +2,8 @@
 #define LOOPCONTROLS_H
 
 #include <string>
-#include "../headers/struct.hpp"
-#include "../headers/loopCommands.hpp"
+#include "struct.hpp"
+#include "loopCommands.hpp"
 
 
 using namespace structs;

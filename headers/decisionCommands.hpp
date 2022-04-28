@@ -2,7 +2,7 @@
 #define DECISIONCOMMANDS_H
 
 
-#include "../headers/struct.hpp"
+#include "struct.hpp"
 #include <string>
 #include <stack>
 
@@ -28,6 +28,5 @@ Attribute resolveCasesSwitch(Attribute actual, Attribute variableSwitch, Attribu
 Attribute resolveCheckerSwitch(Attribute actual, string operador, Attribute variable);
 
 extern stack<Switcher> switcherStack;
-
 
 #endif

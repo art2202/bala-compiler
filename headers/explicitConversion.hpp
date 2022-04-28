@@ -1,7 +1,7 @@
 #ifndef IMPLICITCONVERSION_H
 #define IMPLICITCONVERSION_H
 
-#include "../headers/struct.hpp"
+#include "struct.hpp"
 
 
 using namespace structs;
