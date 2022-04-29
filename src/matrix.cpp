@@ -19,7 +19,7 @@ Attribute makeMatrix(Attribute actual, Attribute type, Attribute variable, Attri
     validateMatrix(left.type, "line", right.type, "column");
 
     createTK_ID(actual, variable);
-	declareTK_TYPE(type.translation, actual, variable);
+	declareTK_TYPE(type.translation+"*", actual, variable);
     Symbol newSymbol = getSymbolAnywere(variable.label);
 
     Attribute aux = createActualAttribute("int");
@@ -43,24 +43,37 @@ Attribute setValueInMatrix(Attribute actual, Attribute variable, Attribute lineP
     Symbol auxSymbol = getSymbolAnywere(aux.label);
     Symbol newSymbol = getSymbolAnywere(variable.label);
 
-    Matrix value = searchMatrix(newSymbol.name);
-
-    Attribute position = createActualAttribute("int");
-    position.translation = "\t" + position.label + " = " + linePosition.label + " * " + value.numColumns +  " + " + columnPosition.label + ";\n";
+    Matrix matrix = searchMatrix(newSymbol.name);
+    Attribute positionCalculated = calculateMatrixPosition(matrix, linePosition, columnPosition);
     
     actual.translation =
     variable.translation
     + linePosition.translation
     + columnPosition.translation
-    + position.translation
+    + positionCalculated.translation
     + newAttribute.translation
-    + "\t" + newSymbol.name + " [ " + position.label + " ] = " + auxSymbol.name + ";" + "\n";
+    + "\t" + newSymbol.name + " [ " + positionCalculated.label + " ] = " + auxSymbol.name + ";" + "\n";
     return actual;
 }
 
 Attribute makeAssignmentMatrix(Attribute actual, Attribute left, Attribute right, Attribute linePosition, Attribute columnPosition)
 {
-    //TK_ID TK_ASSIGNMENT TK_ID POSITION POSITION
+    Symbol variableSymbol = getSymbolAnywere(right.label);
+    Symbol newSymbol = getSymbolAnywere(left.label);
+
+    Attribute aux = createCopyToMakeVectorAssignment(actual, variableSymbol);
+    Attribute newAttribute = makeAssignment(actual, left, aux, "=");
+
+    Matrix matrix = searchMatrix(variableSymbol.name);
+    Attribute positionCalculated = calculateMatrixPosition(matrix, linePosition, columnPosition);
+
+    actual.translation =
+    left.translation
+    + right.translation
+    + linePosition.translation
+    + columnPosition.translation
+    + positionCalculated.translation
+    + "\t" + newSymbol.name + " = " + variableSymbol.name + " [ " + positionCalculated.label + " ];" + "\n";
 
     return actual;
 }

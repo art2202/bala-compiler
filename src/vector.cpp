@@ -31,13 +31,12 @@ Attribute setValueInVector(Attribute actual, Attribute variable, Attribute posit
     Attribute newAttribute = makeAssignment(actual, aux, expression, "=");
 
     Symbol auxSymbol = getSymbolAnywere(aux.label);
-    Symbol newSymbol = getSymbolAnywere(variable.label);
 
     actual.translation =
     variable.translation
     + position.translation
     + newAttribute.translation
-    + "\t" + newSymbol.name + " [ " + position.label + " ] = " + auxSymbol.name + ";" + "\n";
+    + "\t" + variableSymbol.name + " [ " + position.label + " ] = " + auxSymbol.name + ";" + "\n";
     return actual;
 }
 

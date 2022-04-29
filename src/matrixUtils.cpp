@@ -15,6 +15,17 @@ using namespace std;
 MatrixMap matrixMap;
 
 
+Attribute calculateMatrixPosition(Matrix matrix, Attribute linePosition, Attribute columnPosition)
+{
+    Attribute position = createActualAttribute("int");
+    Attribute positionCalculated = createActualAttribute("int");
+    positionCalculated.translation = 
+    "\t" + position.label + " = " + linePosition.label + " * " + matrix.numColumns + ";\n\t" 
+    + positionCalculated.label + " = " + position.label + " + " + columnPosition.label + ";\n";
+    
+    return positionCalculated;
+}
+
 void validateMatrix(string lineType, string sizeLine, string columnType, string sizeColumn)
 {
     if(lineType != "int") { yyerror("The matrix rows size must be an integer type."); }

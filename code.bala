@@ -1,9 +1,20 @@
 
-inteirinho matrix[3];
+inteirinho matrix[11];
+inteirinho somador;
+inteirinho i;
 
-matrix[3] = 8;
+forzinho (i; i < 10; i = i + 1)
+{
+  somador = somador + 1;
+  matrix[i] = somador;
+}
 
-inteirinho result;
-result = matrix[3];
+i = 0;
 
-mostrar(result);
+forzinho (i; i < 10; i = i + 1)
+{
+  inteirinho result;
+  result = matrix[i];
+  mostrar(result);
+}
+

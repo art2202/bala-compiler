@@ -16,9 +16,9 @@ typedef struct matrix
 
 typedef unordered_map<string,Matrix> MatrixMap;
 
+Attribute calculateMatrixPosition(Matrix matrix, Attribute linePosition, Attribute columnPosition);
+void validateMatrix(string lineType, string sizeLine, string columnType, string sizeColumn);
 void pushMatrix(Matrix matrixStruct);
 Matrix searchMatrix(string name);
 Matrix createMatrix(string name, string numLines, string numColumns);
-void validateMatrix(string lineType, string sizeLine, string columnType, string sizeColumn);
-
 #endif
