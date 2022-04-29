@@ -40,8 +40,8 @@
 
 ### Part III
 - Functions ✔️
-- Vector initialization
-- Vectors
+- Vector initialization ✔️
+- Vectors ✔️
 - Compoused assignment Operators ✔️
 - Unary Operators ✔️
 - Initialization of variables ✔️
@@ -54,12 +54,12 @@
 - If ternary ✔️
 - Type Inference ✔️
 - Switch with relational operator ✔️
+- Function within function ✔️
 - New operations (exponentiation, ...)
 - Foreach
-- Function within function
 
 
-#### Final date: 04/27/2022
+#### Final date: 05/02/2022
 
 
 ## To Run

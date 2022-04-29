@@ -28,19 +28,25 @@ void declareTK_TYPE_SetNotDefaultValue(Attribute actual, Attribute attribute, st
 	addSymbolInScope(StackContext, attribute.label, type, actual);
 }
 
+Attribute setDefaultValue(Symbol currentSymbol, Attribute actual, Attribute right)
+{
+	string message = "// default value";
+
+	if(currentSymbol.type == "int") 		{ actual.translation =  "\t" + currentSymbol.name + " = " + to_string(DEFAULT_INT) + "; " + message + "\n"; }
+	if(currentSymbol.type == "float")		{ actual.translation =  "\t" + currentSymbol.name + " = " + to_string(DEFAULT_FLOAT) + "; " + message + "\n"; }
+	if(currentSymbol.type == "char") 		{ actual.translation =  "\t" + currentSymbol.name + " = "  + "'"+ DEFAULT_CHAR + "'" + "; " + message + "\n"; }
+	if(currentSymbol.type == "bool") 		{ actual.translation =  "\t" + currentSymbol.name + " = " + DEFAULT_BOOL + "; " + message + "\n"; }
+	
+	return actual;
+}
+
 Attribute declareTK_TYPE(string type, Attribute actual, Attribute right)
 {
 	verifyIfDeclaredInCurrentScope(right);
 
 	Symbol currentSymbol = addSymbolInScope(StackContext, right.label, type, actual);
-	string message = "// default value";
 
-	if(type == "int") 		{ actual.translation =  "\t" + currentSymbol.name + " = " + to_string(DEFAULT_INT) + "; " + message + "\n"; }
-	if(type == "float") 	{ actual.translation =  "\t" + currentSymbol.name + " = " + to_string(DEFAULT_FLOAT) + "; " + message + "\n"; }
-	if(type == "char") 		{ actual.translation =  "\t" + currentSymbol.name + " = "  + "'"+ DEFAULT_CHAR + "'" + "; " + message + "\n"; }
-	if(type == "bool") 		{ actual.translation =  "\t" + currentSymbol.name + " = " + DEFAULT_BOOL + "; " + message + "\n"; }
-	
-	return actual;
+	return setDefaultValue(currentSymbol, actual, right);
 }
 
 Attribute createTK_ID(Attribute actual, Attribute right)

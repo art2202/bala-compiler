@@ -16,7 +16,6 @@
 
 texto teste;
 ler(teste);
-
 ```
 
 ```cpp
@@ -25,7 +24,6 @@ ler(teste);
 
 inteirinho teste;
 ler(teste, 60);
-
 ```
 
 ```cpp
@@ -34,7 +32,14 @@ ler(teste, 60);
 
 boleano teste;
 ler(teste);
+```
 
+
+```cpp
+// Error
+// Message: "Variable not found."
+
+ler(teste);
 ```
 
 ```cpp
@@ -55,7 +60,6 @@ ler(teste2);
 
 flutuante teste3;
 ler(teste3);
-
 ```
 
 ```cpp
@@ -64,5 +68,4 @@ ler(teste3);
 texto nome;
 nome = "gabi";
 mostrar(nome);
-
 ```

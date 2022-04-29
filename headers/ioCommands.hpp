@@ -17,7 +17,8 @@ typedef struct scanHelper
 string makePrint(Attribute value);
 string makeScan(Attribute value, string size);
 string makeScan(Attribute value);
-void iniciateScanHelperTable();
 ScanHelper getScanHelper(string key);
+void iniciateScanHelperTable();
+void validateInput(Attribute variable);
 
 #endif

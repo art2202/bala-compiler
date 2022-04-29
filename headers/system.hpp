@@ -18,6 +18,8 @@
 #include "functionDefinition.hpp"
 #include "functionDeclaration.hpp"
 #include "functionCall.hpp"
+#include "vector.hpp"
+#include "matrix.hpp"
 
 using namespace std;
 

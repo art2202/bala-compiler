@@ -1,6 +1,6 @@
 #include "../headers/ioCommands.hpp"
 #include "../headers/utils.hpp"
-#include "../headers/struct.hpp"
+#include "../headers/assignment.hpp"
 #include <map>
 #include <iostream>
 
@@ -11,11 +11,15 @@ map<string, ScanHelper> ScanHelperTable;
 
 string makePrint(Attribute value)
 {
+    validateInput(value);
+
     return value.translation + "\t" + "cout << " + value.label + " << endl;\n";
 }
 
 string makeScan(Attribute value, string size)
 {
+    validateInput(value);
+
     if(value.type != "string")
     { yyerror("This function with these parameters is only accepted for the string type."); }
 
@@ -24,6 +28,8 @@ string makeScan(Attribute value, string size)
 
 string makeScan(Attribute value)
 {
+    validateInput(value);
+
     ScanHelper scanHelper = getScanHelper(value.type);
     return value.translation + "\t" + "scanf(\"" + scanHelper.format + "\", " + scanHelper.addressOperador + value.label + "\"" + ");\n";
 }
@@ -44,4 +50,9 @@ void iniciateScanHelperTable()
 	ScanHelperTable["float"] = {"%f", "&"};
 	ScanHelperTable["char"] = {"%c", "&"};
 	ScanHelperTable["string"] = {"%s", ""};
+}
+
+void validateInput(Attribute variable)
+{
+    if(variable.label == "") { yyerror("Variable not found.\n"); }
 }

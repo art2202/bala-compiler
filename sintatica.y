@@ -76,9 +76,7 @@ COMMANDS:
 									$$.translation = $1.translation + $2.translation;
 								}
 								| /* vazio */ 
-								{
-									$$.translation = "";
-								};
+								{ $$.translation = ""; };
 //------------------------------------------------------------------------------
 COMMAND: 
 								COMMENT
@@ -128,6 +126,14 @@ COMMAND:
 								| RETURN TK_SEMICOLON 
 								{
 									$$.translation = $1.translation;
+								}
+								| VECTOR TK_SEMICOLON
+								{
+									$$.translation = $1.translation;
+								}
+								| MATRIX TK_SEMICOLON
+								{
+									$$.translation = $1.translation;
 								};
 //------------------------------------------------------------------------------
 COMMENT:
@@ -141,25 +147,9 @@ COMMENT:
 								};
 //------------------------------------------------------------------------------
 DEFINITION:
-								TK_TYPE_INT TK_ID
+								TYPE TK_ID
 								{
-									$$ = declareTK_TYPE("int", $$, $2);
-								}
-								| TK_TYPE_FLOAT TK_ID
-								{
-									$$ = declareTK_TYPE("float", $$, $2);
-								}
-								| TK_TYPE_CHAR TK_ID
-								{
-									$$ = declareTK_TYPE("char", $$, $2);
-								}
-								| TK_TYPE_BOOL TK_ID
-								{
-									$$ = declareTK_TYPE("bool", $$, $2);
-								}
-								| TK_TYPE_STRING TK_ID
-								{
-									$$ = declareTK_TYPE("string", $$, $2);
+									$$ = declareTK_TYPE($$.translation, $$, $2);
 								};
 //------------------------------------------------------------------------------
 TYPE:						
@@ -335,7 +325,7 @@ LOGICAL:
 								{
 									$$ = makeExpression($1, "&&", $3);
 								}
-								|	E TK_OR E 
+								| E TK_OR E 
 								{
 									$$ = makeExpression($1, "||", $3);
 								}
@@ -411,7 +401,6 @@ LOOP_AUX:
 								{ 
 									iniciateLoop("for");
 								};
-
 //------------------------------------------------------------------------------
 LOOP_CONTROL:
 								BREAK
@@ -477,32 +466,26 @@ CASES:
 									$$ = resolveCasesSwitch($$, $2, $4, $5);
 								}
 								| /* vazio */
-								{	
-									$$.translation = ""; 
-								};
+								{ $$.translation = ""; };
 
 VARIABLE_SWITCH:
 								VARIABLE
 								{
 									$$ = resolveCheckerSwitch($$, "==", $1);
 								}
-								|
-								TK_BIG VARIABLE
+								| TK_BIG VARIABLE
 								{
 									$$ = resolveCheckerSwitch($$, ">", $2);
 								}
-								|
-								TK_BIG_EQ VARIABLE
+								| TK_BIG_EQ VARIABLE
 								{
 									$$ = resolveCheckerSwitch($$, ">=", $2);
 								}
-								|
-								TK_SMALL VARIABLE
+								| TK_SMALL VARIABLE
 								{
 									$$ = resolveCheckerSwitch($$, "<", $2);
 								}
-								|
-								TK_SMALL_EQ VARIABLE
+								| TK_SMALL_EQ VARIABLE
 								{
 									$$ = resolveCheckerSwitch($$, "<=", $2);
 								};
@@ -524,9 +507,7 @@ PARAMETERS:
 									$$ = makeParametersFunction($$, "", $1, $2);
 								}
 								| /* vazio */
-								{
-									$$.translation = "";
-								};
+								{ $$.translation = ""; };
 
 AUX_PARAMETERS: 		
 								AUX_PARAMETERS ',' TYPE TK_ID
@@ -578,6 +559,34 @@ AUX_ARGUMENTS:
 								{
 									$$ = makeArguments($$, $1, $3);
 								};
+//------------------------------------------------------------------------------
+VECTOR:
+								TYPE TK_ID '[' E ']'
+								{
+									$$ = makeVector($$, $1, $2, $4);
+								}
+								| TK_ID '[' E ']' TK_ASSIGNMENT E
+								{
+									$$ = setValueInVector($$, $1, $3, $6);
+								}
+								| TK_ID TK_ASSIGNMENT TK_ID '[' E ']'
+								{
+									$$ = makeAssignmentVector($$, $1, $3, $5);
+								};
+MATRIX:
+								TYPE TK_ID '[' E ']' '[' E ']'
+								{
+									$$ = makeMatrix($$, $1, $2, $4, $7);
+								}
+								| TK_ID '[' E ']' '[' E ']' TK_ASSIGNMENT E
+								{
+									$$ = setValueInMatrix($$, $1, $3, $6, $9);
+								}
+								| TK_ID TK_ASSIGNMENT TK_ID '[' E ']' '[' E ']'
+								{
+									$$ = makeAssignmentMatrix($$, $1, $3, $5, $8);
+								};
+								
 //------------------------------------------------------------------------------
 %%
 

@@ -1,11 +1,9 @@
-funcao flutuante c (flutuante b, inteirinho d, texto e)
-{
-    b = 3;
-    retorne b;
 
-    funcao flutuante c (flutuante k, inteirinho b)
-    {
-        b = 3;
-        retorne b;
-    }
-}
+inteirinho matrix[3];
+
+matrix[3] = 8;
+
+inteirinho result;
+result = matrix[3];
+
+mostrar(result);
