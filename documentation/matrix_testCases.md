@@ -71,3 +71,12 @@ forzinho (var i = 0; i < 5; i++)
     }
 }
 ```
+
+```cpp
+// Correct
+
+inteirinho matrix[5][5];
+matrix[2][4] = 8;
+inteirinho result;
+mostrar(matrix[2][4]);
+```

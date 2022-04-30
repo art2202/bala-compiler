@@ -21,4 +21,6 @@ void validateMatrix(string lineType, string sizeLine, string columnType, string 
 void pushMatrix(Matrix matrixStruct);
 Matrix searchMatrix(string name);
 Matrix createMatrix(string name, string numLines, string numColumns);
+Attribute removeBracketOfMatrix(Attribute matrixWithPosition);
+
 #endif

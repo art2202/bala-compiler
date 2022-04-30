@@ -130,14 +130,6 @@ COMMAND:
 								| RETURN TK_SEMICOLON 
 								{
 									$$.translation = $1.translation;
-								}
-								| VECTOR TK_SEMICOLON
-								{
-									$$.translation = $1.translation;
-								}
-								| MATRIX TK_SEMICOLON
-								{
-									$$.translation = $1.translation;
 								};
 //------------------------------------------------------------------------------
 COMMENT:
@@ -176,6 +168,14 @@ DECLARATION:
 								TYPE TK_ID
 								{
 									$$ = declareTK_TYPE($1.translation, $$, $2);
+								}
+								| DECLARATION_VECTOR
+								{
+									$$.translation = $1.translation;
+								}
+								| DECLARATION_MATRIX
+								{
+									$$.translation = $1.translation;
 								};
 //------------------------------------------------------------------------------
 DECLARATION_WITH_ASSIGNMENT:
@@ -186,6 +186,14 @@ DECLARATION_WITH_ASSIGNMENT:
 								| TK_VAR TK_ID TK_ASSIGNMENT E
 								{
 									$$ = makeDeclarationWithAssignmentVar($$, $2, $4, "=");
+								}
+								| DECLARATION_WITH_ASSIGNMENT_VECTOR
+								{
+									$$.translation = $1.translation;
+								}
+								| DECLARATION_WITH_ASSIGNMENT_MATRIX
+								{
+									$$.translation = $1.translation;
 								};
 //------------------------------------------------------------------------------
 OPERATORS:
@@ -278,6 +286,14 @@ E:
 									$$ = resolveExplicitConversion($1, $3);
 								}
 								| CALL_FUNCTION
+								{
+									$$.translation = $1.translation;
+								}
+								| GET_VECTOR_POSITION
+								{
+									$$.translation = $1.translation;
+								}
+								| GET_MATRIX_POSITION
 								{
 									$$.translation = $1.translation;
 								};
@@ -578,33 +594,43 @@ AUX_ARGUMENTS:
 									$$ = makeArguments($$, $1, $3);
 								};
 //------------------------------------------------------------------------------
-VECTOR:
+DECLARATION_VECTOR:
 								TYPE TK_ID '[' E ']'
 								{
 									$$ = makeVector($$, $1, $2, $4);
-								}
-								| TK_ID '[' E ']' TK_ASSIGNMENT E
+								};
+
+DECLARATION_WITH_ASSIGNMENT_VECTOR:
+
+								TK_ID '[' E ']' TK_ASSIGNMENT E
 								{
 									$$ = setValueInVector($$, $1, $3, $6);
-								}
-								| TK_ID TK_ASSIGNMENT TK_ID '[' E ']'
-								{
-									$$ = makeAssignmentVector($$, $1, $3, $5);
 								};
-MATRIX:
+
+GET_VECTOR_POSITION:
+								TK_ID '[' E ']'
+								{
+									$$ = getVectorPosition($$, $1, $3);
+								};
+//------------------------------------------------------------------------------
+DECLARATION_MATRIX:
 								TYPE TK_ID '[' E ']' '[' E ']'
 								{
 									$$ = makeMatrix($$, $1, $2, $4, $7);
 								}
-								| TK_ID '[' E ']' '[' E ']' TK_ASSIGNMENT E
+
+DECLARATION_WITH_ASSIGNMENT_MATRIX:
+
+								TK_ID '[' E ']' '[' E ']' TK_ASSIGNMENT E
 								{
 									$$ = setValueInMatrix($$, $1, $3, $6, $9);
-								}
-								| TK_ID TK_ASSIGNMENT TK_ID '[' E ']' '[' E ']'
-								{
-									$$ = makeAssignmentMatrix($$, $1, $3, $5, $8);
 								};
-								
+
+GET_MATRIX_POSITION:
+								TK_ID '[' E ']' '[' E ']'
+								{
+									$$ = getMatrixPosition($$, $1, $3, $6);
+								};
 //------------------------------------------------------------------------------
 %%
 

@@ -16,7 +16,6 @@ forzinho (var i = 0; i < 5; i++)
 {
     forzinho (var j = 0; j < 5; j++)
     {
-        result = matrix[i][j];
-        mostrar(result);
+        mostrar(matrix[i][j]);
     }
 }

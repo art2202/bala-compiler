@@ -19,7 +19,6 @@ Attribute makeVector(Attribute actual, Attribute type, Attribute variable, Attri
     actual.translation = 
     expression.translation
     + "\t" + newSymbol.name + " = ( " + type.translation + "* ) malloc( sizeof(" + type.translation + ") * " + expression.label + " );\n";
-
     return actual;
 }
 
@@ -53,5 +52,15 @@ Attribute makeAssignmentVector(Attribute actual, Attribute left, Attribute right
     + right.translation
     + position.translation
     + "\t" + newSymbol.name + " = " + variableSymbol.name + " [ " + position.label + " ];" + "\n";
+    return actual;
+}
+
+
+Attribute getVectorPosition(Attribute actual, Attribute variable, Attribute position)
+{
+    Symbol variableSymbol = getSymbolAnywere(variable.label);
+
+    actual.translation = position.translation;
+    actual.label = variableSymbol.name + " [ " + position.label + " ]";
     return actual;
 }

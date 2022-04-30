@@ -5,9 +5,7 @@
 #include "../headers/type.hpp"
 #include "../headers/scope.hpp"
 #include "../headers/assignment.hpp"
-
-#include <string.h>
-#include <stdlib.h>
+#include <sstream>
 
 
 using namespace std;
@@ -51,4 +49,14 @@ Matrix createMatrix(string name, string numLines, string numColumns)
     matrix.numLines = numLines;
     matrix.numColumns = numColumns;
     return matrix;
+}
+
+Attribute removeBracketOfMatrix(Attribute matrixWithPosition)
+{
+    // remove bracket of matrix. ex: v3[t7] to v3
+    stringstream sstream(matrixWithPosition.label);
+    string label;
+    getline(sstream, label, ' ');
+    matrixWithPosition.label = label;
+    return matrixWithPosition;
 }

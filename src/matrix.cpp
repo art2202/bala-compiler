@@ -74,6 +74,21 @@ Attribute makeAssignmentMatrix(Attribute actual, Attribute left, Attribute right
     + columnPosition.translation
     + positionCalculated.translation
     + "\t" + newSymbol.name + " = " + variableSymbol.name + " [ " + positionCalculated.label + " ];" + "\n";
+    return actual;
+}
 
+
+Attribute getMatrixPosition(Attribute actual, Attribute variable, Attribute linePosition, Attribute columnPosition)
+{
+    Symbol variableSymbol = getSymbolAnywere(variable.label);
+
+    Matrix matrix = searchMatrix(variableSymbol.name);
+    Attribute positionCalculated = calculateMatrixPosition(matrix, linePosition, columnPosition);
+    
+    actual.translation = 
+    linePosition.translation 
+    + columnPosition.translation 
+    + positionCalculated.translation;
+    actual.label = variableSymbol.name + " [ " + positionCalculated.label + " ]";
     return actual;
 }
