@@ -1,9 +1,9 @@
 
-inteirinho matrix[11];
+inteirinho matrix[10];
 inteirinho somador;
 inteirinho i;
 
-forzinho (i; i < 10; i = i + 1)
+forzinho (i; i < 10; i++)
 {
   somador = somador + 1;
   matrix[i] = somador;
@@ -11,7 +11,7 @@ forzinho (i; i < 10; i = i + 1)
 
 i = 0;
 
-forzinho (i; i < 10; i = i + 1)
+forzinho (i; i < 10; i++)
 {
   inteirinho result;
   result = matrix[i];

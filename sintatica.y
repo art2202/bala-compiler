@@ -375,15 +375,15 @@ IF:
 								};			
 //------------------------------------------------------------------------------
 LOOP: 		
-								LOOP_AUX DO_WHILE 
+								LOOP_AUX DO_WHILE BLOCK_AUX
 								{ 
 									$$ = endLoop($$, $2); 
 								}
-								| LOOP_AUX WHILE 
+								| LOOP_AUX WHILE BLOCK_AUX
 								{ 
 									$$ = endLoop($$, $2);
 								}
-								| LOOP_AUX FOR 
+								| LOOP_AUX FOR BLOCK_AUX
 								{ 
 									$$ = endLoop($$, $2);
 								};

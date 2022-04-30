@@ -10,8 +10,8 @@
 ### Examples of Matrices
 
 ```cpp
-// Errpr
-// Message: "The matrix column size must be an integer type.."
+// Error
+// Message: "The matrix column size must be an integer type."
 
 inteirinho matrix[1][2.8];
 

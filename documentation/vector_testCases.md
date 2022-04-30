@@ -5,7 +5,6 @@
 | Reserved Word | Common Use | Obs |
 |--- |--- |--- |
 | inteirinho | int | --- |
-| flutuante | float | --- |
 
 
 ### Examples of Vectors
@@ -14,9 +13,9 @@
 // Errpr
 // Message: "The vector size must be an integer type."
 
-inteirinho matrix[3.5;
+inteirinho vector[3.5];
 
-matrix[1] = 8;
+vector[1] = 8;
 ```
 
 ```cpp
@@ -24,39 +23,38 @@ matrix[1] = 8;
 
 inteirinho size;
 size = 2.80;
-inteirinho matrix[2];
+inteirinho vector[2];
 
-matrix[1] = 8;
+vector[1] = 8;
 ```
 
 ```cpp
 // Correct
 
-inteirinho matrix[2.8 como inteirinho];
+inteirinho vector[2.8 como inteirinho];
 
-matrix[1] = 8;
+vector[1] = 8;
 ```
 
 ```cpp
 // Correct
 
-inteirinho matrix[11];
+inteirinho vector[11];
 inteirinho somador;
 inteirinho i;
 
-forzinho (i; i < 10; i = i + 1)
+forzinho (i; i < 10; i++)
 {
   somador = somador + 1;
-  matrix[i] = somador;
+  vector[i] = somador;
 }
 
 i = 0;
 
-forzinho (i; i < 10; i = i + 1)
+forzinho (i; i < 10; i++)
 {
   inteirinho result;
-  result = matrix[i];
+  result = vector[i];
   mostrar(result);
 }
-
 ```

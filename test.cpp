@@ -13,20 +13,18 @@
 using namespace std;
 
 //Temporaries
-int t14;
-int t1;
-int t2;
-int t4;
-int t6;
-int t5;
-int t3;
-int t9;
-int t12;
-int t8;
 int t11;
-int t7;
+int t12;
+int t9;
+int t8;
 int t10;
-int t13;
+int t7;
+int t5;
+int t4;
+int t3;
+int t2;
+int t6;
+int t1;
 
 //Global variables
 int* v1;
@@ -40,7 +38,7 @@ int v6;
 
 int main(void)
 {
-	t1 = 11;
+	t1 = 10;
 	v1 = ( int* ) malloc( sizeof(int) * t1 );
 	v2 = 0; // default value
 	v3 = 0; // default value
@@ -49,32 +47,30 @@ l1: 	t2 = 10;
 	t3 = v3 < t2;
 	t3 = !t3;
 	if( t3 ) goto l2;
-	t6 = 1;
-	t7 = v2 + t6;
-	v2 = t7;
+	t5 = 1;
+	t6 = v2 + t5;
+	v2 = t6;
 	v4 = v2;
 	v1 [ v3 ] = v4;
 	l3:
 	t4 = 1;
-	t5 = v3 + t4;
-	v3 = t5;
+	v3 = (v3 + t4)  /*unary operator*/ ;
 	goto l1;
 l2:
 	//*for end*//
-	t9 = 0;
-	v3 = t9;
+	t8 = 0;
+	v3 = t8;
 	//*for init*//
-l4: 	t10 = 10;
-	t11 = v3 < t10;
-	t11 = !t11;
-	if( t11 ) goto l5;
+l4: 	t9 = 10;
+	t10 = v3 < t9;
+	t10 = !t10;
+	if( t10 ) goto l5;
 	v5 = 0; // default value
 	v5 = v1 [ v3 ];
 	cout << v5 << endl;
 	l6:
-	t12 = 1;
-	t13 = v3 + t12;
-	v3 = t13;
+	t11 = 1;
+	v3 = (v3 + t11)  /*unary operator*/ ;
 	goto l4;
 l5:
 	//*for end*//
