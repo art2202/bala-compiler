@@ -30,6 +30,32 @@ forzinho (i; i < 10; i = i + 1)
 }
 ```
 
+```cpp
+// Correct
+
+inteirinho matrix[5][5];
+inteirinho somador;
+inteirinho result;
+
+forzinho (var i = 0; i < 5; i++)
+{
+    forzinho (var j = 0; j < 5; j++)
+    {
+        somador++;
+        matrix[i][j] = somador;
+    }
+}
+
+forzinho (var i = 0; i < 5; i++)
+{
+    forzinho (var j = 0; j < 5; j++)
+    {
+        result = matrix[i][j];
+        mostrar(result);
+    }
+}
+```
+
 #### Enquanto (While)
 
 ```cpp

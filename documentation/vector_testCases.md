@@ -58,3 +58,23 @@ forzinho (i; i < 10; i++)
   mostrar(result);
 }
 ```
+
+```cpp
+// Correct
+
+inteirinho vector[11];
+inteirinho somador;
+
+forzinho (var i = 0; i < 10; i++)
+{
+  somador = somador + 1;
+  vector[i] = somador;
+}
+
+forzinho (inteirinho i = 0; i < 10; i++)
+{
+  inteirinho result;
+  result = vector[i];
+  mostrar(result);
+}
+```
