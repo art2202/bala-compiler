@@ -52,9 +52,9 @@ Attribute makeForCounter(Attribute actual, Attribute TK_counter, Attribute condi
 
   actual.translation = 
   "\t//*for init*//\n"
+  + TK_counter.translation
   + currentLoop.initialLabel + ": " 
   + condition.translation + "\t"
-  + TK_counter.translation
   + condition.label + " = !" + condition.label + ";\n" 
   + "\tif( " + condition.label + " ) goto " + currentLoop.endLabel + ";\n" 
   + expression.translation 

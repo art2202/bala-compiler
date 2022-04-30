@@ -39,7 +39,7 @@ Attribute makeAssignment(Attribute actual, Attribute left, Attribute right, stri
 	return verifyIfStringType(leftSymbol, actual, left, right, operation);
 }
 
-Attribute makeDeclaredAssignmentVar(Attribute actual, Attribute left, Attribute right, string operation)
+Attribute makeDeclarationWithAssignmentVar(Attribute actual, Attribute left, Attribute right, string operation)
 {
 	declareTK_TYPE_SetNotDefaultValue(actual, left, right.type);
 	declareTK_TYPE_SetNotDefaultValue(actual, right, right.type);

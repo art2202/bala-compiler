@@ -45,6 +45,7 @@ Attribute declareTK_TYPE(string type, Attribute actual, Attribute right)
 	verifyIfDeclaredInCurrentScope(right);
 
 	Symbol currentSymbol = addSymbolInScope(StackContext, right.label, type, actual);
+	actual.label = right.label;
 
 	return setDefaultValue(currentSymbol, actual, right);
 }

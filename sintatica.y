@@ -87,7 +87,15 @@ COMMAND:
 								{
 									$$.translation = $1.translation;
 								}
-								| DEFINITION TK_SEMICOLON
+								| DECLARATION TK_SEMICOLON
+								{
+									$$.translation = $1.translation;
+								}
+								| DECLARATION_WITH_ASSIGNMENT TK_SEMICOLON
+								{
+									$$.translation = $1.translation;
+								}
+								| ASSIGNMENT TK_SEMICOLON
 								{
 									$$.translation = $1.translation;
 								}
@@ -112,10 +120,6 @@ COMMAND:
 									$$.translation = $1.translation;
 								}
 								| IO TK_SEMICOLON
-								{
-									$$.translation = $1.translation;
-								}
-								| ASSIGNMENT TK_SEMICOLON
 								{
 									$$.translation = $1.translation;
 								}
@@ -146,12 +150,6 @@ COMMENT:
 									$$.translation = "/*" + $2.label + "*/" + "\n";
 								};
 //------------------------------------------------------------------------------
-DEFINITION:
-								TYPE TK_ID
-								{
-									$$ = declareTK_TYPE($$.translation, $$, $2);
-								};
-//------------------------------------------------------------------------------
 TYPE:						
 								TK_TYPE_INT
 								{
@@ -174,18 +172,20 @@ TYPE:
 									$$.translation = "string";
 								};
 //------------------------------------------------------------------------------
-IO:
-								TK_PRINT '(' E ')' 
+DECLARATION:
+								TYPE TK_ID
 								{
-									$$.translation = makePrint($3);
+									$$ = declareTK_TYPE($1.translation, $$, $2);
+								};
+//------------------------------------------------------------------------------
+DECLARATION_WITH_ASSIGNMENT:
+								DECLARATION TK_ASSIGNMENT E
+								{
+									$$ = makeAssignment($$, $1, $3, "=");
 								}
-								| TK_SCAN '(' E ')' 
+								| TK_VAR TK_ID TK_ASSIGNMENT E
 								{
-									$$.translation = makeScan($3);
-								}
-								| TK_SCAN '(' E ',' TK_NUM ')' 
-								{
-									$$.translation = makeScan($3, $5.label);
+									$$ = makeDeclarationWithAssignmentVar($$, $2, $4, "=");
 								};
 //------------------------------------------------------------------------------
 OPERATORS:
@@ -234,10 +234,20 @@ ASSIGNMENT:
 								| OPERATORS
 								{
 									$$.translation = $1.translation;
-								}
-								| TK_VAR TK_ID TK_ASSIGNMENT E
+								};
+//------------------------------------------------------------------------------
+IO:
+								TK_PRINT '(' E ')' 
 								{
-									$$ = makeDeclaredAssignmentVar($$, $2, $4, "=");
+									$$.translation = makePrint($3);
+								}
+								| TK_SCAN '(' E ')' 
+								{
+									$$.translation = makeScan($3);
+								}
+								| TK_SCAN '(' E ',' TK_NUM ')' 
+								{
+									$$.translation = makeScan($3, $5.label);
 								};
 //------------------------------------------------------------------------------
 E:
@@ -426,6 +436,14 @@ CONTINUE:
 //------------------------------------------------------------------------------
 FOR:						
 								'(' TK_ID TK_SEMICOLON RELATIONAL TK_SEMICOLON ASSIGNMENT ')' BLOCK
+								{
+									$$ = makeForCounter($$, $2, $4, $6, $8);
+								}
+								|'(' DECLARATION TK_SEMICOLON RELATIONAL TK_SEMICOLON ASSIGNMENT ')' BLOCK
+								{
+									$$ = makeForCounter($$, $2, $4, $6, $8);
+								}
+								| '(' DECLARATION_WITH_ASSIGNMENT TK_SEMICOLON RELATIONAL TK_SEMICOLON ASSIGNMENT ')' BLOCK
 								{
 									$$ = makeForCounter($$, $2, $4, $6, $8);
 								};
