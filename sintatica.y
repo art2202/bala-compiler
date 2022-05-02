@@ -462,6 +462,10 @@ FOR:
 								| '(' DECLARATION_WITH_ASSIGNMENT TK_SEMICOLON RELATIONAL TK_SEMICOLON ASSIGNMENT ')' BLOCK
 								{
 									$$ = makeForCounter($$, $2, $4, $6, $8);
+								}
+								| '(' DECLARATION ':' TK_ID ')' BLOCK
+								{
+									$$ = makeForeachCounter($$, $2, $4, $6);
 								};
 //------------------------------------------------------------------------------
 WHILE:						

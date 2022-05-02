@@ -55,8 +55,9 @@
 - Type Inference ✔️
 - Switch with relational operator ✔️
 - Function within function ✔️
+- Foreach ✔️
+- String relational commands ✔️
 - New operations (exponentiation, ...)
-- Foreach
 
 
 #### Final date: 05/02/2022

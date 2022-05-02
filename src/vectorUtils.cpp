@@ -3,10 +3,13 @@
 #include "../headers/symbols.hpp"
 #include "../headers/type.hpp"
 #include "../headers/assignment.hpp"
+#include <iostream>
 #include <sstream>
 
 
 using namespace std;
+
+VectorMap vectorMap;
 
 
 Attribute createCopyToMakeVectorAssignment(Attribute actual, Symbol variableSymbol)
@@ -32,4 +35,25 @@ Symbol removePointerOfVectorType(Symbol variableSymbol)
 void validateVector(string type)
 {
     if(type != "int") { yyerror("The vector size must be an integer type."); }
+}
+
+void pushVector(Vector vector)
+{
+	string label = vector.label;
+    vectorMap[label] = vector;
+}
+
+Vector searchVector(string label)
+{
+	return vectorMap[label];
+}
+
+Vector createVector(string type, string label, string name, string size)
+{
+    Vector _vector;
+    _vector.type = type;
+    _vector.label = label;
+    _vector.name = name;
+    _vector.size = size;
+    return _vector;
 }

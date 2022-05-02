@@ -107,7 +107,7 @@ Attribute makeCompousedOperator(Attribute actual, Attribute left, string operati
 
 Attribute makeUnaryOperator(Attribute actual, Attribute left, string operation)
 {
-  Symbol leftSimbol = getSymbolAnywere(left.label);
+  	Symbol leftSimbol = getSymbolAnywere(left.label);
 	Attribute auxAttribute = createActualAttribute(leftSimbol.type);
 
 	actual.translation = "\t" + auxAttribute.label + " = " + "1;\n";

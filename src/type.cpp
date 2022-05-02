@@ -36,7 +36,7 @@ Attribute setDefaultValue(Symbol currentSymbol, Attribute actual, Attribute righ
 	if(currentSymbol.type == "float")		{ actual.translation =  "\t" + currentSymbol.name + " = " + to_string(DEFAULT_FLOAT) + "; " + message + "\n"; }
 	if(currentSymbol.type == "char") 		{ actual.translation =  "\t" + currentSymbol.name + " = "  + "'"+ DEFAULT_CHAR + "'" + "; " + message + "\n"; }
 	if(currentSymbol.type == "bool") 		{ actual.translation =  "\t" + currentSymbol.name + " = " + DEFAULT_BOOL + "; " + message + "\n"; }
-	
+	if(currentSymbol.type == "string")		{ actual.translation = ""; }
 	return actual;
 }
 

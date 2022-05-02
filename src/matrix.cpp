@@ -90,5 +90,6 @@ Attribute getMatrixPosition(Attribute actual, Attribute variable, Attribute line
     + columnPosition.translation 
     + positionCalculated.translation;
     actual.label = variableSymbol.name + " [ " + positionCalculated.label + " ]";
+    actual.type = removePointerOfVectorType(variableSymbol).type;
     return actual;
 }

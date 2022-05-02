@@ -19,6 +19,8 @@ Attribute makeVector(Attribute actual, Attribute type, Attribute variable, Attri
     actual.translation = 
     expression.translation
     + "\t" + newSymbol.name + " = ( " + type.translation + "* ) malloc( sizeof(" + type.translation + ") * " + expression.label + " );\n";
+    
+    pushVector(createVector(type.translation, variable.label, newSymbol.name, expression.label));
     return actual;
 }
 
@@ -62,5 +64,6 @@ Attribute getVectorPosition(Attribute actual, Attribute variable, Attribute posi
 
     actual.translation = position.translation;
     actual.label = variableSymbol.name + " [ " + position.label + " ]";
+    actual.type = removePointerOfVectorType(variableSymbol).type;
     return actual;
 }

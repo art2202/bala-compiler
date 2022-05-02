@@ -13,6 +13,8 @@
 #include "scope.hpp"
 #include "decisionCommands.hpp"
 #include "loopCommands.hpp"
+#include "loopUtils.hpp"
+#include "foreach.hpp"
 #include "loopControls.hpp"
 #include "ioCommands.hpp"
 #include "functionDefinition.hpp"

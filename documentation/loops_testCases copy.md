@@ -56,6 +56,24 @@ forzinho (var i = 0; i < 5; i++)
 }
 ```
 
+#### Forzinho Foreach (For)
+```cpp
+// Correct
+
+inteirinho vector[5];
+inteirinho somador;
+inteirinho result;
+
+forzinho (inteirinho i : vector)
+{
+    somador++;
+    vector[i] = somador;
+    mostrar(vector[i]);
+}
+
+```
+
+
 #### Enquanto (While)
 
 ```cpp

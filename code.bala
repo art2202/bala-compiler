@@ -1,21 +1,10 @@
-
-inteirinho matrix[5][5];
+inteirinho vector[5];
 inteirinho somador;
 inteirinho result;
 
-forzinho (var i = 0; i < 5; i++)
+forzinho (inteirinho i : vector)
 {
-    forzinho (var j = 0; j < 5; j++)
-    {
-        somador++;
-        matrix[i][j] = somador;
-    }
-}
-
-forzinho (var i = 0; i < 5; i++)
-{
-    forzinho (var j = 0; j < 5; j++)
-    {
-        mostrar(matrix[i][j]);
-    }
+    somador++;
+    vector[i] = somador;
+    mostrar(vector[i]);
 }
