@@ -15,7 +15,6 @@ using namespace std;
 Attribute makeForeachCounter(Attribute actual, Attribute declarationWithAssignment, Attribute vectorId, Attribute expression)
 {
   Vector _vector = searchVector(vectorId.label);
-  if(_vector.label == "") {yyerror(vectorId.label + " is not a vector."); }
 
   Attribute aux1 = createActualAttribute(_vector.type);
   declareTK_TYPE(_vector.type, actual, aux1);

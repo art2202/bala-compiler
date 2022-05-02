@@ -45,7 +45,9 @@ void pushVector(Vector vector)
 
 Vector searchVector(string label)
 {
-	return vectorMap[label];
+	Vector vetor = vectorMap[label];
+    if(vetor.label == "") {yyerror(label + " is not a vector."); }
+    return vetor;
 }
 
 Vector createVector(string type, string label, string name, string size)
